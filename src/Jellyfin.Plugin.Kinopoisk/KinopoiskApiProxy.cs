@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -98,6 +99,30 @@ namespace Jellyfin.Plugin.Kinopoisk
             using(var jsonStream = response.Content)
             {
                 return await _jsonSerializer.DeserializeFromStreamAsync<FilmDetails>(jsonStream).ConfigureAwait(false);
+            }
+        }
+
+        public async Task<IEnumerable<StaffItem>> GetStaff(int filmId, CancellationToken? cancellationToken = null)
+        {
+            if (!cancellationToken.HasValue)
+                cancellationToken = CancellationToken.None;
+
+            var uri = new Uri($"https://kinopoiskapiunofficial.tech/api/v1/staff?filmId={filmId}");
+
+            var requestOptions = new HttpRequestOptions
+            {
+                Url = uri.AbsoluteUri,
+                CancellationToken = cancellationToken.Value,
+                BufferContent = true,
+                EnableDefaultUserAgent = true,
+                AcceptHeader = "application/json"
+            };
+            requestOptions.RequestHeaders.Add("X-API-KEY", _apiToken);
+            using(var response = await _httpClient.SendAsync(requestOptions, HttpMethod.Get).ConfigureAwait(false))
+            // todo: status code!
+            using(var jsonStream = response.Content)
+            {
+                return await _jsonSerializer.DeserializeFromStreamAsync<IEnumerable<StaffItem>>(jsonStream).ConfigureAwait(false);
             }
         }
     }

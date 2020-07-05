@@ -74,6 +74,13 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (result.Item != null)
                 result.HasMetadata = true;
 
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var staff = await _apiProxy.GetStaff(kinopoiskId, cancellationToken);
+
+            foreach(var item in staff.ToPersonInfos())
+                result.AddPerson(item);
+
             return result;
         }
 

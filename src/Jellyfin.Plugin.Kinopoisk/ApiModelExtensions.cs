@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Jellyfin.Plugin.Kinopoisk.ApiModel;
 using MediaBrowser.Controller.Entities;
@@ -7,6 +8,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
+using static Jellyfin.Plugin.Kinopoisk.ApiModel.FilmDetails;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
@@ -109,26 +111,85 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (src.Images != null)
             {
                 if (src.Images.Posters != null)
-                    res = res.Concat(src.Images.Posters.Select(i => new RemoteImageInfo(){
-                        Type = ImageType.Primary,
-                        Url = i.Url,
-                        Language = i.Language,
-                        Height = i.Height,
-                        Width = i.Width,
-                        ProviderName = Utils.ProviderName
-                    }));
+                    res = res.Concat(src.Images.Posters.ToRemoteImageInfos(ImageType.Primary));
                 if  (src.Images.Backdrops != null)
-                    res = res.Concat(src.Images.Backdrops.Select(i => new RemoteImageInfo(){
-                        Type = ImageType.Backdrop,
-                        Url = i.Url,
-                        Language = i.Language,
-                        Height = i.Height,
-                        Width = i.Width,
-                        ProviderName = Utils.ProviderName
-                    }));
+                    res = res.Concat(src.Images.Backdrops.ToRemoteImageInfos(ImageType.Backdrop));
             }
 
             return res;
+        }
+
+        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this IEnumerable<FilmImageRef> src, ImageType imageType)
+        {
+            return src.Select(s => s.ToRemoteImageInfo(imageType))
+                .Where(s => s != null);
+        }
+
+        public static RemoteImageInfo ToRemoteImageInfo(this FilmImageRef src, ImageType imageType)
+        {
+            if (src is null)
+                return null;
+
+            return new RemoteImageInfo(){
+                Type = imageType,
+                Url = src.Url,
+                Language = src.Language,
+                Height = src.Height,
+                Width = src.Width,
+                ProviderName = Utils.ProviderName
+            };
+        }
+
+        public static PersonInfo ToPersonInfo(this StaffItem src)
+        {
+            if (src is null)
+                return null;
+
+            var res = new PersonInfo()
+            {
+                Name = src.NameRu,
+                ImageUrl = src.PosterUrl,
+                Role = src.Description,
+                Type = src.ProfessionKey.ToPersonType()
+            };
+            if (string.IsNullOrWhiteSpace(res.Name))
+                res.Name = src.NameEn;
+            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.StaffId));
+
+            return res;
+        }
+
+        public static IEnumerable<PersonInfo> ToPersonInfos(this IEnumerable<StaffItem> src)
+        {
+            var res = src.Select(s => s.ToPersonInfo())
+                .Where(s => s != null)
+                .ToArray();
+
+            var i = 0;
+            foreach(var item in res)
+                item.SortOrder = ++i;
+
+            return res;
+        }
+
+        public static string ToPersonType(this ProfessionEnum src)
+        {
+            switch (src)
+            {
+                case ProfessionEnum.Actor:
+                    return PersonType.Actor;
+                case ProfessionEnum.Director:
+                    return PersonType.Director;
+                case ProfessionEnum.Writer:
+                    return PersonType.Writer;
+                case ProfessionEnum.Composer:
+                    return PersonType.Composer;
+                case ProfessionEnum.Producer:
+                case ProfessionEnum.ProducerUssr:
+                    return PersonType.Producer;
+                default:
+                    return null;
+            }
         }
     }
 }
