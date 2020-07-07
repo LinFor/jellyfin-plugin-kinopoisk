@@ -13,21 +13,68 @@ namespace Jellyfin.Plugin.Kinopoisk
 {
     public static class ApiModelExtensions
     {
+        public static RemoteSearchResult ToRemoteSearchResult(this FilmDetails src)
+        {
+            if (src?.Data is null)
+                return null;
+
+            var res = new RemoteSearchResult() {
+                Name = src.GetLocalName(),
+                ImageUrl = src.Data.PosterUrl,
+                PremiereDate = src.Data.GetPremiereDate(),
+                Overview = src.Data.Description,
+                SearchProviderName = Utils.ProviderName
+            };
+            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.Data.FilmId));
+
+            return res;
+        }
+
+        public static IEnumerable<RemoteSearchResult> ToRemoteSearchResults(this SearchResult src)
+        {
+            if (src?.Films is null)
+                return Enumerable.Empty<RemoteSearchResult>();
+
+            return src.Films.Select(s => s.ToRemoteSearchResult());
+        }
+
+        public static RemoteSearchResult ToRemoteSearchResult(this SearchResult.Film src)
+        {
+            if (src is null)
+                return null;
+
+            var res = new RemoteSearchResult() {
+                Name = src.GetLocalName(),
+                ImageUrl = src.PosterUrl,
+                PremiereDate = src.GetPremiereDate(),
+                Overview = src.Description,
+                SearchProviderName = Utils.ProviderName
+            };
+            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.FilmId));
+
+            return res;
+        }
+
         public static Series ToSeries(this FilmDetails src)
         {
-            if (src.Data is null)
+            if (src?.Data is null)
                 return null;
 
             var res = new Series();
 
             FillCommonFilmInfo(src, res);
 
+            res.EndDate = src.Data.GetEndDate();
+            res.Status = src.Data.IsContinuing()
+                ? SeriesStatus.Continuing
+                : SeriesStatus.Ended;
+
             return res;
         }
 
         public static Movie ToMovie(this FilmDetails src)
         {
-            if (src.Data is null)
+            if (src?.Data is null)
                 return null;
 
             var res = new Movie();
@@ -40,19 +87,16 @@ namespace Jellyfin.Plugin.Kinopoisk
         private static void FillCommonFilmInfo(FilmDetails src, BaseItem dst)
         {
             dst.SetProviderId(Utils.ProviderId, Convert.ToString(src.Data.FilmId));
-            dst.Name = src.Data.NameRu;
-            if (string.IsNullOrWhiteSpace(dst.Name))
-                dst.Name = src.Data.NameEn;
-            // if (!string.IsNullOrWhiteSpace(film.Data.WebUrl))
-            //     result.Item.HomePageUrl = film.Data.WebUrl;
-            dst.ProductionYear = Utils.GetFirstYear(src.Data.Year);
+            dst.Name = src.GetLocalName();
+            dst.OriginalTitle = src.GetOriginalNameIfNotSame();
+            dst.PremiereDate = src.Data.GetPremiereDate();
             dst.Overview = src.Data.Description;
             if (src.Data.Countries != null)
                 dst.ProductionLocations = src.Data.Countries.Select(c => c.Country).ToArray();
             if (src.Data.Genres != null)
                 foreach(var genre in src.Data.Genres.Select(c => c.Genre))
                     dst.AddGenre(genre);
-            if (!string.IsNullOrWhiteSpace(src.Data.RatingAgeLimits))
+            if (src.Data.RatingAgeLimits.HasValue)
                 dst.OfficialRating = $"{src.Data.RatingAgeLimits}+";
             else
                 dst.OfficialRating = src.Data.RatingMpaa;
@@ -189,6 +233,158 @@ namespace Jellyfin.Plugin.Kinopoisk
                 default:
                     return null;
             }
+        }
+
+        public static DateTime? GetPremiereDate(this FilmData src)
+        {
+            var res = src.IsRussianSpokenOriginated()
+                ? src.PremiereRu
+                : src.PremiereWorld;
+            if (src.PremiereRu < res)
+                res = src.PremiereRu;
+            if (src.PremiereWorld < res)
+                res = src.PremiereWorld;
+            if (src.PremiereDigital < res)
+                res = src.PremiereDigital;
+            if (src.PremiereDvd < res)
+                res = src.PremiereDvd;
+            if (src.PremiereBluRay < res)
+                res = src.PremiereBluRay;
+
+            if (res.HasValue)
+                return res;
+
+            var firstYear = GetFirstYear(src.Year);
+            if (firstYear != null)
+                return new DateTime(firstYear.Value, 1, 1);
+
+            return null;
+        }
+
+        public static DateTime? GetPremiereDate(this SearchResult.Film src)
+        {
+            var firstYear = GetFirstYear(src.Year);
+            if (firstYear != null)
+                return new DateTime(firstYear.Value, 1, 1);
+
+            return null;
+        }
+
+        public static DateTime? GetEndDate(this FilmData src)
+        {
+            var lastYear = GetLastYear(src.Year);
+            if (lastYear != null)
+                return new DateTime(lastYear.Value, 12, 31);
+
+            return null;
+        }
+
+        public static bool IsContinuing(this FilmData src)
+            => IsСontinuing(src?.Year);
+
+        public static string GetLocalName(this FilmDetails src)
+        {
+            var res = src?.Data?.NameRu;
+            if (string.IsNullOrWhiteSpace(res))
+                res = src?.Data?.NameEn;
+            return res;
+        }
+
+        public static string GetLocalName(this SearchResult.Film src)
+        {
+            var res = src?.NameRu;
+            if (string.IsNullOrWhiteSpace(res))
+                res = src?.NameEn;
+            return res;
+        }
+
+        public static string GetOriginalName(this FilmDetails src)
+            => src.IsRussianSpokenOriginated()
+                ? src?.Data?.NameRu
+                : src?.Data?.NameEn;
+
+        public static string GetOriginalNameIfNotSame(this FilmDetails src)
+        {
+            var localName = src.GetLocalName();
+            var originalName = src.GetOriginalName();
+            if (!string.IsNullOrWhiteSpace(originalName) && !string.Equals(localName, originalName))
+                return originalName;
+
+            return string.Empty;
+        }
+
+        public static bool IsRussianSpokenOriginated(this FilmDetails src)
+            => src?.Data?.IsRussianSpokenOriginated() ?? false;
+
+        public static bool IsRussianSpokenOriginated(this FilmData src)
+            => src?.Countries?.IsRussianSpokenOriginated() ?? false;
+
+        public static bool IsRussianSpokenOriginated(this IEnumerable<CountryItem> src)
+        {
+            if (src is null)
+                return false;
+
+            foreach(var country in src)
+                switch(country.Country)
+                {
+                    case "Россия":
+                        return true;
+                }
+
+            return false;
+        }
+
+        public static int? GetFirstYear(string years)
+        {
+            if (string.IsNullOrWhiteSpace(years))
+                return null;
+
+            years = years.Trim();
+
+            if (int.TryParse(years, out var res))
+                return res;
+
+            var i = 0;
+            while (true) {
+                if (i > 4)
+                    return null;
+                if (!char.IsDigit(years[i]))
+                    break;
+                i++;
+            }
+
+            return Convert.ToInt32(years.Substring(0, i));
+        }
+
+        public static bool IsСontinuing(string years)
+            => years?.EndsWith("-...") ?? false;
+
+        public static int? GetLastYear(string years)
+        {
+            if (string.IsNullOrWhiteSpace(years))
+                return null;
+
+            years = years.Trim();
+
+            if (int.TryParse(years, out var res))
+                return res;
+
+            var i = 0;
+            Func<int> startindex = () => years.Length - 1 - i;
+            while (true) {
+                if (i > 4)
+                    return null;
+                if (!char.IsDigit(years[startindex()]))
+                {
+                    i--;
+                    break;
+                }
+                i++;
+            }
+
+            return i > 0
+                ? (int?)Convert.ToInt32(years.Substring(startindex()))
+                : null;
         }
     }
 }

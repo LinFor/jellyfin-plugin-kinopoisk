@@ -9,27 +9,14 @@
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/Jellyfin.Plugin.Kinopoisk.csproj"
+                "${workspaceFolder}/src/Kinopoisk.sln"
                 // Ask dotnet build to generate full paths for file names.
                 "/property:GenerateFullPaths=true",
                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "/property:Version=10.6.0.1"
             ],
             "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "test",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "test",
-                "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/Jellyfin.Plugin.Kinopoisk.csproj"
-            ],
-            "group": "test",
             "presentation": {
                 "reveal": "silent"
             },
@@ -42,7 +29,7 @@
             "args": [
                 "Compress-Archive",
                 "-Path", "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/netstandard2.1/Jellyfin.Plugin.Kinopoisk.dll",
-                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip"
+                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.6.0.1.zip"
             ],
             "group": "build",
             "presentation": {

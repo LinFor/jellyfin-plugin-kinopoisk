@@ -3,5 +3,12 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+        "csharp.unitTestDebuggingOptions": {
+            "sourceFileMap": {
+                "${workspaceFolder}\\src\\Jellyfin.Plugin.Kinopoisk\\bin\\Debug\\netstandard2.1\\Jellyfin.Plugin.Kinopoisk.dll": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0"
+            }
+        }
+    }
 }

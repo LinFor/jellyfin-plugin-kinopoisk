@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Jellyfin.Plugin.Kinopoisk.ApiModel
 {
@@ -37,29 +39,19 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
             public string FilmLength { get; set; }
             public string Slogan { get; set; }
             public string Description { get; set; }
-            public string Type { get; set; } // FILM, TV_SHOW
+            public FilmType Type { get; set; }
             public string RatingMpaa { get; set; }
-            public string RatingAgeLimits { get; set; }
-            public string PremiereRu { get; set; }
+            public int? RatingAgeLimits { get; set; }
+            public DateTime? PremiereRu { get; set; }
             public string Distributors { get; set; }
-            public string PremiereWorld { get; set; }
-            public string PremiereDigital { get; set; }
+            public DateTime? PremiereWorld { get; set; }
+            public DateTime? PremiereDigital { get; set; }
             public string PremiereWorldCountry { get; set; }
-            public string PremiereDvd { get; set; }
-            public string PremiereBluRay { get; set; }
+            public DateTime? PremiereDvd { get; set; }
+            public DateTime? PremiereBluRay { get; set; }
             public string DistributorRelease { get; set; }
             public CountryItem[] Countries { get; set; }
             public GenreItem[] Genres { get; set; }
-
-            public class CountryItem
-            {
-                public string Country { get; set; }
-            }
-
-            public class GenreItem
-            {
-                public string Genre { get; set; }
-            }
         }
 
         public class FilmExtId
