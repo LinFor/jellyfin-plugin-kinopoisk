@@ -2,6 +2,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
+using MediaBrowser.Model.Providers;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
@@ -14,6 +15,8 @@ namespace Jellyfin.Plugin.Kinopoisk
         public string Key => Utils.ProviderId;
 
         public string UrlFormatString => "https://www.kinopoisk.ru/film/{0}";
+
+        public ExternalIdMediaType? Type => null;
 
         public bool Supports(IHasProviderIds item)
         {

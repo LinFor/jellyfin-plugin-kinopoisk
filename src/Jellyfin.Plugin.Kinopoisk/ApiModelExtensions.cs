@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Jellyfin.Plugin.Kinopoisk.ApiModel;
 using MediaBrowser.Controller.Entities;
@@ -69,7 +68,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (src.ExternalId != null)
             {
                 if (!string.IsNullOrWhiteSpace(src.ExternalId.ImdbId))
-                    dst.SetProviderId(MetadataProviders.Imdb, src.ExternalId.ImdbId);
+                    dst.SetProviderId(MetadataProvider.Imdb, src.ExternalId.ImdbId);
             }
         }
 

@@ -34,6 +34,21 @@
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "make-dist",
+            "command": "powershell",
+            "type": "shell",
+            "args": [
+                "Compress-Archive",
+                "-Path", "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/netstandard2.1/Jellyfin.Plugin.Kinopoisk.dll",
+                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
         }
     ]
 }

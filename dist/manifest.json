@@ -1,0 +1,23 @@
+[
+    {
+        "category": "Metadata",
+        "guid": "0c136f8a-ff77-4f2b-ade5-13462cae6216",
+        "name": "КиноПоиск",
+        "overview": "",
+        "owner": "linfor",
+        "description": "Загружает рейтинги сайта КиноПоиск",
+        "versions": [
+            {
+                "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
+                "changelog": "new release",
+                "name": "КиноПоиск",
+                "targetAbi": "10.6.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "timestamp": "2020-07-07 10:00:00",
+                "version": "10.6.0.0"
+            }
+        ]
+    }
+]

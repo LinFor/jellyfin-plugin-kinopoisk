@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jellyfin.Controller" Version="10.5.5" />
-    <PackageReference Include="Jellyfin.Model" Version="10.5.5" />
+    <!-- <PackageReference Include="Jellyfin.Controller" Version="10.6.*" />
+    <PackageReference Include="Jellyfin.Model" Version="10.6.*" /> -->
+    <ProjectReference Include="..\..\..\..\temp-jellyfin-src\MediaBrowser.Common\MediaBrowser.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\temp-jellyfin-src\MediaBrowser.Controller\MediaBrowser.Controller.csproj" />
   </ItemGroup>
 
   <ItemGroup>
