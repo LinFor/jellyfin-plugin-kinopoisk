@@ -8,15 +8,15 @@
         "description": "Загружает рейтинги сайта КиноПоиск",
         "versions": [
             {
-                "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
-                "changelog": "new release",
+                "checksum": "50674e215597995b96da17b49ee7ad62",
+                "changelog": "fix NRE in person provider",
                 "name": "КиноПоиск",
                 "targetAbi": "10.6.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
-                "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
-                "timestamp": "2020-07-07 10:00:00",
-                "version": "10.6.0.0"
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.2.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.2.zip",
+                "timestamp": "2020-07-09 13:00:00",
+                "version": "10.6.0.2"
             },
             {
                 "checksum": "a877cde0df7d70266fdb9362b72884c1",
@@ -28,6 +28,17 @@
                 "filename": "jellyfin-plugin-kinopoisk_10.6.0.1.zip",
                 "timestamp": "2020-07-07 19:00:00",
                 "version": "10.6.0.1"
+            },
+            {
+                "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
+                "changelog": "new release",
+                "name": "КиноПоиск",
+                "targetAbi": "10.6.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "timestamp": "2020-07-07 10:00:00",
+                "version": "10.6.0.0"
             }
         ]
     }

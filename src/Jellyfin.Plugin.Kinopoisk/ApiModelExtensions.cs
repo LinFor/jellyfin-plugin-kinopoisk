@@ -192,11 +192,11 @@ namespace Jellyfin.Plugin.Kinopoisk
             {
                 Name = src.NameRu,
                 ImageUrl = src.PosterUrl,
-                Role = src.Description,
+                Role = src.Description ?? string.Empty,
                 Type = src.ProfessionKey.ToPersonType()
             };
             if (string.IsNullOrWhiteSpace(res.Name))
-                res.Name = src.NameEn;
+                res.Name = src.NameEn ?? string.Empty;
             res.SetProviderId(Utils.ProviderId, Convert.ToString(src.StaffId));
 
             return res;
@@ -231,7 +231,7 @@ namespace Jellyfin.Plugin.Kinopoisk
                 case ProfessionEnum.ProducerUssr:
                     return PersonType.Producer;
                 default:
-                    return null;
+                    return string.Empty;
             }
         }
 
