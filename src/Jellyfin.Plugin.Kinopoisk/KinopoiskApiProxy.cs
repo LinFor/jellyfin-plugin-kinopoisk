@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Jellyfin.Plugin.Kinopoisk.ApiModel;
-using MediaBrowser.Common.Net;
-using MediaBrowser.Model.Serialization;
+using MediaBrowser.Common.Json;
 using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Kinopoisk
@@ -14,15 +15,14 @@ namespace Jellyfin.Plugin.Kinopoisk
     public class KinopoiskApiProxy
     {
         private readonly ILogger _logger;
-        private readonly IHttpClient _httpClient;
-        private readonly IJsonSerializer _jsonSerializer;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _apiToken;
+        private readonly JsonSerializerOptions _jsonOptions = JsonDefaults.GetOptions();
 
-        public KinopoiskApiProxy(ILogger logger, IHttpClient httpClient, IJsonSerializer jsonSerializer)
+        public KinopoiskApiProxy(ILogger logger, IHttpClientFactory httpClientFactory)
         {
             this._logger = logger;
-            this._httpClient = httpClient;
-            this._jsonSerializer = jsonSerializer;
+            this._httpClientFactory = httpClientFactory;
             this._apiToken = Plugin.Instance.Configuration.ApiToken;
         }
 
@@ -37,21 +37,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             @params["page"] = Convert.ToString(page);
             uriBuilder.Query = @params.ToString();
 
-            var requestOptions = new HttpRequestOptions
-            {
-                Url = uriBuilder.Uri.AbsoluteUri,
-                CancellationToken = cancellationToken.Value,
-                BufferContent = true,
-                EnableDefaultUserAgent = true,
-                AcceptHeader = "application/json"
-            };
-            requestOptions.RequestHeaders.Add("X-API-KEY", _apiToken);
-            using(var response = await _httpClient.SendAsync(requestOptions, HttpMethod.Get).ConfigureAwait(false))
-            // todo: status code!
-            using(var jsonStream = response.Content)
-            {
-                return await _jsonSerializer.DeserializeFromStreamAsync<SearchResult>(jsonStream).ConfigureAwait(false);
-            }
+            return await GetAsync<SearchResult>(uriBuilder.Uri.AbsoluteUri, cancellationToken.Value);
         }
 
         public async Task<FilmDetails> GetSingleFilm(int filmId, CancellationToken? cancellationToken = null)
@@ -59,23 +45,9 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (!cancellationToken.HasValue)
                 cancellationToken = CancellationToken.None;
 
-            var uri = new Uri($"https://kinopoiskapiunofficial.tech/api/v2.1/films/{filmId}?append_to_response=EXTERNAL_ID&append_to_response=RATING");
+            string uri = $"https://kinopoiskapiunofficial.tech/api/v2.1/films/{filmId}?append_to_response=EXTERNAL_ID&append_to_response=RATING";
 
-            var requestOptions = new HttpRequestOptions
-            {
-                Url = uri.AbsoluteUri,
-                CancellationToken = cancellationToken.Value,
-                BufferContent = true,
-                EnableDefaultUserAgent = true,
-                AcceptHeader = "application/json"
-            };
-            requestOptions.RequestHeaders.Add("X-API-KEY", _apiToken);
-            using(var response = await _httpClient.SendAsync(requestOptions, HttpMethod.Get).ConfigureAwait(false))
-            // todo: status code!
-            using(var jsonStream = response.Content)
-            {
-                return await _jsonSerializer.DeserializeFromStreamAsync<FilmDetails>(jsonStream).ConfigureAwait(false);
-            }
+            return await GetAsync<FilmDetails>(uri, cancellationToken.Value);
         }
 
         public async Task<FilmDetails> GetSingleFilmImages(int filmId, CancellationToken? cancellationToken = null)
@@ -83,23 +55,9 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (!cancellationToken.HasValue)
                 cancellationToken = CancellationToken.None;
 
-            var uri = new Uri($"https://kinopoiskapiunofficial.tech/api/v2.1/films/{filmId}?append_to_response=POSTERS");
+            string uri = $"https://kinopoiskapiunofficial.tech/api/v2.1/films/{filmId}?append_to_response=POSTERS";
 
-            var requestOptions = new HttpRequestOptions
-            {
-                Url = uri.AbsoluteUri,
-                CancellationToken = cancellationToken.Value,
-                BufferContent = true,
-                EnableDefaultUserAgent = true,
-                AcceptHeader = "application/json"
-            };
-            requestOptions.RequestHeaders.Add("X-API-KEY", _apiToken);
-            using(var response = await _httpClient.SendAsync(requestOptions, HttpMethod.Get).ConfigureAwait(false))
-            // todo: status code!
-            using(var jsonStream = response.Content)
-            {
-                return await _jsonSerializer.DeserializeFromStreamAsync<FilmDetails>(jsonStream).ConfigureAwait(false);
-            }
+            return await GetAsync<FilmDetails>(uri, cancellationToken.Value);
         }
 
         public async Task<IEnumerable<StaffItem>> GetStaff(int filmId, CancellationToken? cancellationToken = null)
@@ -107,23 +65,29 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (!cancellationToken.HasValue)
                 cancellationToken = CancellationToken.None;
 
-            var uri = new Uri($"https://kinopoiskapiunofficial.tech/api/v1/staff?filmId={filmId}");
+            string uri = $"https://kinopoiskapiunofficial.tech/api/v1/staff?filmId={filmId}";
 
-            var requestOptions = new HttpRequestOptions
+            return await GetAsync<IEnumerable<StaffItem>>(uri, cancellationToken.Value); 
+        }
+
+        private async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken) where T: class
+        {
+            using var options = new HttpRequestMessage(HttpMethod.Get, url);
+            options.Headers.Add("Accept", "application/json");
+            options.Headers.Add("X-API-KEY", _apiToken);
+
+            var client = _httpClientFactory.CreateClient();
+            using var response = await client.SendAsync(options, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                Url = uri.AbsoluteUri,
-                CancellationToken = cancellationToken.Value,
-                BufferContent = true,
-                EnableDefaultUserAgent = true,
-                AcceptHeader = "application/json"
-            };
-            requestOptions.RequestHeaders.Add("X-API-KEY", _apiToken);
-            using(var response = await _httpClient.SendAsync(requestOptions, HttpMethod.Get).ConfigureAwait(false))
-            // todo: status code!
-            using(var jsonStream = response.Content)
-            {
-                return await _jsonSerializer.DeserializeFromStreamAsync<IEnumerable<StaffItem>>(jsonStream).ConfigureAwait(false);
+                string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                _logger.LogError($"Received non-success result status code {response.StatusCode} from Kinopoisk API, response content is:\n{content}");
+                return null;
             }
+
+            using var jsonStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            return await JsonSerializer.DeserializeAsync<T>(jsonStream, _jsonOptions, cancellationToken).ConfigureAwait(false);
         }
     }
 }
