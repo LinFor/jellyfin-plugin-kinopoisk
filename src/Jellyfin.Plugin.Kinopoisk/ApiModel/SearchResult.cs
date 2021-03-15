@@ -20,7 +20,7 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
             public CountryItem[] Countries { get; set; }
             public GenreItem[] Genres { get; set; }
             public string Rating { get; set; }
-            public string RatingVoteCount { get; set; }
+            public int RatingVoteCount { get; set; }
             public string PosterUrl { get; set; }
         }
     }

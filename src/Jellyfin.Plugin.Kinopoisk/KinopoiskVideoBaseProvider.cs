@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Jellyfin.Plugin.Kinopoisk.ApiModel;
-using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Providers;
-using MediaBrowser.Model.Serialization;
 using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Kinopoisk
@@ -17,46 +16,35 @@ namespace Jellyfin.Plugin.Kinopoisk
         where TLookupInfoType : ItemLookupInfo, new()
     {
         private readonly ILogger _logger;
-        private readonly IHttpClient _httpClient;
-        private readonly IJsonSerializer _jsonSerializer;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly KinopoiskApiProxy _apiProxy;
 
         public string Name => Utils.ProviderName;
 
-        public KinopoiskVideoBaseProvider(ILogger logger,
-                                       IHttpClient httpClient,
-                                       IJsonSerializer jsonSerializer)
+        public KinopoiskVideoBaseProvider(ILogger logger, IHttpClientFactory httpClientFactory)
         {
             if (logger is null)
             {
                 throw new System.ArgumentNullException(nameof(logger));
             }
 
-            if (httpClient is null)
+            if (httpClientFactory is null)
             {
-                throw new System.ArgumentNullException(nameof(httpClient));
-            }
-
-            if (jsonSerializer is null)
-            {
-                throw new System.ArgumentNullException(nameof(jsonSerializer));
+                throw new System.ArgumentNullException(nameof(httpClientFactory));
             }
 
             this._logger = logger;
-            this._httpClient = httpClient;
-            this._jsonSerializer = jsonSerializer;
-            this._apiProxy = new KinopoiskApiProxy(logger, httpClient, jsonSerializer);
+            this._httpClientFactory = httpClientFactory;
+            this._apiProxy = new KinopoiskApiProxy(logger, httpClientFactory);
         }
 
         protected abstract TItemType ConvertResponseToItem(FilmDetails apiResponse);
 
-        public Task<HttpResponseInfo> GetImageResponse(string url, CancellationToken cancellationToken)
+        public async Task<HttpResponseMessage> GetImageResponse(string url, CancellationToken cancellationToken)
         {
-            return _httpClient.GetResponse(new HttpRequestOptions
-            {
-                CancellationToken = cancellationToken,
-                Url = url
-            });
+            var client = _httpClientFactory.CreateClient();
+
+            return await client.GetAsync(url, cancellationToken);
         }
 
         public async Task<MetadataResult<TItemType>> GetMetadata(TLookupInfoType info, CancellationToken cancellationToken)
