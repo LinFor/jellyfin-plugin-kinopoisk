@@ -1,9 +1,12 @@
 {
 	"folders": [
-		{
-			"path": "."
-		}
-	],
+        {
+            "path": "."
+        },
+        {
+            "path": "..\\..\\temp-jellyfin-src"
+        }
+    ],
 	"settings": {
         "csharp.unitTestDebuggingOptions": {
             "sourceFileMap": {
