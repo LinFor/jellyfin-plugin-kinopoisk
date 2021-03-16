@@ -8,6 +8,17 @@
         "description": "Загружает рейтинги сайта КиноПоиск",
         "versions": [
             {
+                "checksum": "ec7cfeff6a88f2427057d1bb6fb150b6",
+                "changelog": "Jellyfin v10.7 compat",
+                "name": "КиноПоиск",
+                "targetAbi": "10.7.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.7.0.0.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.7.0.0.zip",
+                "timestamp": "2021-03-16 11:35:00",
+                "version": "10.7.0.0"
+            },
+            {
                 "checksum": "50674e215597995b96da17b49ee7ad62",
                 "changelog": "fix NRE in person provider",
                 "name": "КиноПоиск",
