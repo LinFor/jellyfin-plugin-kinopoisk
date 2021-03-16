@@ -13,7 +13,6 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
             public int FilmId { get; set; }
             public string NameRu { get; set; }
             public string NameEn { get; set; }
-            public FilmType Type { get; set; }
             public string Year { get; set; }
             public string Description { get; set; }
             public string FilmLength { get; set; }
