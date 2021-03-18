@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/netstandard2.1/Jellyfin.Plugin.Kinopoisk.dll",
+            "program": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "console": "internalConsole",

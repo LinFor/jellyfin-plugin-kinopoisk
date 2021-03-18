@@ -1,0 +1,390 @@
+{
+  "data": {
+    "filmId": 1272366,
+    "nameRu": "Дылды",
+    "nameEn": "",
+    "webUrl": "http://www.kinopoisk.ru/film/1272366/",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1272366.jpg",
+    "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1272366.jpg",
+    "year": "2019-...",
+    "filmLength": "0:24",
+    "slogan": null,
+    "description": "Тренер Михаил Ковалёв теряет работу из-за скандального характера и неуважительного отношения к женщинам. Чтобы вернуться в Суперлигу, ему нужно выиграть чемпионат по волейболу с провинциальной студенческой женской командой. Помешать ему в этом постараются проректор-перфекционист Ирина и затаившая на него обиду бывшая девушка Наталья.",
+    "type": "TV_SHOW",
+    "ratingMpaa": null,
+    "ratingAgeLimits": 16,
+    "premiereRu": "2019-10-07",
+    "distributors": null,
+    "premiereWorld": null,
+    "premiereDigital": null,
+    "premiereWorldCountry": null,
+    "premiereDvd": null,
+    "premiereBluRay": null,
+    "distributorRelease": null,
+    "countries": [
+      {
+        "country": "Россия"
+      }
+    ],
+    "genres": [
+      {
+        "genre": "комедия"
+      },
+      {
+        "genre": "спорт"
+      }
+    ],
+    "facts": [],
+    "seasons": [
+      {
+        "number": 1,
+        "episodes": [
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 1,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-07"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 2,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-07"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 3,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-08"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 4,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-09"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 5,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-10"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 6,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-14"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 7,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-15"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 8,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-16"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 9,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-17"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 10,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-21"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 11,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-22"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 12,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-23"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 13,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-24"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 14,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-28"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 15,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-29"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 16,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-30"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 17,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-10-31"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 18,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-11-04"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 19,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-11-05"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 20,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-11-06"
+          },
+          {
+            "seasonNumber": 1,
+            "episodeNumber": 21,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2019-11-07"
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "episodes": [
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 1,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2021-03-01"
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 2,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2021-03-01"
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 6,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 7,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 8,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 9,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 10,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 11,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 12,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 13,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 14,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 15,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 16,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 17,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 18,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 19,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 20,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 21,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": null
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 3,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2021-03-02"
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 4,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2021-03-03"
+          },
+          {
+            "seasonNumber": 2,
+            "episodeNumber": 5,
+            "nameRu": null,
+            "nameEn": null,
+            "synopsis": null,
+            "releaseDate": "2021-03-04"
+          }
+        ]
+      }
+    ]
+  },
+  "externalId": {
+    "imdbId": null
+  }
+}

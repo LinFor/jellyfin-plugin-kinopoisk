@@ -1,0 +1,821 @@
+[
+  {
+    "staffId": 318031,
+    "nameRu": "Татьяна Лиознова",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/318031.jpg",
+    "professionText": "Режиссеры",
+    "professionKey": "DIRECTOR"
+  },
+  {
+    "staffId": 101751,
+    "nameRu": "Вячеслав Тихонов",
+    "nameEn": "",
+    "description": "Штирлиц",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/101751.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 261544,
+    "nameRu": "Леонид Броневой",
+    "nameEn": "",
+    "description": "Мюллер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/261544.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 542446,
+    "nameRu": "Екатерина Градова",
+    "nameEn": "",
+    "description": "Кэт",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/542446.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 313381,
+    "nameRu": "Ростислав Плятт",
+    "nameEn": "",
+    "description": "пастор Шлаг",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/313381.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 122798,
+    "nameRu": "Олег Табаков",
+    "nameEn": "",
+    "description": "Шелленберг",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/122798.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 190105,
+    "nameRu": "Евгений Евстигнеев",
+    "nameEn": "",
+    "description": "Плейшнер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/190105.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 403046,
+    "nameRu": "Отто Мелис",
+    "nameEn": "Otto Mellies",
+    "description": "Гельмут",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/403046.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 185644,
+    "nameRu": "Леонид Куравлёв",
+    "nameEn": "",
+    "description": "Айсман",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/185644.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 301199,
+    "nameRu": "Константин Желдин",
+    "nameEn": "",
+    "description": "Холтофф",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/301199.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 675527,
+    "nameRu": "Михаил Жарковский",
+    "nameEn": "",
+    "description": "Кальтенбруннер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/675527.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 284241,
+    "nameRu": "Николай Прокопович",
+    "nameEn": "",
+    "description": "Гиммлер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/284241.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 174346,
+    "nameRu": "Юрий Визбор",
+    "nameEn": "",
+    "description": "Борман",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/174346.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 191598,
+    "nameRu": "Светлана Светличная",
+    "nameEn": "",
+    "description": "Габи Набель",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/191598.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 327385,
+    "nameRu": "Эмилия Мильтон",
+    "nameEn": "",
+    "description": "фрау Заурих",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/327385.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 273090,
+    "nameRu": "Николай Волков мл.",
+    "nameEn": "",
+    "description": "Эрвин",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/273090.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 261607,
+    "nameRu": "Лев Дуров",
+    "nameEn": "",
+    "description": "Клаус",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/261607.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 256968,
+    "nameRu": "Василий Лановой",
+    "nameEn": "",
+    "description": "генерал Вольф",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/256968.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 295050,
+    "nameRu": "Ольга Сошникова",
+    "nameEn": "",
+    "description": "Барбара",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/295050.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 324141,
+    "nameRu": "Николай Гриценко",
+    "nameEn": "",
+    "description": "генерал в вагоне",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/324141.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 313269,
+    "nameRu": "Элеонора Шашкова",
+    "nameEn": "",
+    "description": "жена Исаева",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/313269.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 334610,
+    "nameRu": "Лаврентий Масоха",
+    "nameEn": "",
+    "description": "Шольц",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/334610.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 290617,
+    "nameRu": "Григорий Лямпе",
+    "nameEn": "",
+    "description": "физик Рунге",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/290617.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 284833,
+    "nameRu": "Юрий Катин-Ярцев",
+    "nameEn": "",
+    "description": "астроном",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/284833.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 316932,
+    "nameRu": "Андро Кобаладзе",
+    "nameEn": "",
+    "description": "Сталин",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/316932.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 321316,
+    "nameRu": "Петр Чернов",
+    "nameEn": "",
+    "description": "Громов",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/321316.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 285821,
+    "nameRu": "Ян Янакиев",
+    "nameEn": "",
+    "description": "Дольман",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/285821.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 273374,
+    "nameRu": "Вячеслав Шалевич",
+    "nameEn": "",
+    "description": "Аллен Даллес",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/273374.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 320142,
+    "nameRu": "Алексей Эйбоженко",
+    "nameEn": "",
+    "description": "Гюсман",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/320142.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 238567,
+    "nameRu": "Валентин Гафт",
+    "nameEn": "",
+    "description": "Геверниц",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/238567.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 198154,
+    "nameRu": "Владлен Давыдов",
+    "nameEn": "",
+    "description": "сотрудник Даллеса",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/198154.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 101756,
+    "nameRu": "Инна Ульянова",
+    "nameEn": "",
+    "description": "девица в баре",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/101756.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 304332,
+    "nameRu": "Владимир Кенигсон",
+    "nameEn": "",
+    "description": "Краузе",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/304332.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 290118,
+    "nameRu": "Станислав Коренев",
+    "nameEn": "",
+    "description": "секретарь Кальтенбруннера",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/290118.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 567131,
+    "nameRu": "Юрий Соковнин",
+    "nameEn": "",
+    "description": "шофер Бормана",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/567131.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 190115,
+    "nameRu": "Ефим Копелян",
+    "nameEn": "",
+    "description": "текст от автора, озвучка",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/190115.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 84671,
+    "nameRu": "Олег Федоров",
+    "nameEn": "",
+    "description": "немецкий солдат",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/84671.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 330061,
+    "nameRu": "Фриц Диц",
+    "nameEn": "Fritz Diez",
+    "description": "Гитлер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/330061.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 322148,
+    "nameRu": "Владимир Козел",
+    "nameEn": "",
+    "description": "кюре",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/322148.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 37409,
+    "nameRu": "Вадим Лобанов",
+    "nameEn": "",
+    "description": "страховой агент, шпион",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/37409.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 270882,
+    "nameRu": "Паул Буткевич",
+    "nameEn": "",
+    "description": "связник",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/270882.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 342872,
+    "nameRu": "Алексей Добронравов",
+    "nameEn": "",
+    "description": "сторож коттеджа Штирлица",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/342872.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 185646,
+    "nameRu": "Алексей Сафонов",
+    "nameEn": "",
+    "description": "Рольф",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/185646.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 290610,
+    "nameRu": "Виктор Щеглов",
+    "nameEn": "",
+    "description": "страховой агент",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/290610.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 269897,
+    "nameRu": "Владимир Смирнов",
+    "nameEn": "",
+    "description": "хозяин явочной квартиры",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/269897.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 294729,
+    "nameRu": "Валентин Белоногов",
+    "nameEn": "",
+    "description": "немецкий солдат, в титрах не указан",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/294729.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 325814,
+    "nameRu": "Рудольф Панков",
+    "nameEn": "",
+    "description": "«Одноглазый»",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/325814.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 1083019,
+    "nameRu": "Михаил Ремизов",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1083019.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 1671771,
+    "nameRu": "Владимир Рудый",
+    "nameEn": "",
+    "description": "Александр Коваленко",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1671771.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 188868,
+    "nameRu": "Зинаида Воркуль",
+    "nameEn": "",
+    "description": "вторая сестра в приюте",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/188868.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 320184,
+    "nameRu": "Манефа Соболевская",
+    "nameEn": "",
+    "description": "первая сестра в приюте",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/320184.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 36393,
+    "nameRu": "Евгений Лазарев",
+    "nameEn": "",
+    "description": "Емельянов",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/36393.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 333193,
+    "nameRu": "Евгений Кузнецов",
+    "nameEn": "",
+    "description": "Крюгер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/333193.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 317976,
+    "nameRu": "Евгений Гуров",
+    "nameEn": "",
+    "description": "хозяин птичьего магазина",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/317976.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 269896,
+    "nameRu": "Владислав Ковальков",
+    "nameEn": "",
+    "description": "эксперт",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/269896.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 1693303,
+    "nameRu": "Вильгельм Бурмайер",
+    "nameEn": "Wilhelm Burmeier",
+    "description": "Геринг",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1693303.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 185649,
+    "nameRu": "Владлен Паулус",
+    "nameEn": "",
+    "description": "советник немецкого посольства",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/185649.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 344927,
+    "nameRu": "Виктор Рождественский",
+    "nameEn": "",
+    "description": "адъютант",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/344927.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 543498,
+    "nameRu": "Нина Делекторская",
+    "nameEn": "",
+    "description": "библиотекарь",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/543498.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 351013,
+    "nameRu": "Клеон Протасов",
+    "nameEn": "",
+    "description": "стенографист Сталина",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/351013.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 231266,
+    "nameRu": "Мария Миронова",
+    "nameEn": "",
+    "description": "новорожденный сын Кэт",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/231266.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 543413,
+    "nameRu": "Юрий Багинян",
+    "nameEn": "",
+    "description": "адъютант Геринга",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/543413.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 174131,
+    "nameRu": "Евгений Перов",
+    "nameEn": "",
+    "description": "хозяин ресторана",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/174131.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 315754,
+    "nameRu": "Николай Симкин",
+    "nameEn": "",
+    "description": "последний комендант Берлина",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/315754.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 301262,
+    "nameRu": "Евгений Новиков",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/301262.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 2376890,
+    "nameRu": "Б. Андреев",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2376890.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 196175,
+    "nameRu": "Эдуард Изотов",
+    "nameEn": "",
+    "description": "адъютант Гитлера",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/196175.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 334748,
+    "nameRu": "Владимир Бутенко",
+    "nameEn": "",
+    "description": "Бургдорф",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/334748.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 2332173,
+    "nameRu": "Александр Крюков",
+    "nameEn": "",
+    "description": "Питер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2332173.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 2685697,
+    "nameRu": "Юрий Заев",
+    "nameEn": "",
+    "description": "Биттнер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2685697.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 328660,
+    "nameRu": "Алексей Бояршинов",
+    "nameEn": "",
+    "description": "Шпеер",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/328660.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 1950390,
+    "nameRu": "Геннадий Петров",
+    "nameEn": "",
+    "description": "Васильев",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1950390.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 3257355,
+    "nameRu": "Иван Мочалов",
+    "nameEn": "",
+    "description": "в титрах не указан",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/3257355.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 552309,
+    "nameRu": "Игорь Гусев",
+    "nameEn": "",
+    "description": "адъютант Бормана",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/552309.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 256844,
+    "nameRu": "Александр Яковлев",
+    "nameEn": "",
+    "description": "охранник американского посольства",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/256844.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 4140207,
+    "nameRu": "Антонина Маркова",
+    "nameEn": "",
+    "description": "медсестра",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/4140207.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 324206,
+    "nameRu": "Тигран Давыдов",
+    "nameEn": "",
+    "description": "заключенный-уголовник",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/324206.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 595199,
+    "nameRu": "Семён Бардин",
+    "nameEn": "",
+    "description": "посетитель ресторана, в титрах не указан",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/595199.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 174298,
+    "nameRu": "Михаил Бочаров",
+    "nameEn": "",
+    "description": "полицейский, в тирах не указан",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/174298.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 346605,
+    "nameRu": "Борис Буткеев",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/346605.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 281308,
+    "nameRu": "Наталья Дрожжина",
+    "nameEn": "",
+    "description": "официантка",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/281308.jpg",
+    "professionText": "Актеры",
+    "professionKey": "ACTOR"
+  },
+  {
+    "staffId": 2331955,
+    "nameRu": "Ефим Лебединский",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2331955.jpg",
+    "professionText": "Директора фильма",
+    "professionKey": "PRODUCER_USSR"
+  },
+  {
+    "staffId": 185628,
+    "nameRu": "Юлиан Семенов",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/185628.jpg",
+    "professionText": "Сценаристы",
+    "professionKey": "WRITER"
+  },
+  {
+    "staffId": 313275,
+    "nameRu": "Петр Катаев",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/313275.jpg",
+    "professionText": "Операторы",
+    "professionKey": "OPERATOR"
+  },
+  {
+    "staffId": 261721,
+    "nameRu": "Микаэл Таривердиев",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/261721.jpg",
+    "professionText": "Композиторы",
+    "professionKey": "COMPOSER"
+  },
+  {
+    "staffId": 2003890,
+    "nameRu": "Борис Дуленков",
+    "nameEn": "",
+    "description": "постановщик",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2003890.jpg",
+    "professionText": "Художники",
+    "professionKey": "DESIGN"
+  },
+  {
+    "staffId": 1038027,
+    "nameRu": "Феликс Ростоцкий",
+    "nameEn": "",
+    "description": "постановщик",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1038027.jpg",
+    "professionText": "Художники",
+    "professionKey": "DESIGN"
+  },
+  {
+    "staffId": 1997246,
+    "nameRu": "Мариам Быховская",
+    "nameEn": "",
+    "description": "по костюмам",
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1997246.jpg",
+    "professionText": "Художники",
+    "professionKey": "DESIGN"
+  },
+  {
+    "staffId": 1997244,
+    "nameRu": "Ксения Блинова",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/1997244.jpg",
+    "professionText": "Монтажеры",
+    "professionKey": "EDITOR"
+  },
+  {
+    "staffId": 315808,
+    "nameRu": "Ида Дорофеева",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/315808.jpg",
+    "professionText": "Монтажеры",
+    "professionKey": "EDITOR"
+  },
+  {
+    "staffId": 2008126,
+    "nameRu": "В. Потапова",
+    "nameEn": "",
+    "description": null,
+    "posterUrl": "https://kinopoiskapiunofficial.tech/images/actor_posters/kp/2008126.jpg",
+    "professionText": "Монтажеры",
+    "professionKey": "EDITOR"
+  }
+]

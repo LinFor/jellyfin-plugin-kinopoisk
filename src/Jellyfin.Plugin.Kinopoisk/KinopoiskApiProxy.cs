@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,13 +19,14 @@ namespace Jellyfin.Plugin.Kinopoisk
         private readonly ILogger _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _apiToken;
-        private readonly JsonSerializerOptions _jsonOptions = JsonDefaults.GetOptions();
+        private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
         public KinopoiskApiProxy(ILogger logger, IHttpClientFactory httpClientFactory)
         {
             this._logger = logger;
             this._httpClientFactory = httpClientFactory;
             this._apiToken = Plugin.Instance.Configuration.ApiToken;
+            this._jsonOptions.Converters.Add(new JsonStringEnumMemberConverter());
         }
 
         public async Task<SearchResult> SearchByKeyword(string keyword, int page = 1, CancellationToken? cancellationToken = null)

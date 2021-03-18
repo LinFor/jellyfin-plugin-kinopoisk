@@ -39,6 +39,7 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
             public string FilmLength { get; set; }
             public string Slogan { get; set; }
             public string Description { get; set; }
+            public FilmType Type { get; set; }
             public string RatingMpaa { get; set; }
             public int? RatingAgeLimits { get; set; }
             public DateTime? PremiereRu { get; set; }
