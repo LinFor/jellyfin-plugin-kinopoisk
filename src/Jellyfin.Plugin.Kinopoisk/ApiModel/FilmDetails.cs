@@ -62,11 +62,11 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
         public class FilmRating
         {
             public float Rating { get; set; }
-            public int RatingVoteCount { get; set; }
+            public int? RatingVoteCount { get; set; }
             public float? RatingImdb { get; set; }
-            public int RatingImdbVoteCount { get; set; }
+            public int? RatingImdbVoteCount { get; set; }
             public string RatingFilmCritics { get; set; }
-            public int RatingFilmCriticsVoteCount { get; set; }
+            public int? RatingFilmCriticsVoteCount { get; set; }
         }
 
         public class FilmImages

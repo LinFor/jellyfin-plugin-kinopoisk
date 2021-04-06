@@ -14,7 +14,7 @@
                 "/property:GenerateFullPaths=true",
                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
                 "/consoleloggerparameters:NoSummary",
-                "/property:Version=10.7.0.1"
+                "/property:Version=10.7.0.2"
             ],
             "group": "build",
             "presentation": {
@@ -29,7 +29,7 @@
             "args": [
                 "Compress-Archive",
                 "-Path", "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll,${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0/Macross.Json.Extensions.dll",
-                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.7.0.1.zip"
+                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.7.0.2.zip"
             ],
             "group": "build",
             "presentation": {
