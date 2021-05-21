@@ -2,18 +2,27 @@
     {
         "category": "Metadata",
         "guid": "0c136f8a-ff77-4f2b-ade5-13462cae6216",
-        "name": "КиноПоиск",
-        "overview": "",
+        "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
+        "overview": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442 \u0440\u0435\u0439\u0442\u0438\u043d\u0433\u0438 \u0441\u0430\u0439\u0442\u0430 \u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
         "owner": "linfor",
-        "description": "Загружает рейтинги сайта КиноПоиск",
+        "description": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442 \u0440\u0435\u0439\u0442\u0438\u043d\u0433\u0438 \u0441\u0430\u0439\u0442\u0430 \u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a\n",
+        "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
         "versions": [
+            {
+                "version": "10.7.0.3",
+                "changelog": "Don't provide empty poster Added kinopoisk hyperlink in people info\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.3.zip",
+                "checksum": "d58cdb87e4e93b7ab1b22c14248841e2",
+                "timestamp": "2021-05-21T16:00:03Z"
+            },
             {
                 "checksum": "8d77d5f4de0bdf0abbce76cf8e5a251d",
                 "changelog": "Fixed rating parsing",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.7.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.7.0.2.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.2.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.7.0.2.zip",
                 "timestamp": "2021-04-06 18:12:00",
                 "version": "10.7.0.2"
@@ -21,10 +30,10 @@
             {
                 "checksum": "9051c982f7846af34249ed9969012c17",
                 "changelog": "Fixed some actor professions parsing",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.7.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.7.0.1.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.1.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.7.0.1.zip",
                 "timestamp": "2021-03-18 13:31:00",
                 "version": "10.7.0.1"
@@ -32,10 +41,10 @@
             {
                 "checksum": "ec7cfeff6a88f2427057d1bb6fb150b6",
                 "changelog": "Jellyfin v10.7 compat",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.7.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.7.0.0.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.0.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.7.0.0.zip",
                 "timestamp": "2021-03-16 11:35:00",
                 "version": "10.7.0.0"
@@ -43,10 +52,10 @@
             {
                 "checksum": "50674e215597995b96da17b49ee7ad62",
                 "changelog": "fix NRE in person provider",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.6.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.2.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.2.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.6.0.2.zip",
                 "timestamp": "2020-07-09 13:00:00",
                 "version": "10.6.0.2"
@@ -54,10 +63,10 @@
             {
                 "checksum": "a877cde0df7d70266fdb9362b72884c1",
                 "changelog": "new release",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.6.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.1.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.1.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.6.0.1.zip",
                 "timestamp": "2020-07-07 19:00:00",
                 "version": "10.6.0.1"
@@ -65,10 +74,10 @@
             {
                 "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
                 "changelog": "new release",
-                "name": "КиноПоиск",
+                "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
                 "targetAbi": "10.6.0",
                 "runtimes": "netframework,netcore",
-                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
                 "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
                 "timestamp": "2020-07-07 10:00:00",
                 "version": "10.6.0.0"

@@ -6,7 +6,7 @@
         {
             "label": "build",
             "command": "dotnet",
-            "type": "shell",
+            "type": "process",
             "args": [
                 "build",
                 "${workspaceFolder:workspace}/src/Kinopoisk.sln",
@@ -25,11 +25,12 @@
         {
             "label": "publish-to-run",
             "command": "dotnet",
-            "type": "shell",
+            "type": "process",
             "args": [
                 "publish",
                 "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/Jellyfin.Plugin.Kinopoisk.csproj",
-                "--output", "/jellyfin-data/plugins/kinopoisk",
+                "--output",
+                "/jellyfin-data/plugins/kinopoisk",
                 "/property:GenerateFullPaths=true",
                 "/property:Version=10.7.0.2"
             ],
@@ -38,18 +39,37 @@
         },
         {
             "label": "make-dist",
-            "command": "powershell",
-            "type": "shell",
+            "command": "jprm",
+            "type": "process",
             "args": [
-                "Compress-Archive",
-                "-Path", "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll,${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0/Macross.Json.Extensions.dll",
-                "-DestinationPath", "${workspaceFolder:workspace}/dist/jellyfin-plugin-kinopoisk_10.7.0.2.zip"
+                "-v", "DEBUG",
+                "plugin", "build", "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/"
             ],
-            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder:workspace}/"
+            },
+            "group": "none",
             "presentation": {
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "make-dist-publish",
+            "command": "bash",
+            "type": "process",
+            "args": [
+                "${workspaceFolder:workspace}/publish.sh"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder:workspace}/"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile",
+            // "dependsOn": ["make-dist"]
         }
     ]
 }
