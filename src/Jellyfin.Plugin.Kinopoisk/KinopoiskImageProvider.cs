@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -61,7 +62,40 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             var film = await _apiProxy.GetSingleFilmImages(kinopoiskId, cancellationToken);
 
-            return film.ToRemoteImageInfos();
+            return await FilterEmptyImages(film.ToRemoteImageInfos());
+
+        }
+
+        private async Task<IEnumerable<RemoteImageInfo>> FilterEmptyImages(IEnumerable<RemoteImageInfo> images)
+        {
+            using (var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true))
+            {
+                var res = await Task.WhenAll(images.Select(i => NullIfEmptyImage(i, httpClient)));
+
+                return res.Where(i => i != null);
+            }
+        }
+
+        private async Task<RemoteImageInfo> NullIfEmptyImage(RemoteImageInfo info, HttpClient httpClient)
+        {
+            var currentUrl = info.Url;
+            while (!currentUrl.Contains("no-poster"))
+            {
+                var response = await httpClient.SendAsync(
+                    new HttpRequestMessage(HttpMethod.Get, currentUrl), HttpCompletionOption.ResponseHeadersRead);
+
+                if ((int)response.StatusCode <= 299)
+                    return info;
+                else if (response.Headers.Location != null)
+                {
+                    currentUrl = response.Headers.Location.ToString();
+                    continue;
+                }
+                else
+                    throw new InvalidOperationException("Not expected answer");
+            }
+
+            return null;
         }
     }
 }

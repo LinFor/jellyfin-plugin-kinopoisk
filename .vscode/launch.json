@@ -8,13 +8,29 @@
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll",
+            "preLaunchTask": "publish-to-run",
+            "program": "${workspaceFolder:workspace-jellyfin}/Jellyfin.Server/bin/Debug/net5.0/jellyfin.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src",
+            "cwd": "${workspaceFolder:workspace-jellyfin}/Jellyfin.Server",
             "console": "internalConsole",
-            "stopAtEntry": false
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            // "serverReadyAction": {
+            //     "action": "openExternally",
+            //     "pattern": "Overriding address\\(es\\) \\'(https?:\\S+)\\'",
+            // }
         },
+        // {
+        //     "name": ".NET Core Launch (console)",
+        //     "type": "coreclr",
+        //     "request": "launch",
+        //     "preLaunchTask": "build",
+        //     "program": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll",
+        //     "args": [],
+        //     "cwd": "${workspaceFolder}/src",
+        //     "console": "internalConsole",
+        //     "stopAtEntry": false
+        // },
         {
             "name": ".NET Core Attach",
             "type": "coreclr",

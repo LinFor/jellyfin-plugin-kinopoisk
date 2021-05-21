@@ -9,7 +9,7 @@
             "type": "shell",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Kinopoisk.sln"
+                "${workspaceFolder:workspace}/src/Kinopoisk.sln",
                 // Ask dotnet build to generate full paths for file names.
                 "/property:GenerateFullPaths=true",
                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
@@ -23,13 +23,27 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "publish-to-run",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "publish",
+                "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/Jellyfin.Plugin.Kinopoisk.csproj",
+                "--output", "/jellyfin-data/plugins/kinopoisk",
+                "/property:GenerateFullPaths=true",
+                "/property:Version=10.7.0.2"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "make-dist",
             "command": "powershell",
             "type": "shell",
             "args": [
                 "Compress-Archive",
-                "-Path", "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll,${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0/Macross.Json.Extensions.dll",
-                "-DestinationPath", "${workspaceFolder}/dist/jellyfin-plugin-kinopoisk_10.7.0.2.zip"
+                "-Path", "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/bin/Debug/net5.0/Jellyfin.Plugin.Kinopoisk.dll,${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0/Macross.Json.Extensions.dll",
+                "-DestinationPath", "${workspaceFolder:workspace}/dist/jellyfin-plugin-kinopoisk_10.7.0.2.zip"
             ],
             "group": "build",
             "presentation": {

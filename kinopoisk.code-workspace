@@ -4,14 +4,15 @@
             "path": "."
         },
         {
-            "path": "..\\..\\temp-jellyfin-src"
+            "path": "../workspace-jellyfin"
         }
     ],
-	"settings": {
-        "csharp.unitTestDebuggingOptions": {
-            "sourceFileMap": {
-                "${workspaceFolder}\\src\\Jellyfin.Plugin.Kinopoisk\\bin\\Debug\\netstandard2.1\\Jellyfin.Plugin.Kinopoisk.dll": "${workspaceFolder}/src/Jellyfin.Plugin.Kinopoisk.Test/bin/Debug/net5.0"
-            }
-        }
+    "settings": {
+        "dotnet-test-explorer.enableTelemetry": false,
+        "dotnet-test-explorer.testProjectPath": "**/*Kinopoisk.Tests.csproj",
+        "omnisharp.defaultLaunchSolution": "Kinopoisk.sln",
+        "omnisharp.enableRoslynAnalyzers": true,
+        "omnisharp.organizeImportsOnFormat": true,
+        "csharp.semanticHighlighting.enabled": true
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.Kinopoisk", "Jellyfin.Plugin.Kinopoisk\Jellyfin.Plugin.Kinopoisk.csproj", "{C9335ABD-972B-4FF9-B564-72D9FF7122A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.Kinopoisk.Test", "Jellyfin.Plugin.Kinopoisk.Test\Jellyfin.Plugin.Kinopoisk.Test.csproj", "{7DB17100-0B13-4713-AEDE-B4B9CA96E1CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.Kinopoisk.Tests", "Jellyfin.Plugin.Kinopoisk.Tests\Jellyfin.Plugin.Kinopoisk.Tests.csproj", "{7DB17100-0B13-4713-AEDE-B4B9CA96E1CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

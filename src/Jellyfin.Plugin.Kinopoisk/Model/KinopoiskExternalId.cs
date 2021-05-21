@@ -1,10 +1,11 @@
+using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
 
-namespace Jellyfin.Plugin.Kinopoisk
+namespace Jellyfin.Plugin.Kinopoisk.Model
 {
     public class KinopoiskExternalId : IExternalId
     {
