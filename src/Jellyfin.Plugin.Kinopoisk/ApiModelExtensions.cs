@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using Jellyfin.Plugin.Kinopoisk.Api.Model;
+using KinopoiskUnofficialInfo.ApiClient;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
-using static Jellyfin.Plugin.Kinopoisk.Api.Model.FilmDetails;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
     public static class ApiModelExtensions
     {
-        public static RemoteSearchResult ToRemoteSearchResult(this FilmDetails src)
+        public static RemoteSearchResult ToRemoteSearchResult(this Film src)
         {
             if (src?.Data is null)
                 return null;
@@ -30,7 +30,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static IEnumerable<RemoteSearchResult> ToRemoteSearchResults(this SearchResult src)
+        public static IEnumerable<RemoteSearchResult> ToRemoteSearchResults(this FilmSearchResponse src)
         {
             if (src?.Films is null)
                 return Enumerable.Empty<RemoteSearchResult>();
@@ -38,7 +38,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return src.Films.Select(s => s.ToRemoteSearchResult());
         }
 
-        public static RemoteSearchResult ToRemoteSearchResult(this SearchResult.Film src)
+        public static RemoteSearchResult ToRemoteSearchResult(this FilmSearchResponse_films src)
         {
             if (src is null)
                 return null;
@@ -55,7 +55,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static Series ToSeries(this FilmDetails src)
+        public static Series ToSeries(this Film src)
         {
             if (src?.Data is null)
                 return null;
@@ -72,7 +72,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static Movie ToMovie(this FilmDetails src)
+        public static Movie ToMovie(this Film src)
         {
             if (src?.Data is null)
                 return null;
@@ -84,28 +84,31 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        private static void FillCommonFilmInfo(FilmDetails src, BaseItem dst)
+        private static void FillCommonFilmInfo(Film src, BaseItem dst)
         {
             dst.SetProviderId(Utils.ProviderId, Convert.ToString(src.Data.FilmId));
             dst.Name = src.GetLocalName();
             dst.OriginalTitle = src.GetOriginalNameIfNotSame();
             dst.PremiereDate = src.Data.GetPremiereDate();
+            if (!string.IsNullOrWhiteSpace(src.Data.Slogan))
+                dst.Tagline = src.Data.Slogan;
             dst.Overview = src.Data.Description;
             if (src.Data.Countries != null)
-                dst.ProductionLocations = src.Data.Countries.Select(c => c.Country).ToArray();
+                dst.ProductionLocations = src.Data.Countries.Select(c => c.Country1).ToArray();
             if (src.Data.Genres != null)
-                foreach(var genre in src.Data.Genres.Select(c => c.Genre))
+                foreach(var genre in src.Data.Genres.Select(c => c.Genre1))
                     dst.AddGenre(genre);
-            if (src.Data.RatingAgeLimits.HasValue)
+            if (src.Data.RatingAgeLimits > 0)
                 dst.OfficialRating = $"{src.Data.RatingAgeLimits}+";
             else
                 dst.OfficialRating = src.Data.RatingMpaa;
 
             if (src.Rating != null)
             {
-                dst.CommunityRating = src.Rating.Rating > 0
-                    ? src.Rating.Rating
+                var communityRating = src.Rating.Rating1 > 0
+                    ? src.Rating.Rating1
                     : src.Rating.RatingImdb;
+                dst.CommunityRating = communityRating > 0 ? (float)communityRating : null;
                 dst.CriticRating = src.Rating.GetCriticRatingAsTenPointBased();
             }
 
@@ -116,7 +119,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             }
         }
 
-        public static float? GetCriticRatingAsTenPointBased(this FilmDetails.FilmRating src)
+        public static float? GetCriticRatingAsTenPointBased(this Rating src)
         {
             if (src is null)
                 return null;
@@ -134,7 +137,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return null;
         }
 
-        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this FilmDetails src)
+        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this Film src)
         {
             var res = Enumerable.Empty<RemoteImageInfo>();
             if (src is null)
@@ -162,13 +165,13 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this IEnumerable<FilmImageRef> src, ImageType imageType)
+        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this IEnumerable<Images_posters> src, ImageType imageType)
         {
             return src.Select(s => s.ToRemoteImageInfo(imageType))
                 .Where(s => s != null);
         }
 
-        public static RemoteImageInfo ToRemoteImageInfo(this FilmImageRef src, ImageType imageType)
+        public static RemoteImageInfo ToRemoteImageInfo(this Images_posters src, ImageType imageType)
         {
             if (src is null)
                 return null;
@@ -183,7 +186,40 @@ namespace Jellyfin.Plugin.Kinopoisk
             };
         }
 
-        public static PersonInfo ToPersonInfo(this StaffItem src)
+        public static IReadOnlyList<MediaUrl> ToMediaUrls(this VideoResponse src)
+        {
+            if (src is null || src.Trailers is null || src.Trailers.Count < 1)
+                return null;
+
+            return src.Trailers.Select(t => t.ToMediaUrl())
+                .Where(mu => mu != null)
+                .ToList();
+        }
+
+        public static MediaUrl ToMediaUrl(this VideoResponse_trailers src) {
+            if (src is null)
+                return null;
+
+            return new MediaUrl
+            {
+                Name = src.Name,
+                Url = src.Url
+            };
+        }
+
+        public static RemoteImageInfo ToRemoteImageInfo(this PersonResponse src)
+        {
+            if (src is null || string.IsNullOrEmpty(src.PosterUrl))
+                return null;
+
+            return new RemoteImageInfo(){
+                Type = ImageType.Primary,
+                Url = src.PosterUrl,
+                ProviderName = Utils.ProviderName
+            };
+        }
+
+        public static PersonInfo ToPersonInfo(this StaffResponse src)
         {
             if (src is null)
                 return null;
@@ -192,7 +228,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             {
                 Name = src.NameRu,
                 ImageUrl = src.PosterUrl,
-                Role = src.Description ?? string.Empty,
+                Role = src.ProfessionText ?? string.Empty,
                 Type = src.ProfessionKey.ToPersonType()
             };
             if (string.IsNullOrWhiteSpace(res.Name))
@@ -202,7 +238,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static IEnumerable<PersonInfo> ToPersonInfos(this IEnumerable<StaffItem> src)
+        public static IEnumerable<PersonInfo> ToPersonInfos(this ICollection<StaffResponse> src)
         {
             var res = src.Select(s => s.ToPersonInfo())
                 .Where(s => s != null)
@@ -215,34 +251,44 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static string ToPersonType(this ProfessionEnum src)
+        public static string ToPersonType(this StaffResponseProfessionKey src)
         {
             return src switch
             {
-                ProfessionEnum.Actor => PersonType.Actor,
-                ProfessionEnum.Director => PersonType.Director,
-                ProfessionEnum.Writer => PersonType.Writer,
-                ProfessionEnum.Composer => PersonType.Composer,
-                ProfessionEnum.Producer or ProfessionEnum.ProducerUssr => PersonType.Producer,
+                StaffResponseProfessionKey.ACTOR => PersonType.Actor,
+                StaffResponseProfessionKey.DIRECTOR => PersonType.Director,
+                StaffResponseProfessionKey.WRITER => PersonType.Writer,
+                StaffResponseProfessionKey.COMPOSER => PersonType.Composer,
+                StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonType.Producer,
                 _ => string.Empty,
             };
         }
 
-        public static DateTime? GetPremiereDate(this FilmData src)
+        public static DateTime? ParseDate(this string src){
+            if (src == null)
+                return null;
+
+            if (DateTime.TryParseExact(src, "o", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var res))
+                return res;
+
+            return null;
+        }
+
+        public static DateTime? GetPremiereDate(this CommonFilmData src)
         {
             var res = src.IsRussianSpokenOriginated()
-                ? src.PremiereRu
-                : src.PremiereWorld;
-            if (src.PremiereRu < res)
-                res = src.PremiereRu;
-            if (src.PremiereWorld < res)
-                res = src.PremiereWorld;
-            if (src.PremiereDigital < res)
-                res = src.PremiereDigital;
-            if (src.PremiereDvd < res)
-                res = src.PremiereDvd;
-            if (src.PremiereBluRay < res)
-                res = src.PremiereBluRay;
+                ? src.PremiereRu.ParseDate()
+                : src.PremiereWorld.ParseDate();
+            if (src.PremiereRu.ParseDate() < res)
+                res = src.PremiereRu.ParseDate();
+            if (src.PremiereWorld.ParseDate() < res)
+                res = src.PremiereWorld.ParseDate();
+            if (src.PremiereDigital.ParseDate() < res)
+                res = src.PremiereDigital.ParseDate();
+            if (src.PremiereDvd.ParseDate() < res)
+                res = src.PremiereDvd.ParseDate();
+            if (src.PremiereBluRay.ParseDate() < res)
+                res = src.PremiereBluRay.ParseDate();
 
             if (res.HasValue)
                 return res;
@@ -254,7 +300,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return null;
         }
 
-        public static DateTime? GetPremiereDate(this SearchResult.Film src)
+        public static DateTime? GetPremiereDate(this FilmSearchResponse_films src)
         {
             var firstYear = GetFirstYear(src.Year);
             if (firstYear != null)
@@ -263,7 +309,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return null;
         }
 
-        public static DateTime? GetEndDate(this FilmData src)
+        public static DateTime? GetEndDate(this CommonFilmData src)
         {
             var lastYear = GetLastYear(src.Year);
             if (lastYear != null)
@@ -272,10 +318,10 @@ namespace Jellyfin.Plugin.Kinopoisk
             return null;
         }
 
-        public static bool IsContinuing(this FilmData src)
+        public static bool IsContinuing(this CommonFilmData src)
             => IsСontinuing(src?.Year);
 
-        public static string GetLocalName(this FilmDetails src)
+        public static string GetLocalName(this Film src)
         {
             var res = src?.Data?.NameRu;
             if (string.IsNullOrWhiteSpace(res))
@@ -283,7 +329,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static string GetLocalName(this SearchResult.Film src)
+        public static string GetLocalName(this FilmSearchResponse_films src)
         {
             var res = src?.NameRu;
             if (string.IsNullOrWhiteSpace(res))
@@ -291,12 +337,12 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static string GetOriginalName(this FilmDetails src)
+        public static string GetOriginalName(this Film src)
             => src.IsRussianSpokenOriginated()
                 ? src?.Data?.NameRu
                 : src?.Data?.NameEn;
 
-        public static string GetOriginalNameIfNotSame(this FilmDetails src)
+        public static string GetOriginalNameIfNotSame(this Film src)
         {
             var localName = src.GetLocalName();
             var originalName = src.GetOriginalName();
@@ -306,19 +352,19 @@ namespace Jellyfin.Plugin.Kinopoisk
             return string.Empty;
         }
 
-        public static bool IsRussianSpokenOriginated(this FilmDetails src)
+        public static bool IsRussianSpokenOriginated(this Film src)
             => src?.Data?.IsRussianSpokenOriginated() ?? false;
 
-        public static bool IsRussianSpokenOriginated(this FilmData src)
+        public static bool IsRussianSpokenOriginated(this CommonFilmData src)
             => src?.Countries?.IsRussianSpokenOriginated() ?? false;
 
-        public static bool IsRussianSpokenOriginated(this IEnumerable<CountryItem> src)
+        public static bool IsRussianSpokenOriginated(this IEnumerable<Country> src)
         {
             if (src is null)
                 return false;
 
             foreach(var country in src)
-                switch(country.Country)
+                switch(country.Country1)
                 {
                     case "Россия":
                         return true;
@@ -379,5 +425,32 @@ namespace Jellyfin.Plugin.Kinopoisk
                 ? (int?)Convert.ToInt32(years[startindex()..])
                 : null;
         }
+
+        public static Person ToPerson(this PersonResponse src)
+        {
+            if (src is null)
+                return null;
+
+            var res = new Person()
+            {
+                Name = src.GetLocalName(),
+                PremiereDate = src.Birthday.ParseDate(),
+                EndDate = src.Death.ParseDate()
+            };
+
+            if (!string.IsNullOrWhiteSpace(src.Birthplace))
+                res.ProductionLocations = new[] { src.Birthplace };
+
+            return res;
+        }
+
+        public static string GetLocalName(this PersonResponse src)
+        {
+            var res = src?.NameRu;
+            if (string.IsNullOrWhiteSpace(res))
+                res = src?.NameEn;
+            return res;
+        }
+
     }
 }

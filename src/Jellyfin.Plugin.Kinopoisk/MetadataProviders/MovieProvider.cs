@@ -1,6 +1,5 @@
 using System.Net.Http;
-using Jellyfin.Plugin.Kinopoisk.Api;
-using Jellyfin.Plugin.Kinopoisk.Api.Model;
+using KinopoiskUnofficialInfo.ApiClient;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Providers;
 using Microsoft.Extensions.Logging;
@@ -9,11 +8,11 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 {
     public class MovieProvider : VideoBaseProvider<Movie, MovieInfo>
     {
-        public MovieProvider(KinopoiskApiProxy kinopoiskApiProxy, ILogger<MovieProvider> logger, IHttpClientFactory httpClientFactory) : base(kinopoiskApiProxy, logger, httpClientFactory)
+        public MovieProvider(IKinopoiskApiClient kinopoiskApiClient, ILogger<MovieProvider> logger, IHttpClientFactory httpClientFactory) : base(kinopoiskApiClient, logger, httpClientFactory)
         {
         }
 
-        protected override Movie ConvertResponseToItem(FilmDetails apiResponse)
+        protected override Movie ConvertResponseToItem(Film apiResponse)
             => apiResponse.ToMovie();
     }
 }

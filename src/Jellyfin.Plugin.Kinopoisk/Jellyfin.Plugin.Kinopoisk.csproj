@@ -28,4 +28,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KinopoiskUnofficialInfo.ApiClient\KinopoiskUnofficialInfo.ApiClient.csproj" />
+  </ItemGroup>
+
+
 </Project>

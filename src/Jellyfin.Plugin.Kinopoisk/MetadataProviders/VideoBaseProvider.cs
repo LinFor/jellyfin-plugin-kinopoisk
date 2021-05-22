@@ -3,9 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Jellyfin.Plugin.Kinopoisk.Api;
-using Jellyfin.Plugin.Kinopoisk.Api.Model;
-using MediaBrowser.Common.Net;
+using KinopoiskUnofficialInfo.ApiClient;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Providers;
@@ -13,29 +11,21 @@ using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 {
-    public abstract class VideoBaseProvider<TItemType, TLookupInfoType> : IRemoteMetadataProvider<TItemType, TLookupInfoType>
+    public abstract class VideoBaseProvider<TItemType, TLookupInfoType> : BaseMetadataProvider, IRemoteMetadataProvider<TItemType, TLookupInfoType>
         where TItemType : BaseItem, IHasLookupInfo<TLookupInfoType>
         where TLookupInfoType : ItemLookupInfo, new()
     {
         private readonly ILogger _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly KinopoiskApiProxy _apiProxy;
+        private readonly IKinopoiskApiClient _apiClient;
 
-        public string Name => Utils.ProviderName;
-
-        public VideoBaseProvider(KinopoiskApiProxy kinopoiskApiProxy, ILogger logger, IHttpClientFactory httpClientFactory)
+        public VideoBaseProvider(IKinopoiskApiClient kinopoiskApiClient, ILogger logger, IHttpClientFactory httpClientFactory)
+            : base(httpClientFactory)
         {
             this._logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
-            this._httpClientFactory = httpClientFactory ?? throw new System.ArgumentNullException(nameof(httpClientFactory));
-            this._apiProxy = kinopoiskApiProxy ?? throw new System.ArgumentNullException(nameof(kinopoiskApiProxy));
+            this._apiClient = kinopoiskApiClient ?? throw new System.ArgumentNullException(nameof(kinopoiskApiClient));
         }
 
-        protected abstract TItemType ConvertResponseToItem(FilmDetails apiResponse);
-
-        public async Task<HttpResponseMessage> GetImageResponse(string url, CancellationToken cancellationToken)
-        {
-            return await _httpClientFactory.CreateClient(NamedClient.Default).GetAsync(url, cancellationToken);
-        }
+        protected abstract TItemType ConvertResponseToItem(Film apiResponse);
 
         public async Task<MetadataResult<TItemType>> GetMetadata(TLookupInfoType info, CancellationToken cancellationToken)
         {
@@ -49,18 +39,26 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
             if (!Utils.TryGetKinopoiskId(info, _logger, out var kinopoiskId))
                 return result;
 
-            var film = await _apiProxy.GetSingleFilm(kinopoiskId, cancellationToken);
+            var film = await _apiClient.GetSingleFilm(kinopoiskId, cancellationToken);
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             result.Item = ConvertResponseToItem(film);
             if (result.Item != null)
                 result.HasMetadata = true;
 
-            cancellationToken.ThrowIfCancellationRequested();
+            var staff = await _apiClient.GetStaff(kinopoiskId, cancellationToken);
 
-            var staff = await _apiProxy.GetStaff(kinopoiskId, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
 
             foreach (var item in staff.ToPersonInfos())
                 result.AddPerson(item);
+
+            var trailers = await _apiClient.GetTrailers(kinopoiskId, cancellationToken);
+
+            var remoteTrailers = trailers.ToMediaUrls();
+            if (remoteTrailers is not null)
+                result.Item.RemoteTrailers = remoteTrailers;
 
             return result;
         }
@@ -69,12 +67,12 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
         {
             if (Utils.TryGetKinopoiskId(searchInfo, _logger, out var kinopoiskId))
             {
-                var singleResult = (await _apiProxy.GetSingleFilm(kinopoiskId, cancellationToken)).ToRemoteSearchResult();
+                var singleResult = (await _apiClient.GetSingleFilm(kinopoiskId, cancellationToken)).ToRemoteSearchResult();
                 return Enumerable.Repeat(singleResult, 1);
             }
             else
             {
-                return (await _apiProxy.SearchByKeyword(searchInfo.Name, cancellationToken: cancellationToken)).ToRemoteSearchResults();
+                return (await _apiClient.SearchByKeyword(searchInfo.Name, cancellationToken: cancellationToken)).ToRemoteSearchResults();
             }
         }
     }

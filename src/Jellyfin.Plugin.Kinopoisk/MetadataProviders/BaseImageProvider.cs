@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,5 +34,37 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 
         public abstract IEnumerable<ImageType> GetSupportedImages(BaseItem item);
 
+        protected async Task<IEnumerable<RemoteImageInfo>> FilterEmptyImages(IEnumerable<RemoteImageInfo> images)
+        {
+            using var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true);
+            var res = await Task.WhenAll(images.Select(i => NullIfEmptyImage(i, httpClient)));
+
+            return res.Where(i => i != null);
+        }
+
+        protected async Task<RemoteImageInfo> NullIfEmptyImage(RemoteImageInfo info, HttpClient httpClient)
+        {
+            if (info == null)
+                return null;
+
+            var currentUrl = info.Url;
+            while (!currentUrl.Contains("no-poster"))
+            {
+                var response = await httpClient.SendAsync(
+                    new HttpRequestMessage(HttpMethod.Get, currentUrl), HttpCompletionOption.ResponseHeadersRead);
+
+                if ((int)response.StatusCode <= 299)
+                    return info;
+                else if (response.Headers.Location != null)
+                {
+                    currentUrl = response.Headers.Location.ToString();
+                    continue;
+                }
+                else
+                    throw new InvalidOperationException("Not expected answer");
+            }
+
+            return null;
+        }
     }
 }

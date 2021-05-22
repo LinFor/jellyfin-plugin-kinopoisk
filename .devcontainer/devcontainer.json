@@ -49,6 +49,9 @@
 		"1900": {
 			"label": "ssdp"
 		},
+		"7359": {
+			"label": "discovery"
+		},
 		"8096": {
 			"label": "www"
 		},

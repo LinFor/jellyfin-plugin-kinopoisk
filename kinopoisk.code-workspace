@@ -9,8 +9,8 @@
     ],
     "settings": {
         "dotnet-test-explorer.enableTelemetry": false,
-        "dotnet-test-explorer.testProjectPath": "**/*Kinopoisk.Tests.csproj",
-        "omnisharp.defaultLaunchSolution": "Kinopoisk.sln",
+        "dotnet-test-explorer.testProjectPath": "${workspaceFolder:workspace}/src/**/*.Tests.csproj",
+        "omnisharp.defaultLaunchSolution": "Jellyfin.Plugin.Kinopoisk.sln",
         "omnisharp.enableRoslynAnalyzers": true,
         "omnisharp.organizeImportsOnFormat": true,
         "csharp.semanticHighlighting.enabled": true,

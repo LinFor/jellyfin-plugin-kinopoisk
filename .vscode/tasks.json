@@ -4,16 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "generate-api-proxy",
+            "label": "regenerate-api-proxy",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "build",
+                "msbuild", "-target:GenerateApiClientSourceCode",
                 "${workspaceFolder:workspace}/src/KinopoiskUnofficialInfo.ApiClient/KinopoiskUnofficialInfo.ApiClient.csproj",
                 // Ask dotnet build to generate full paths for file names.
-                "/property:GenerateFullPaths=true",
+                "-property:GenerateFullPaths=true",
                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-                "/consoleloggerparameters:NoSummary"
+                "-consoleloggerparameters:NoSummary"
             ],
             "group": "build",
             "problemMatcher": "$msCompile"
@@ -24,16 +24,14 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder:workspace}/src/Kinopoisk.sln",
+                "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk.sln",
                 // Ask dotnet build to generate full paths for file names.
-                "/property:GenerateFullPaths=true",
+                "-property:GenerateFullPaths=true",
                 // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-                "/consoleloggerparameters:NoSummary",
-                "/property:Version=10.7.0.2"
+                "-consoleloggerparameters:NoSummary"
             ],
             "group": "build",
             "problemMatcher": "$msCompile",
-            "dependsOn": ["generate-api-proxy"]
         },
         {
             "label": "publish-to-run",
@@ -44,8 +42,8 @@
                 "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk/Jellyfin.Plugin.Kinopoisk.csproj",
                 "--output",
                 "/jellyfin-data/plugins/kinopoisk",
-                "/property:GenerateFullPaths=true",
-                "/property:Version=10.7.0.2"
+                "-property:GenerateFullPaths=true",
+                "-property:Version=10.9.0.0"
             ],
             "group": "build",
             "presentation": {

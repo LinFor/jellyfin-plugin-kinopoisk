@@ -1,0 +1,47 @@
+version: VCR.net 1.0.0
+httpInteractions:
+- request:
+    uri: https://kinopoiskapiunofficial.tech/api/v2.1/films/1044982?append_to_response=BUDGET&append_to_response=REVIEW&append_to_response=RATING&append_to_response=POSTERS
+    method: GET
+    headers:
+      Accept:
+      - application/json
+      X-API-KEY:
+      - 85d30ae5-d875-4c5f-900d-8e37bb20625e
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.18.0
+      - (Ubuntu)
+      Date:
+      - Sat, 22 May 2021 19:08:47 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-store, must-revalidate, no-cache, max-age=0
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - DENY
+      Content-Type:
+      - application/json
+      Expires:
+      - 0
+    body:
+      encoding: ''
+      string: |-
+        {"data":{"filmId":1044982,"nameRu":"Шпион, который меня кинул","nameEn":"The Spy Who Dumped Me","webUrl":"http://www.kinopoisk.ru/film/1044982/","posterUrl":"https://kinopoiskapiunofficial.tech/images/posters/kp/1044982.jpg","posterUrlPreview":"https://kinopoiskapiunofficial.tech/images/posters/kp_small/1044982.jpg","year":"2018","filmLength":"1:57","slogan":"Минимум опыта. Максимум последствий","description":"Одри и Морган, лучшие подруги из Лос-Анджелеса, неожиданно оказываются в эпицентре международного заговора, когда бывший Одри заявляется к ней с толпой идущих по следу кровожадных убийц. Удивляясь сами себе, девушки берутся за нелегкое дело спасения мира. Их ждет полная опасностей – и киллеров – шпионская гонка по всей Европе, где на пути им встречается очень подозрительный, но такой обаятельный британский агент...","type":"FILM","ratingMpaa":"R","ratingAgeLimits":16,"premiereRu":"2018-08-09","distributors":"Централ Партнершип","premiereWorld":"2018-07-25","premiereDigital":"2018-10-29","premiereWorldCountry":"США","premiereDvd":null,"premiereBluRay":null,"distributorRelease":null,"countries":[{"country":"Венгрия"},{"country":"Канада"},{"country":"США"}],"genres":[{"genre":"боевик"},{"genre":"комедия"},{"genre":"приключения"}],"facts":["Одри играет в компьютерную игру «Point Blank DS» (2006).","По словам Сэма Хьюэна, сцена, в которой его герой убивает кого-то, удерживая его лицо в ёмкости с фондю, списана с фильма «Казино Рояль» (Мартин Кэмпбелл, 2006) в котором Джеймс Бонд топит противника в раковине."],"seasons":[]},"externalId":{"imdbId":"tt6663582"},"rating":{"rating":5.9,"ratingVoteCount":46275,"ratingImdb":6.0,"ratingImdbVoteCount":70491,"ratingFilmCritics":"49%","ratingFilmCriticsVoteCount":208,"ratingAwait":"92%","ratingAwaitCount":3086,"ratingRfCritics":"17%","ratingRfCriticsVoteCount":6},"budget":{"grossRu":2107052,"grossUsa":33562069,"grossWorld":75320680,"budget":"$40 000 000","marketing":0},"review":{"reviewsCount":14,"ratingGoodReview":"68%","ratingGoodReviewVoteCount":8}}
+    httpVersion: 1.1
