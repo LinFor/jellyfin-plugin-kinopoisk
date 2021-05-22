@@ -12,7 +12,7 @@ description: >
 category: "Metadata"
 artifacts:
 - "Jellyfin.Plugin.Kinopoisk.dll"
-- "Macross.Json.Extensions.dll"
+- "KinopoiskUnofficialInfo.ApiClient.dll"
+- "Newtonsoft.Json.dll"
 changelog: >
-  Don't provide empty poster
-  Added kinopoisk hyperlink in people info
+  Added person info, person image, trailers fetching

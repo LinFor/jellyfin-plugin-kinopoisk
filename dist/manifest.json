@@ -9,6 +9,14 @@
         "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
         "versions": [
             {
+                "version": "10.7.0.4",
+                "changelog": "Added person info, person image, trailers fetching\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.4.zip",
+                "checksum": "28d4972fe0f5e193a8b3051ce5240ffe",
+                "timestamp": "2021-05-22T22:24:49Z"
+            },
+            {
                 "version": "10.7.0.3",
                 "changelog": "Don't provide empty poster Added kinopoisk hyperlink in people info\n",
                 "targetAbi": "10.7.0",
