@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -30,11 +31,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
             _apiClient = new Client(httpClient);
         }
 
-        private async Task<T> Invoke<T>(Func<CancellationToken, Task<T>> method, CancellationToken? ct)
+        private async Task<T> Invoke<T>(Func<CancellationToken, Task<T>> method, CancellationToken? ct, [CallerMemberName] string memberName = "")
         {
             try
             {
-                return await method.Invoke(ct ?? CancellationToken.None);
+                _logger.LogDebug($"{memberName} request starting...");
+                var res = await method.Invoke(ct ?? CancellationToken.None);
+                _logger.LogDebug($"{memberName} request complete successfully");
+                return res;
             }
             catch (ApiException e)
             {

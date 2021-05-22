@@ -197,13 +197,14 @@ namespace Jellyfin.Plugin.Kinopoisk
         }
 
         public static MediaUrl ToMediaUrl(this VideoResponse_trailers src) {
-            if (src is null)
+            if (src is null || !"YOUTUBE".Equals(src.Site))
                 return null;
 
             return new MediaUrl
             {
                 Name = src.Name,
                 Url = src.Url
+                    .Replace("https://youtu.be/", "https://www.youtube.com/watch?v=") // Jellyfin web currently don't recognize youtu.be links
             };
         }
 
