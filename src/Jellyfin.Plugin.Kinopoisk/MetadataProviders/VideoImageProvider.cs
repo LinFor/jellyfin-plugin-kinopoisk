@@ -4,58 +4,41 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MediaBrowser.Common.Net;
+using Jellyfin.Plugin.Kinopoisk.Api;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
-using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.Kinopoisk
+namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 {
-    public class KinopoiskImageProvider : IRemoteImageProvider
+    public class VideoImageProvider : BaseImageProvider
     {
-        private readonly ILogger<KinopoiskImageProvider> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger<VideoImageProvider> _logger;
         private readonly KinopoiskApiProxy _apiProxy;
 
-        public string Name => Utils.ProviderName;
+        public override string Name => Utils.ProviderName;
 
-        public KinopoiskImageProvider(ILogger<KinopoiskImageProvider> logger, IHttpClientFactory httpClientFactory)
+        public VideoImageProvider(KinopoiskApiProxy kinopoiskApiProxy, ILogger<VideoImageProvider> logger, IHttpClientFactory httpClientFactory)
+            : base(httpClientFactory)
         {
-            if (logger is null)
-            {
-                throw new System.ArgumentNullException(nameof(logger));
-            }
-
-            if (httpClientFactory is null)
-            {
-                throw new System.ArgumentNullException(nameof(httpClientFactory));
-            }
-
-            this._logger = logger;
-            this._httpClientFactory = httpClientFactory;
-            this._apiProxy = new KinopoiskApiProxy(logger, httpClientFactory);
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this._apiProxy = kinopoiskApiProxy ?? throw new ArgumentNullException(nameof(kinopoiskApiProxy));
         }
 
-        public bool Supports(BaseItem item)
+        public override bool Supports(BaseItem item)
             => item is Movie || item is Series;
 
-        public IEnumerable<ImageType> GetSupportedImages(BaseItem item)
+        public override IEnumerable<ImageType> GetSupportedImages(BaseItem item)
             => new ImageType[]
             {
                 ImageType.Primary,
                 ImageType.Backdrop
             };
 
-        public async Task<HttpResponseMessage> GetImageResponse(string url, CancellationToken cancellationToken)
-        {
-            return await _httpClientFactory.CreateClient(NamedClient.Default).GetAsync(url, cancellationToken);
-        }
-
-        public async Task<IEnumerable<RemoteImageInfo>> GetImages(BaseItem item, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<RemoteImageInfo>> GetImages(BaseItem item, CancellationToken cancellationToken)
         {
             if (!Utils.TryGetKinopoiskId(item, _logger, out var kinopoiskId))
                 return Enumerable.Empty<RemoteImageInfo>();
@@ -68,12 +51,10 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         private async Task<IEnumerable<RemoteImageInfo>> FilterEmptyImages(IEnumerable<RemoteImageInfo> images)
         {
-            using (var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true))
-            {
-                var res = await Task.WhenAll(images.Select(i => NullIfEmptyImage(i, httpClient)));
+            using var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true);
+            var res = await Task.WhenAll(images.Select(i => NullIfEmptyImage(i, httpClient)));
 
-                return res.Where(i => i != null);
-            }
+            return res.Where(i => i != null);
         }
 
         private async Task<RemoteImageInfo> NullIfEmptyImage(RemoteImageInfo info, HttpClient httpClient)

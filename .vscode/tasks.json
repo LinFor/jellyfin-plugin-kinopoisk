@@ -4,6 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "generate-api-proxy",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder:workspace}/src/KinopoiskUnofficialInfo.ApiClient/KinopoiskUnofficialInfo.ApiClient.csproj",
+                // Ask dotnet build to generate full paths for file names.
+                "/property:GenerateFullPaths=true",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "build",
             "command": "dotnet",
             "type": "process",
@@ -17,10 +32,8 @@
                 "/property:Version=10.7.0.2"
             ],
             "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "dependsOn": ["generate-api-proxy"]
         },
         {
             "label": "publish-to-run",
@@ -35,6 +48,9 @@
                 "/property:Version=10.7.0.2"
             ],
             "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -50,7 +66,7 @@
             },
             "group": "none",
             "presentation": {
-                "reveal": "silent"
+                "reveal": "always"
             },
             "problemMatcher": "$msCompile"
         },
@@ -66,10 +82,10 @@
             },
             "group": "none",
             "presentation": {
-                "reveal": "silent"
+                "reveal": "always"
             },
             "problemMatcher": "$msCompile",
-            // "dependsOn": ["make-dist"]
+            "dependsOn": ["make-dist"]
         }
     ]
 }

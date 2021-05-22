@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Jellyfin.Plugin.Kinopoisk.ApiModel;
+using Jellyfin.Plugin.Kinopoisk.Api.Model;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
-using static Jellyfin.Plugin.Kinopoisk.ApiModel.FilmDetails;
+using static Jellyfin.Plugin.Kinopoisk.Api.Model.FilmDetails;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
@@ -217,22 +217,15 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static string ToPersonType(this ProfessionEnum src)
         {
-            switch (src)
+            return src switch
             {
-                case ProfessionEnum.Actor:
-                    return PersonType.Actor;
-                case ProfessionEnum.Director:
-                    return PersonType.Director;
-                case ProfessionEnum.Writer:
-                    return PersonType.Writer;
-                case ProfessionEnum.Composer:
-                    return PersonType.Composer;
-                case ProfessionEnum.Producer:
-                case ProfessionEnum.ProducerUssr:
-                    return PersonType.Producer;
-                default:
-                    return string.Empty;
-            }
+                ProfessionEnum.Actor => PersonType.Actor,
+                ProfessionEnum.Director => PersonType.Director,
+                ProfessionEnum.Writer => PersonType.Writer,
+                ProfessionEnum.Composer => PersonType.Composer,
+                ProfessionEnum.Producer or ProfessionEnum.ProducerUssr => PersonType.Producer,
+                _ => string.Empty,
+            };
         }
 
         public static DateTime? GetPremiereDate(this FilmData src)
@@ -370,7 +363,7 @@ namespace Jellyfin.Plugin.Kinopoisk
                 return res;
 
             var i = 0;
-            Func<int> startindex = () => years.Length - 1 - i;
+            int startindex() => years.Length - 1 - i;
             while (true) {
                 if (i > 4)
                     return null;
@@ -383,7 +376,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             }
 
             return i > 0
-                ? (int?)Convert.ToInt32(years.Substring(startindex()))
+                ? (int?)Convert.ToInt32(years[startindex()..])
                 : null;
         }
     }

@@ -7,25 +7,29 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Jellyfin.Plugin.Kinopoisk.ApiModel;
-using MediaBrowser.Common.Json;
+using Jellyfin.Plugin.Kinopoisk.Api.Model;
 using MediaBrowser.Common.Net;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.Kinopoisk
+namespace Jellyfin.Plugin.Kinopoisk.Api
 {
-    public class KinopoiskApiProxy
+    public class KinopoiskApiProxy : IKinopoiskApiProxy
     {
+        private readonly string _apiToken;
         private readonly ILogger _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly string _apiToken;
-        private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        private readonly JsonSerializerOptions _jsonOptions = new(JsonSerializerDefaults.Web);
 
-        public KinopoiskApiProxy(ILogger logger, IHttpClientFactory httpClientFactory)
+        public KinopoiskApiProxy(string apiToken, ILogger<KinopoiskApiProxy> logger, IHttpClientFactory httpClientFactory)
         {
-            this._logger = logger;
-            this._httpClientFactory = httpClientFactory;
-            this._apiToken = Plugin.Instance.Configuration.ApiToken;
+            if (string.IsNullOrEmpty(apiToken))
+            {
+                throw new ArgumentException($"'{nameof(apiToken)}' cannot be null or empty.", nameof(apiToken));
+            }
+
+            _apiToken = apiToken;
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this._httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             this._jsonOptions.Converters.Add(new JsonStringEnumMemberConverter());
         }
 
@@ -70,10 +74,10 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             Uri uri = new Uri($"https://kinopoiskapiunofficial.tech/api/v1/staff?filmId={filmId}");
 
-            return await GetAsync<IEnumerable<StaffItem>>(uri, cancellationToken.Value); 
+            return await GetAsync<IEnumerable<StaffItem>>(uri, cancellationToken.Value);
         }
 
-        private async Task<T> GetAsync<T>(Uri uri, CancellationToken cancellationToken) where T: class
+        private async Task<T> GetAsync<T>(Uri uri, CancellationToken cancellationToken) where T : class
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, uri);
             request.Headers.Add("Accept", "application/json");
@@ -84,7 +88,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                string content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                 _logger.LogError($"Received non-success result status code {response.StatusCode} from Kinopoisk API, response content is:\n{content}");
                 return null;
             }

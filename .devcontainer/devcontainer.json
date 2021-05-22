@@ -33,7 +33,6 @@
     //     "--cachedir=/cache",
     //     "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"
     // ],
-    "shutdownAction": "none",
     "mounts": [
         "source=vscode-extensions,target=/root/.vscode-server/extensions,type=volume",
         "source=/home/pingwin/development/jellyfin-data,target=/jellyfin-data,type=bind,consistency=cached",

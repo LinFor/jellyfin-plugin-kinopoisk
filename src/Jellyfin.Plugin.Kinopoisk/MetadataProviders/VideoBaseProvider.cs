@@ -3,16 +3,17 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Jellyfin.Plugin.Kinopoisk.ApiModel;
+using Jellyfin.Plugin.Kinopoisk.Api;
+using Jellyfin.Plugin.Kinopoisk.Api.Model;
 using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Providers;
 using Microsoft.Extensions.Logging;
 
-namespace Jellyfin.Plugin.Kinopoisk
+namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 {
-    public abstract class KinopoiskVideoBaseProvider<TItemType, TLookupInfoType> : IRemoteMetadataProvider<TItemType, TLookupInfoType>
+    public abstract class VideoBaseProvider<TItemType, TLookupInfoType> : IRemoteMetadataProvider<TItemType, TLookupInfoType>
         where TItemType : BaseItem, IHasLookupInfo<TLookupInfoType>
         where TLookupInfoType : ItemLookupInfo, new()
     {
@@ -22,21 +23,11 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public string Name => Utils.ProviderName;
 
-        public KinopoiskVideoBaseProvider(ILogger logger, IHttpClientFactory httpClientFactory)
+        public VideoBaseProvider(KinopoiskApiProxy kinopoiskApiProxy, ILogger logger, IHttpClientFactory httpClientFactory)
         {
-            if (logger is null)
-            {
-                throw new System.ArgumentNullException(nameof(logger));
-            }
-
-            if (httpClientFactory is null)
-            {
-                throw new System.ArgumentNullException(nameof(httpClientFactory));
-            }
-
-            this._logger = logger;
-            this._httpClientFactory = httpClientFactory;
-            this._apiProxy = new KinopoiskApiProxy(logger, httpClientFactory);
+            this._logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            this._httpClientFactory = httpClientFactory ?? throw new System.ArgumentNullException(nameof(httpClientFactory));
+            this._apiProxy = kinopoiskApiProxy ?? throw new System.ArgumentNullException(nameof(kinopoiskApiProxy));
         }
 
         protected abstract TItemType ConvertResponseToItem(FilmDetails apiResponse);
@@ -68,7 +59,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             var staff = await _apiProxy.GetStaff(kinopoiskId, cancellationToken);
 
-            foreach(var item in staff.ToPersonInfos())
+            foreach (var item in staff.ToPersonInfos())
                 result.AddPerson(item);
 
             return result;

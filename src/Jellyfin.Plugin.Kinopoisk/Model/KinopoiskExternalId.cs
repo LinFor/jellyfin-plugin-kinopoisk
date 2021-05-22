@@ -11,8 +11,6 @@ namespace Jellyfin.Plugin.Kinopoisk.Model
     {
         public string ProviderName => Utils.ProviderName;
 
-        public string Name => Utils.ProviderName;
-
         public string Key => Utils.ProviderId;
 
         public string UrlFormatString => "https://www.kinopoisk.ru/film/{0}";

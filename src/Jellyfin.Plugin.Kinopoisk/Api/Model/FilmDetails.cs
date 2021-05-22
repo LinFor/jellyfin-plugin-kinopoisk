@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Jellyfin.Plugin.Kinopoisk.ApiModel
+namespace Jellyfin.Plugin.Kinopoisk.Api.Model
 {
     public class FilmDetails
     {
@@ -39,7 +39,7 @@ namespace Jellyfin.Plugin.Kinopoisk.ApiModel
             public string FilmLength { get; set; }
             public string Slogan { get; set; }
             public string Description { get; set; }
-            public FilmType Type { get; set; }
+            public Model.FilmType Type { get; set; }
             public string RatingMpaa { get; set; }
             public int? RatingAgeLimits { get; set; }
             public DateTime? PremiereRu { get; set; }

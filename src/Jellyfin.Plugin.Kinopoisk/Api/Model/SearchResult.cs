@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Jellyfin.Plugin.Kinopoisk.ApiModel
+namespace Jellyfin.Plugin.Kinopoisk.Api.Model
 {
     public class SearchResult
     {

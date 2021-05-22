@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NSwag.MSBuild" Version="13.11.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- <ItemGroup>
+    <OpenApiReference Include="..\api\swagger.json">
+      <CodeGenerator>NSwagCSharp</CodeGenerator>
+      <Link>OpenAPIs\swagger.json</Link>
+      <Namespace>ClientApi.Services</Namespace>
+      <ClassName>WeatherServiceClient</ClassName>
+      <OutputPath>WeatherServiceClient.cs</OutputPath>
+    </OpenApiReference>
+  </ItemGroup> -->
+
+  <Target Name="GenerateApiClientSourceCode" BeforeTargets="CoreCompile;PrepareResource">
+    <Exec Command="$(NSwagExe_Net50) openapi2csclient /runtime:Net50 /input:https://kinopoiskapiunofficial.tech/documentation/api/openapi.json /namespace:KinopoiskUnofficialInfo /output:$(IntermediateOutputPath)\KinopoiskApiClient.generated.cs" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)\KinopoiskApiClient.generated.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

@@ -13,6 +13,7 @@
         "omnisharp.defaultLaunchSolution": "Kinopoisk.sln",
         "omnisharp.enableRoslynAnalyzers": true,
         "omnisharp.organizeImportsOnFormat": true,
-        "csharp.semanticHighlighting.enabled": true
+        "csharp.semanticHighlighting.enabled": true,
+        "editor.formatOnType": true
     }
 }
