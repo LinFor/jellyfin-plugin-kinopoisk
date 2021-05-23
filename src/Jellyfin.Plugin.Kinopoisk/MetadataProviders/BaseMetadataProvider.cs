@@ -15,7 +15,7 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
             _httpClientFactory = httpClientFactory ?? throw new System.ArgumentNullException(nameof(httpClientFactory));
         }
 
-        public string Name => Utils.ProviderName;
+        public string Name => Constants.ProviderName;
 
         public async Task<HttpResponseMessage> GetImageResponse(string url, CancellationToken cancellationToken)
         {

@@ -37,34 +37,17 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
         protected async Task<IEnumerable<RemoteImageInfo>> FilterEmptyImages(IEnumerable<RemoteImageInfo> images)
         {
             using var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true);
-            var res = await Task.WhenAll(images.Select(i => NullIfEmptyImage(i, httpClient)));
+            var sanitizer = new RemoteImageUrlSanitizer(httpClient);
+            var res = await Task.WhenAll(images.Select(async i => {
+                var sanitizedUrl = await sanitizer.SanitizeRemoteImageUrl(i.Url);
+                if (string.IsNullOrEmpty(sanitizedUrl))
+                    return null;
 
-            return res.Where(i => i != null);
-        }
+                i.Url = sanitizedUrl;
+                return i;
+            }));
 
-        protected async Task<RemoteImageInfo> NullIfEmptyImage(RemoteImageInfo info, HttpClient httpClient)
-        {
-            if (info == null)
-                return null;
-
-            var currentUrl = info.Url;
-            while (!currentUrl.Contains("no-poster"))
-            {
-                var response = await httpClient.SendAsync(
-                    new HttpRequestMessage(HttpMethod.Get, currentUrl), HttpCompletionOption.ResponseHeadersRead);
-
-                if ((int)response.StatusCode <= 299)
-                    return info;
-                else if (response.Headers.Location != null)
-                {
-                    currentUrl = response.Headers.Location.ToString();
-                    continue;
-                }
-                else
-                    throw new InvalidOperationException("Not expected answer");
-            }
-
-            return null;
+            return res.Where(i => i != null).ToArray();
         }
     }
 }

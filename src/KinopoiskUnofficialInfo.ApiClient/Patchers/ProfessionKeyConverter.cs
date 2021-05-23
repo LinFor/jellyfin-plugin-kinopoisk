@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace KinopoiskUnofficialInfo.ApiClient
 {
-    public class JsonProfessionKeyConverter : StringEnumConverter
+    public class ProfessionKeyConverter : StringEnumConverter
     {
         public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue, JsonSerializer serializer)
         {

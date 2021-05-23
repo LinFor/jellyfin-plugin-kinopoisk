@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers;
 using KinopoiskUnofficialInfo.ApiClient;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
@@ -18,14 +19,16 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
     {
         private readonly ILogger<VideoImageProvider> _logger;
         private readonly IKinopoiskApiClient _apiClient;
+        private readonly IProviderIdResolver<BaseItem> _providerIdResolver;
 
-        public override string Name => Utils.ProviderName;
+        public override string Name => Constants.ProviderName;
 
-        public VideoImageProvider(IKinopoiskApiClient kinopoiskApiClient, ILogger<VideoImageProvider> logger, IHttpClientFactory httpClientFactory)
+        public VideoImageProvider(IKinopoiskApiClient kinopoiskApiClient, IProviderIdResolver<BaseItem> providerIdResolver, ILogger<VideoImageProvider> logger, IHttpClientFactory httpClientFactory)
             : base(httpClientFactory)
         {
-            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this._apiClient = kinopoiskApiClient ?? throw new ArgumentNullException(nameof(kinopoiskApiClient));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _apiClient = kinopoiskApiClient ?? throw new ArgumentNullException(nameof(kinopoiskApiClient));
+            _providerIdResolver = providerIdResolver ?? throw new ArgumentNullException(nameof(providerIdResolver));
         }
 
         public override bool Supports(BaseItem item)
@@ -40,7 +43,8 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 
         public override async Task<IEnumerable<RemoteImageInfo>> GetImages(BaseItem item, CancellationToken cancellationToken)
         {
-            if (!Utils.TryGetKinopoiskId(item, _logger, out var kinopoiskId))
+            var (resolveResult, kinopoiskId) = await _providerIdResolver.TryResolve(item, cancellationToken);
+            if (!resolveResult)
                 return Enumerable.Empty<RemoteImageInfo>();
 
             var film = await _apiClient.GetSingleFilm(kinopoiskId, cancellationToken);

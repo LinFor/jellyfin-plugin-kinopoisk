@@ -1,0 +1,47 @@
+version: VCR.net 1.0.0
+httpInteractions:
+- request:
+    uri: https://kinopoiskapiunofficial.tech/api/v2.1/films/948870/videos
+    method: GET
+    headers:
+      Accept:
+      - application/json
+      X-API-KEY:
+      - 85d30ae5-d875-4c5f-900d-8e37bb20625e
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Server:
+      - nginx/1.18.0
+      - (Ubuntu)
+      Date:
+      - Sun, 23 May 2021 15:14:51 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-store, must-revalidate, no-cache, max-age=0
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - DENY
+      Content-Type:
+      - application/json
+      Expires:
+      - 0
+    body:
+      encoding: ''
+      string: |-
+        {"trailers":[],"teasers":[]}
+    httpVersion: 1.1

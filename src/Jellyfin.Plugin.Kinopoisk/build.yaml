@@ -2,17 +2,24 @@
 name: "КиноПоиск"
 guid: "0c136f8a-ff77-4f2b-ade5-13462cae6216"
 imageUrl: "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png"
-version: "10.7.0.5"
+version: "10.7.5.0"
 targetAbi: "10.7.0"
 framework: "net5.0"
 owner: "linfor"
-overview: "Загружает рейтинги сайта КиноПоиск"
+overview: "Информация о фильмах и сериалах с КиноПоиска"
 description: >
-  Загружает рейтинги сайта КиноПоиск
+  Загружает рейтинг, описания, актёров, трейлеры и т.д. с сайта КиноПоиск.
+  Может потребоваться зарегистрировать свой ApiToken, см. информацию в параметрах плагина.
+  Для точного распознавания рекомендуется указывать id фильма с сайта КиноПоиск в имени файла в формате kp-12345 или kp12345.
+  Подробнее см. https://github.com/LinFor/jellyfin-plugin-kinopoisk/blob/master/README.md
 category: "Metadata"
 artifacts:
 - "Jellyfin.Plugin.Kinopoisk.dll"
 - "KinopoiskUnofficialInfo.ApiClient.dll"
 - "Newtonsoft.Json.dll"
 changelog: >
-  Added trailers filtering: jellyfin-web can only play youtube trailers, not kinopoisk-hosted
+  Short: Huge improvement in auto-identifying of movies.
+  Rus: Значительно улучшено авто-привязка фильмов при добавлении в медиатеку.
+  Пытаюсь найти идентификатор кинопоиска по паттерну kp-12345 или kp12345 в имени файла/папки.
+  Пытаюсь найти единственное совпадение на кинопоиске по имени + году.
+  Пытаюсь перебрать все совпадения по имени + сравнение IMDB ID.

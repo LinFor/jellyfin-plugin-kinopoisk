@@ -3,26 +3,30 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers;
 using KinopoiskUnofficialInfo.ApiClient;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
 using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 {
-    public abstract class VideoBaseProvider<TItemType, TLookupInfoType> : BaseMetadataProvider, IRemoteMetadataProvider<TItemType, TLookupInfoType>
+    public abstract class BaseVideoMetadataProvider<TItemType, TLookupInfoType> : BaseMetadataProvider, IRemoteMetadataProvider<TItemType, TLookupInfoType>
         where TItemType : BaseItem, IHasLookupInfo<TLookupInfoType>
         where TLookupInfoType : ItemLookupInfo, new()
     {
         private readonly ILogger _logger;
         private readonly IKinopoiskApiClient _apiClient;
+        private readonly IProviderIdResolver<TLookupInfoType> _providerIdResolver;
 
-        public VideoBaseProvider(IKinopoiskApiClient kinopoiskApiClient, ILogger logger, IHttpClientFactory httpClientFactory)
+        public BaseVideoMetadataProvider(IKinopoiskApiClient kinopoiskApiClient, IProviderIdResolver<TLookupInfoType> providerIdResolver, ILogger logger, IHttpClientFactory httpClientFactory)
             : base(httpClientFactory)
         {
-            this._logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
-            this._apiClient = kinopoiskApiClient ?? throw new System.ArgumentNullException(nameof(kinopoiskApiClient));
+            _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            _apiClient = kinopoiskApiClient ?? throw new System.ArgumentNullException(nameof(kinopoiskApiClient));
+            _providerIdResolver = providerIdResolver ?? throw new System.ArgumentNullException(nameof(providerIdResolver));
         }
 
         protected abstract TItemType ConvertResponseToItem(Film apiResponse);
@@ -32,11 +36,12 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
             var result = new MetadataResult<TItemType>()
             {
                 QueriedById = true,
-                Provider = Utils.ProviderName,
-                ResultLanguage = Utils.ProviderMetadataLanguage
+                Provider = Constants.ProviderName,
+                ResultLanguage = Constants.ProviderMetadataLanguage
             };
 
-            if (!Utils.TryGetKinopoiskId(info, _logger, out var kinopoiskId))
+            var (resolveResult, kinopoiskId) = await _providerIdResolver.TryResolve(info, cancellationToken);
+            if (!resolveResult)
                 return result;
 
             var film = await _apiClient.GetSingleFilm(kinopoiskId, cancellationToken);
@@ -51,7 +56,8 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            foreach (var item in staff.ToPersonInfos())
+            var sanitizedPersons = await SanitizeEmptyImagePersonInfos(staff.ToPersonInfos());
+            foreach (var item in sanitizedPersons)
                 result.AddPerson(item);
 
             var trailers = await _apiClient.GetTrailers(kinopoiskId, cancellationToken);
@@ -65,7 +71,8 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
 
         public async Task<IEnumerable<RemoteSearchResult>> GetSearchResults(TLookupInfoType searchInfo, CancellationToken cancellationToken)
         {
-            if (Utils.TryGetKinopoiskId(searchInfo, _logger, out var kinopoiskId))
+            if (searchInfo.TryGetProviderId(Constants.ProviderId, out var kinopoiskIdStr)
+                && int.TryParse(kinopoiskIdStr, out var kinopoiskId))
             {
                 var singleResult = (await _apiClient.GetSingleFilm(kinopoiskId, cancellationToken)).ToRemoteSearchResult();
                 return Enumerable.Repeat(singleResult, 1);
@@ -74,6 +81,18 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
             {
                 return (await _apiClient.SearchByKeyword(searchInfo.Name, cancellationToken: cancellationToken)).ToRemoteSearchResults();
             }
+        }
+
+        protected async Task<IEnumerable<PersonInfo>> SanitizeEmptyImagePersonInfos(IEnumerable<PersonInfo> images)
+        {
+            using var httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false }, true);
+            var sanitizer = new RemoteImageUrlSanitizer(httpClient);
+            var res = await Task.WhenAll(images.Select(async p => {
+                p.ImageUrl = await sanitizer.SanitizeRemoteImageUrl(p.ImageUrl);
+                return p;
+            }));
+
+            return res.Where(i => i != null).ToArray();
         }
     }
 }

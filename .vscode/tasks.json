@@ -49,6 +49,20 @@
             "presentation": {
                 "reveal": "silent"
             },
+            "problemMatcher": "$msCompile",
+            "dependsOn": ["clear-plugin-state-before-debug"]
+        },
+        {
+            "label": "clear-plugin-state-before-debug",
+            "command": "rm",
+            "type": "process",
+            "args": [
+                "-f", "/jellyfin-data/plugins/kinopoisk/meta.json"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
             "problemMatcher": "$msCompile"
         },
         {

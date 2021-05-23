@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -22,7 +23,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
 #pragma warning disable CS0618
                     property.MemberConverter = null;
 #pragma warning restore CS0618
-                    property.Converter = new JsonProfessionKeyConverter();
+                    property.Converter = new ProfessionKeyConverter();
                 }
 
                 if (type == typeof(VideoResponse_trailers))
@@ -31,6 +32,17 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     {
                         property.Required = Required.Default;
                         property.DefaultValue = -1;
+                    }
+                }
+
+                if (type == typeof(Budget))
+                {
+                    if (property.PropertyType == typeof(Int32))
+                    {
+#pragma warning disable CS0618
+                    property.MemberConverter = null;
+#pragma warning restore CS0618
+                    property.Converter = new IntegerOverflowConverter();
                     }
                 }
             }

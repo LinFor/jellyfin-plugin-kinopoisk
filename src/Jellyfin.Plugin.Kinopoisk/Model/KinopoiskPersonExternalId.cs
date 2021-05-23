@@ -7,9 +7,9 @@ namespace Jellyfin.Plugin.Kinopoisk.Model
 {
     public class KinopoiskPersonExternalId : IExternalId
     {
-        public string ProviderName => Utils.ProviderName;
+        public string ProviderName => Constants.ProviderName;
 
-        public string Key => Utils.ProviderId;
+        public string Key => Constants.ProviderId;
 
         public string UrlFormatString => "https://www.kinopoisk.ru/name/{0}";
 

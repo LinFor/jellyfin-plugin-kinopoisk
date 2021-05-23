@@ -38,6 +38,7 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
         [InlineData(1142206, "Пальма", null)]
         [InlineData(1044982, "Шпион, который меня кинул", "The Spy Who Dumped Me")]
         [InlineData(1445243, "Будь моим Кириллом", null)]
+        [InlineData(251733, "Аватар", "Avatar")]
         public async Task GetSingleFilm_ShouldParseFilm(int filmId, string nameRu, string nameEn)
         {
             using (_vcr.UseCassette($"{GetMethodName()}_{filmId}", RecordMode.NewEpisodes))
@@ -114,6 +115,21 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
 
                 Assert.NotNull(res);
                 Assert.Contains(res.Trailers, t => name.Equals(t.Name));
+            }
+        }
+
+        [Theory]
+        [InlineData(948870)]
+        public async Task GetTrailers_ShouldReturnEmptyResponse(int filmId)
+        {
+            using (_vcr.UseCassette($"{GetMethodName()}_{filmId}", RecordMode.NewEpisodes))
+            {
+                var apiClient = new KinopoiskApiClient(ApiToken, _loggerFactory.CreateLogger<KinopoiskApiClient>(), _clientFactoryMock.Object);
+
+                var res = await apiClient.GetTrailers(filmId);
+
+                Assert.NotNull(res);
+                Assert.Empty(res.Trailers);
             }
         }
     }

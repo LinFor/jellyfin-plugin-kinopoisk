@@ -60,6 +60,17 @@ namespace KinopoiskUnofficialInfo.ApiClient
             => Invoke((ct) => _apiClient.StaffAsync(personId, ct), cancellationToken);
 
         public Task<VideoResponse> GetTrailers(int filmId, CancellationToken? cancellationToken = null)
-            => Invoke((ct) => _apiClient.VideosAsync(filmId, ct), cancellationToken);
+        {
+            return Invoke(async (ct) => {
+                try {
+                    return await _apiClient.VideosAsync(filmId, ct);
+                } catch (ApiException e)
+                {
+                    if (e.StatusCode == 404)
+                        return new VideoResponse();
+                    throw;
+                }
+            }, cancellationToken);
+        }
     }
 }

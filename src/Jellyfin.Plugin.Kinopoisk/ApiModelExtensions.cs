@@ -23,9 +23,9 @@ namespace Jellyfin.Plugin.Kinopoisk
                 ImageUrl = src.Data.PosterUrl,
                 PremiereDate = src.Data.GetPremiereDate(),
                 Overview = src.Data.Description,
-                SearchProviderName = Utils.ProviderName
+                SearchProviderName = Constants.ProviderName
             };
-            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.Data.FilmId));
+            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.Data.FilmId));
 
             return res;
         }
@@ -48,9 +48,9 @@ namespace Jellyfin.Plugin.Kinopoisk
                 ImageUrl = src.PosterUrl,
                 PremiereDate = src.GetPremiereDate(),
                 Overview = src.Description,
-                SearchProviderName = Utils.ProviderName
+                SearchProviderName = Constants.ProviderName
             };
-            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.FilmId));
+            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.FilmId));
 
             return res;
         }
@@ -86,7 +86,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         private static void FillCommonFilmInfo(Film src, BaseItem dst)
         {
-            dst.SetProviderId(Utils.ProviderId, Convert.ToString(src.Data.FilmId));
+            dst.SetProviderId(Constants.ProviderId, Convert.ToString(src.Data.FilmId));
             dst.Name = src.GetLocalName();
             dst.OriginalTitle = src.GetOriginalNameIfNotSame();
             dst.PremiereDate = src.Data.GetPremiereDate();
@@ -148,8 +148,8 @@ namespace Jellyfin.Plugin.Kinopoisk
                 var mainPoster = new RemoteImageInfo(){
                     Type = ImageType.Primary,
                     Url = src.Data.PosterUrl,
-                    Language = Utils.ProviderMetadataLanguage,
-                    ProviderName = Utils.ProviderName
+                    Language = Constants.ProviderMetadataLanguage,
+                    ProviderName = Constants.ProviderName
                 };
                 res = res.Concat(Enumerable.Repeat(mainPoster, 1));
             }
@@ -182,7 +182,7 @@ namespace Jellyfin.Plugin.Kinopoisk
                 Language = src.Language,
                 Height = src.Height,
                 Width = src.Width,
-                ProviderName = Utils.ProviderName
+                ProviderName = Constants.ProviderName
             };
         }
 
@@ -203,9 +203,17 @@ namespace Jellyfin.Plugin.Kinopoisk
             return new MediaUrl
             {
                 Name = src.Name,
-                Url = src.Url
-                    .Replace("https://youtu.be/", "https://www.youtube.com/watch?v=") // Jellyfin web currently don't recognize youtu.be links
+                Url = src.Url.SanitizeYoutubeLink()
             };
+        }
+
+        public static string SanitizeYoutubeLink(this string src)
+        {
+            // Jellyfin web currently recognizes only https://www.youtube.com/watch?v=xxx links
+            return src
+                .Replace("http://", "https://")
+                .Replace("https://youtu.be/", "https://www.youtube.com/watch?v=")
+                .Replace("https://www.youtube.com/v/", "https://www.youtube.com/watch?v=");
         }
 
         public static RemoteImageInfo ToRemoteImageInfo(this PersonResponse src)
@@ -216,7 +224,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return new RemoteImageInfo(){
                 Type = ImageType.Primary,
                 Url = src.PosterUrl,
-                ProviderName = Utils.ProviderName
+                ProviderName = Constants.ProviderName
             };
         }
 
@@ -234,7 +242,10 @@ namespace Jellyfin.Plugin.Kinopoisk
             };
             if (string.IsNullOrWhiteSpace(res.Name))
                 res.Name = src.NameEn ?? string.Empty;
-            res.SetProviderId(Utils.ProviderId, Convert.ToString(src.StaffId));
+            if (src.AdditionalProperties.TryGetValue("description", out var description))
+                res.Role = description as string;
+
+            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.StaffId));
 
             return res;
         }

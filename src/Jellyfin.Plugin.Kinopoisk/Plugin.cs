@@ -12,9 +12,9 @@ namespace Jellyfin.Plugin.Kinopoisk
     {
         public static Plugin Instance { get; private set; }
 
-        public override string Name => Utils.ProviderName;
+        public override string Name => Constants.ProviderName;
 
-        public override string Description => Utils.ProviderDescription;
+        public override string Description => Constants.ProviderDescription;
 
         public override Guid Id => Guid.Parse("33e6d249-648f-44cd-a9ce-497be06c08df");
 
