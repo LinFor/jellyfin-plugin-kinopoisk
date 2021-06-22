@@ -6,6 +6,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
 {
     public class ProfessionKeyConverter : StringEnumConverter
     {
+        public override bool CanConvert(System.Type objectType)
+            => objectType == typeof(PersonResponse_filmsProfessionKey);
+
         public override object ReadJson(JsonReader reader, System.Type objectType, object existingValue, JsonSerializer serializer)
         {
             try

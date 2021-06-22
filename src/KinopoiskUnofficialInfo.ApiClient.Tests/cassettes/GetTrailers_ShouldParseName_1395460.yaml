@@ -17,7 +17,7 @@ httpInteractions:
       - nginx/1.18.0
       - (Ubuntu)
       Date:
-      - Sat, 22 May 2021 22:03:00 GMT
+      - Tue, 22 Jun 2021 08:29:38 GMT
       Transfer-Encoding:
       - chunked
       Connection:
@@ -43,5 +43,5 @@ httpInteractions:
     body:
       encoding: ''
       string: |-
-        {"trailers":[{"url":"https://widgets.kinopoisk.ru/discovery/trailer/174413?onlyPlayer=1&autoplay=1&cover=1","name":"Интернет-трейлер (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173714?onlyPlayer=1&autoplay=1&cover=1","name":"Трейлер №2 (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173240?onlyPlayer=1&autoplay=1&cover=1","name":"Фрагмент (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://youtu.be/GAXMdM2gkZ0","name":"Трейлер (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"},{"url":"https://youtu.be/CoHR6BiI4TA","name":"О съёмках (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"}],"teasers":[]}
+        {"trailers":[{"url":"https://youtu.be/83fRcdyrVg0","name":"Трейлер (сезон 2)","site":"YOUTUBE","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/174413?onlyPlayer=1&autoplay=1&cover=1","name":"Интернет-трейлер (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173714?onlyPlayer=1&autoplay=1&cover=1","name":"Трейлер №2 (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173240?onlyPlayer=1&autoplay=1&cover=1","name":"Фрагмент (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://youtu.be/GAXMdM2gkZ0","name":"Трейлер (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"},{"url":"https://youtu.be/CoHR6BiI4TA","name":"О съёмках (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"}],"teasers":[]}
     httpVersion: 1.1
