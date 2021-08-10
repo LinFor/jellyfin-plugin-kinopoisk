@@ -64,10 +64,10 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             FillCommonFilmInfo(src, res);
 
-            res.EndDate = src.Data.GetEndDate();
-            res.Status = src.Data.IsContinuing()
-                ? SeriesStatus.Continuing
-                : SeriesStatus.Ended;
+            // res.EndDate = src.Data.GetEndDate();
+            // res.Status = src.Data.IsContinuing()
+            //     ? SeriesStatus.Continuing
+            //     : SeriesStatus.Ended;
 
             return res;
         }
@@ -188,16 +188,16 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static IReadOnlyList<MediaUrl> ToMediaUrls(this VideoResponse src)
         {
-            if (src is null || src.Trailers is null || src.Trailers.Count < 1)
+            if (src is null || src.Items is null || src.Items.Count < 1)
                 return null;
 
-            return src.Trailers.Select(t => t.ToMediaUrl())
+            return src.Items.Select(t => t.ToMediaUrl())
                 .Where(mu => mu != null)
                 .ToList();
         }
 
-        public static MediaUrl ToMediaUrl(this VideoResponse_trailers src) {
-            if (src is null || !"YOUTUBE".Equals(src.Site))
+        public static MediaUrl ToMediaUrl(this VideoResponse_items src) {
+            if (src is null || !VideoResponse_itemsSite.YOUTUBE.Equals(src.Site))
                 return null;
 
             return new MediaUrl
@@ -305,9 +305,8 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (res.HasValue)
                 return res;
 
-            var firstYear = GetFirstYear(src.Year);
-            if (firstYear != null)
-                return new DateTime(firstYear.Value, 1, 1);
+            if (src.Year > 1900)
+                return new DateTime(src.Year, 1, 1);
 
             return null;
         }
@@ -320,18 +319,6 @@ namespace Jellyfin.Plugin.Kinopoisk
 
             return null;
         }
-
-        public static DateTime? GetEndDate(this CommonFilmData src)
-        {
-            var lastYear = GetLastYear(src.Year);
-            if (lastYear != null)
-                return new DateTime(lastYear.Value, 12, 31);
-
-            return null;
-        }
-
-        public static bool IsContinuing(this CommonFilmData src)
-            => IsСontinuing(src?.Year);
 
         public static string GetLocalName(this Film src)
         {

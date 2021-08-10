@@ -1,7 +1,7 @@
 version: VCR.net 1.0.0
 httpInteractions:
 - request:
-    uri: https://kinopoiskapiunofficial.tech/api/v2.1/films/948870/videos
+    uri: https://kinopoiskapiunofficial.tech/api/v2.2/films/948870/videos
     method: GET
     headers:
       Accept:
@@ -10,14 +10,14 @@ httpInteractions:
       - 85d30ae5-d875-4c5f-900d-8e37bb20625e
   response:
     status:
-      code: 404
+      code: 200
       message: ''
     headers:
       Server:
       - nginx/1.18.0
       - (Ubuntu)
       Date:
-      - Tue, 22 Jun 2021 08:29:39 GMT
+      - Tue, 10 Aug 2021 13:59:59 GMT
       Transfer-Encoding:
       - chunked
       Connection:
@@ -43,5 +43,5 @@ httpInteractions:
     body:
       encoding: ''
       string: |-
-        {"trailers":[],"teasers":[]}
+        {"total":0,"items":[]}
     httpVersion: 1.1

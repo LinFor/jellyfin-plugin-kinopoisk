@@ -1,7 +1,7 @@
 version: VCR.net 1.0.0
 httpInteractions:
 - request:
-    uri: https://kinopoiskapiunofficial.tech/api/v2.1/films/1395460/videos
+    uri: https://kinopoiskapiunofficial.tech/api/v2.2/films/1395460/videos
     method: GET
     headers:
       Accept:
@@ -17,7 +17,7 @@ httpInteractions:
       - nginx/1.18.0
       - (Ubuntu)
       Date:
-      - Tue, 22 Jun 2021 08:29:38 GMT
+      - Tue, 10 Aug 2021 13:59:58 GMT
       Transfer-Encoding:
       - chunked
       Connection:
@@ -43,5 +43,5 @@ httpInteractions:
     body:
       encoding: ''
       string: |-
-        {"trailers":[{"url":"https://youtu.be/83fRcdyrVg0","name":"Трейлер (сезон 2)","site":"YOUTUBE","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/174413?onlyPlayer=1&autoplay=1&cover=1","name":"Интернет-трейлер (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173714?onlyPlayer=1&autoplay=1&cover=1","name":"Трейлер №2 (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://widgets.kinopoisk.ru/discovery/trailer/173240?onlyPlayer=1&autoplay=1&cover=1","name":"Фрагмент (сезон 1)","site":"KINOPOISK_WIDGET","size":null,"type":"TRAILER"},{"url":"https://youtu.be/GAXMdM2gkZ0","name":"Трейлер (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"},{"url":"https://youtu.be/CoHR6BiI4TA","name":"О съёмках (сезон 1)","site":"YOUTUBE","size":null,"type":"TRAILER"}],"teasers":[]}
+        {"total":6,"items":[{"url":"https://youtu.be/CoHR6BiI4TA","name":"О съёмках (сезон 1)","site":"UNKNOWN"},{"url":"https://youtu.be/GAXMdM2gkZ0","name":"Трейлер (сезон 1)","site":"UNKNOWN"},{"url":"https://trailers.s3.mds.yandex.net/video_original/173240-7271863259028188.mp4","name":"Фрагмент (сезон 1)","site":"UNKNOWN"},{"url":"https://trailers.s3.mds.yandex.net/video_original/173714-4075129810108049.mp4","name":"Трейлер №2 (сезон 1)","site":"UNKNOWN"},{"url":"https://trailers.s3.mds.yandex.net/video_original/174413-3555489888487551.mp4","name":"Интернет-трейлер (сезон 1)","site":"UNKNOWN"},{"url":"https://youtu.be/83fRcdyrVg0","name":"Трейлер (сезон 2)","site":"UNKNOWN"}]}
     httpVersion: 1.1

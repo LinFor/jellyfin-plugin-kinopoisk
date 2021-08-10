@@ -55,9 +55,9 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
         }
 
         [Theory]
-        [InlineData(4416198, "В активном поиске", null)]
-        [InlineData(77298, "Вавилон 5", "Babylon 5")]
-        public async Task GetSingleFilm_ShouldParseTvShow(int filmId, string nameRu, string nameEn)
+        [InlineData(4416198, "В активном поиске", null, CommonFilmDataType.TV_SERIES)]
+        [InlineData(77298, "Вавилон 5", "Babylon 5", CommonFilmDataType.TV_SHOW)]
+        public async Task GetSingleFilm_ShouldParseTvShow(int filmId, string nameRu, string nameEn, CommonFilmDataType type)
         {
             using (_vcr.UseCassette($"{GetMethodName()}_{filmId}", RecordMode.NewEpisodes))
             {
@@ -66,7 +66,7 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
                 var res = await apiClient.GetSingleFilm(filmId);
 
                 Assert.NotNull(res);
-                Assert.Equal(CommonFilmDataType.TV_SHOW, res.Data.Type);
+                Assert.Equal(type, res.Data.Type);
                 Assert.Equal(nameRu, res.Data.NameRu);
                 Assert.Equal(nameEn, res.Data.NameEn);
             }
@@ -114,7 +114,7 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
                 var res = await apiClient.GetTrailers(filmId);
 
                 Assert.NotNull(res);
-                Assert.Contains(res.Trailers, t => name.Equals(t.Name));
+                Assert.Contains(res.Items, t => name.Equals(t.Name));
             }
         }
 
@@ -129,7 +129,7 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
                 var res = await apiClient.GetTrailers(filmId);
 
                 Assert.NotNull(res);
-                Assert.Empty(res.Trailers);
+                Assert.Empty(res.Items);
             }
         }
     }

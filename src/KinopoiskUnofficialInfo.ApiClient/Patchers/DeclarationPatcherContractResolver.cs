@@ -12,7 +12,6 @@ namespace KinopoiskUnofficialInfo.ApiClient
 
         private readonly ICollection<(System.Type, string)> _allowNull = new[] {
             (typeof(CommonFilmData), "ratingAgeLimits"),
-            (typeof(VideoResponse_trailers), "size"),
             (typeof(Budget), null),
         };
 

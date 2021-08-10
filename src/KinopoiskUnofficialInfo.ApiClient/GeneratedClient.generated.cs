@@ -16,36 +16,36 @@ namespace KinopoiskUnofficialInfo.ApiClient
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class Client 
+    public partial class Client
     {
         private string _baseUrl = "https://kinopoiskapiunofficial.tech";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-    
+
         public Client(System.Net.Http.HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
         }
-    
+
         private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
         {
             var settings = KinopoiskUnofficialInfo.ApiClient.JsonTransformator.TransformSettings(new Newtonsoft.Json.JsonSerializerSettings {  });
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
-    
+
         public string BaseUrl
         {
             get { return _baseUrl; }
             set { _baseUrl = value; }
         }
-    
+
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-    
+
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-    
-    
+
+
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
@@ -58,7 +58,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return FilmsAsync(id, append_to_response, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get film data by kinopoisk film id</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -69,7 +69,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/{id}?");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
@@ -78,7 +78,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 foreach (var item_ in append_to_response) { urlBuilder_.Append(System.Uri.EscapeDataString("append_to_response") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -87,14 +87,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -105,9 +105,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -155,7 +155,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get film frames</summary>
         /// <param name="id">film id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -164,7 +164,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return FramesAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get film frames</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -174,11 +174,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/{id}/frames");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -187,14 +187,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -205,9 +205,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -255,7 +255,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get film trailers/teasers</summary>
         /// <param name="id">film id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -264,7 +264,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return VideosAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get film trailers/teasers</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -274,11 +274,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/{id}/videos");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.2/films/{id}/videos");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -287,14 +287,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -305,9 +305,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -323,12 +323,6 @@ namespace KinopoiskUnofficialInfo.ApiClient
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("Wrong or empty access token", status_, responseText_, headers_, null);
-                        }
-                        else
-                        if (status_ == 404)
-                        {
-                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("Videos are not found", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 429)
@@ -355,7 +349,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get studios information for film</summary>
         /// <param name="id">film id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -364,7 +358,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return StudiosAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get studios information for film</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -374,11 +368,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/{id}/studios");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -387,14 +381,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -405,9 +399,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -455,7 +449,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get list of films by keyword</summary>
         /// <param name="keyword">keywords for searching film</param>
         /// <param name="page">page number</param>
@@ -465,7 +459,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return SearchByKeywordAsync(keyword, page, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get list of films by keyword</summary>
         /// <param name="keyword">keywords for searching film</param>
@@ -476,7 +470,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (keyword == null)
                 throw new System.ArgumentNullException("keyword");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/search-by-keyword?");
             urlBuilder_.Append(System.Uri.EscapeDataString("keyword") + "=").Append(System.Uri.EscapeDataString(ConvertToString(keyword, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -485,7 +479,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 urlBuilder_.Append(System.Uri.EscapeDataString("page") + "=").Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -494,14 +488,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -512,9 +506,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -562,7 +556,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get counries and genres ids for /api/v2.1/films/search-by-filters</summary>
         /// <returns>Successful operation</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -570,7 +564,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return FiltersAsync(System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get counries and genres ids for /api/v2.1/films/search-by-filters</summary>
         /// <returns>Successful operation</returns>
@@ -579,7 +573,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/filters");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -588,14 +582,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -606,9 +600,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -656,7 +650,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get list of films by different filters</summary>
         /// <param name="country">comma-separated list of country ids. E.g. &lt;i&gt;country=1,2,3&lt;/i&gt;</param>
         /// <param name="genre">comma-separated list of genre ids. E.g. &lt;i&gt;genre=1,2,3&lt;/i&gt;</param>
@@ -673,7 +667,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return SearchByFiltersAsync(country, genre, order, type, ratingFrom, ratingTo, yearFrom, yearTo, page, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get list of films by different filters</summary>
         /// <param name="country">comma-separated list of country ids. E.g. &lt;i&gt;country=1,2,3&lt;/i&gt;</param>
@@ -728,7 +722,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 urlBuilder_.Append(System.Uri.EscapeDataString("page") + "=").Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -737,14 +731,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -755,9 +749,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -805,7 +799,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get list of films accoding to kinopoisk tops. E.g https://www.kinopoisk.ru/top/lists/58/</summary>
         /// <param name="type">type of top</param>
         /// <param name="page">page number</param>
@@ -815,7 +809,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return TopAsync(type, page, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get list of films accoding to kinopoisk tops. E.g https://www.kinopoisk.ru/top/lists/58/</summary>
         /// <param name="type">type of top</param>
@@ -835,7 +829,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 urlBuilder_.Append(System.Uri.EscapeDataString("page") + "=").Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -844,14 +838,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -862,9 +856,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -906,7 +900,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get similars for particular film</summary>
         /// <param name="id">film id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -915,7 +909,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return SimilarsAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get similars for particular film</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -925,11 +919,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.2/films/{id}/similars");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -938,14 +932,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -956,9 +950,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1000,7 +994,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get digital releases</summary>
         /// <param name="year">releases will be shown for this year</param>
         /// <param name="month">releases will be shown for this month</param>
@@ -1011,7 +1005,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return ReleasesAsync(year, month, page, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get digital releases</summary>
         /// <param name="year">releases will be shown for this year</param>
@@ -1023,10 +1017,10 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (year == null)
                 throw new System.ArgumentNullException("year");
-    
+
             if (month == null)
                 throw new System.ArgumentNullException("month");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/releases?");
             urlBuilder_.Append(System.Uri.EscapeDataString("year") + "=").Append(System.Uri.EscapeDataString(ConvertToString(year, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1036,7 +1030,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 urlBuilder_.Append(System.Uri.EscapeDataString("page") + "=").Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1045,14 +1039,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1063,9 +1057,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1113,7 +1107,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get list of reviews by kinopoisk film id</summary>
         /// <param name="filmId">film id from kinopoisk</param>
         /// <param name="page">page number. Max value is 999</param>
@@ -1123,7 +1117,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return ReviewsAsync(filmId, page, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get list of reviews by kinopoisk film id</summary>
         /// <param name="filmId">film id from kinopoisk</param>
@@ -1134,7 +1128,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (filmId == null)
                 throw new System.ArgumentNullException("filmId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/reviews?");
             urlBuilder_.Append(System.Uri.EscapeDataString("filmId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(filmId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1143,7 +1137,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 urlBuilder_.Append(System.Uri.EscapeDataString("page") + "=").Append(System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1152,14 +1146,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1170,9 +1164,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1220,7 +1214,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get review details by kinopoisk review id</summary>
         /// <param name="reviewId">review id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -1229,7 +1223,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return DetailsAsync(reviewId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get review details by kinopoisk review id</summary>
         /// <param name="reviewId">review id from kinopoisk</param>
@@ -1239,12 +1233,12 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (reviewId == null)
                 throw new System.ArgumentNullException("reviewId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/reviews/details?");
             urlBuilder_.Append(System.Uri.EscapeDataString("reviewId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(reviewId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1253,14 +1247,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1271,9 +1265,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1321,7 +1315,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get staff by kinopoisk film id</summary>
         /// <param name="filmId">film id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -1330,7 +1324,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return StaffAllAsync(filmId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get staff by kinopoisk film id</summary>
         /// <param name="filmId">film id from kinopoisk</param>
@@ -1340,12 +1334,12 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (filmId == null)
                 throw new System.ArgumentNullException("filmId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/staff?");
             urlBuilder_.Append(System.Uri.EscapeDataString("filmId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(filmId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1354,14 +1348,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1372,9 +1366,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1422,7 +1416,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         /// <summary>Get person data by kinopoisk person id</summary>
         /// <param name="id">person id from kinopoisk</param>
         /// <returns>Successful operation</returns>
@@ -1431,7 +1425,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return StaffAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get person data by kinopoisk person id</summary>
         /// <param name="id">person id from kinopoisk</param>
@@ -1441,11 +1435,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/staff/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1454,14 +1448,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1472,9 +1466,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1522,7 +1516,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -1530,21 +1524,21 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 this.Object = responseObject;
                 this.Text = responseText;
             }
-    
+
             public T Object { get; }
-    
+
             public string Text { get; }
         }
-    
+
         public bool ReadResponseAsString { get; set; }
-        
+
         protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
         {
             if (response == null || response.Content == null)
             {
                 return new ObjectResponseResult<T>(default(T), string.Empty);
             }
-        
+
             if (ReadResponseAsString)
             {
                 var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1579,14 +1573,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 }
             }
         }
-    
+
         private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
         {
             if (value == null)
             {
                 return "";
             }
-        
+
             if (value is System.Enum)
             {
                 var name = System.Enum.GetName(value.GetType(), value);
@@ -1595,19 +1589,19 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
                     if (field != null)
                     {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute))
                             as System.Runtime.Serialization.EnumMemberAttribute;
                         if (attribute != null)
                         {
                             return attribute.Value != null ? attribute.Value : name;
                         }
                     }
-        
+
                     var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
                     return converted == null ? string.Empty : converted;
                 }
             }
-            else if (value is bool) 
+            else if (value is bool)
             {
                 return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
             }
@@ -1620,43 +1614,43 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
                 return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
             }
-        
+
             var result = System.Convert.ToString(value, cultureInfo);
             return result == null ? "" : result;
         }
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class AndClient 
+    public partial class AndClient
     {
         private string _baseUrl = "https://kinopoiskapiunofficial.tech";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-    
+
         public AndClient(System.Net.Http.HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
         }
-    
+
         private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
         {
             var settings = KinopoiskUnofficialInfo.ApiClient.JsonTransformator.TransformSettings(new Newtonsoft.Json.JsonSerializerSettings {  });
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
-    
+
         public string BaseUrl
         {
             get { return _baseUrl; }
             set { _baseUrl = value; }
         }
-    
+
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-    
+
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-    
-    
+
+
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
@@ -1668,7 +1662,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             return PrequelsAsync(id, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Get sequels and prequels for particular film</summary>
         /// <param name="id">film id from kinopoisk</param>
@@ -1678,11 +1672,11 @@ namespace KinopoiskUnofficialInfo.ApiClient
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v2.1/films/{id}/sequels_and_prequels");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1691,14 +1685,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1709,9 +1703,9 @@ namespace KinopoiskUnofficialInfo.ApiClient
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1759,7 +1753,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     client_.Dispose();
             }
         }
-    
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -1767,21 +1761,21 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 this.Object = responseObject;
                 this.Text = responseText;
             }
-    
+
             public T Object { get; }
-    
+
             public string Text { get; }
         }
-    
+
         public bool ReadResponseAsString { get; set; }
-        
+
         protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
         {
             if (response == null || response.Content == null)
             {
                 return new ObjectResponseResult<T>(default(T), string.Empty);
             }
-        
+
             if (ReadResponseAsString)
             {
                 var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1816,14 +1810,14 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 }
             }
         }
-    
+
         private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
         {
             if (value == null)
             {
                 return "";
             }
-        
+
             if (value is System.Enum)
             {
                 var name = System.Enum.GetName(value.GetType(), value);
@@ -1832,19 +1826,19 @@ namespace KinopoiskUnofficialInfo.ApiClient
                     var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
                     if (field != null)
                     {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute))
                             as System.Runtime.Serialization.EnumMemberAttribute;
                         if (attribute != null)
                         {
                             return attribute.Value != null ? attribute.Value : name;
                         }
                     }
-        
+
                     var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
                     return converted == null ? string.Empty : converted;
                 }
             }
-            else if (value is bool) 
+            else if (value is bool)
             {
                 return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
             }
@@ -1857,1751 +1851,1753 @@ namespace KinopoiskUnofficialInfo.ApiClient
                 var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
                 return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
             }
-        
+
             var result = System.Convert.ToString(value, cultureInfo);
             return result == null ? "" : result;
         }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Film 
+    public partial class Film
     {
         [Newtonsoft.Json.JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public CommonFilmData Data { get; set; } = new CommonFilmData();
-    
+
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public Rating Rating { get; set; } = new Rating();
-    
+
         [Newtonsoft.Json.JsonProperty("budget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public Budget Budget { get; set; } = new Budget();
-    
+
         [Newtonsoft.Json.JsonProperty("review", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public Review Review { get; set; } = new Review();
-    
+
         [Newtonsoft.Json.JsonProperty("externalId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public ExternalId ExternalId { get; set; } = new ExternalId();
-    
+
         [Newtonsoft.Json.JsonProperty("images", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public Images Images { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Season 
+    public partial class Season
     {
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
         public int Number { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("episodes", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Episode> Episodes { get; set; } = new System.Collections.ObjectModel.Collection<Episode>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Episode 
+    public partial class Episode
     {
         [Newtonsoft.Json.JsonProperty("seasonNumber", Required = Newtonsoft.Json.Required.Always)]
         public int SeasonNumber { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("episodeNumber", Required = Newtonsoft.Json.Required.Always)]
         public int EpisodeNumber { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("synopsis", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Synopsis { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("releaseDate", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReleaseDate { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Country 
+    public partial class Country
     {
         [Newtonsoft.Json.JsonProperty("country", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Country1 { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Genre 
+    public partial class Genre
     {
         [Newtonsoft.Json.JsonProperty("genre", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Genre1 { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FiltersResponse 
+    public partial class FiltersResponse
     {
         [Newtonsoft.Json.JsonProperty("genres", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FiltersResponse_genres> Genres { get; set; } = new System.Collections.ObjectModel.Collection<FiltersResponse_genres>();
-    
+
         [Newtonsoft.Json.JsonProperty("countries", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FiltersResponse_countries> Countries { get; set; } = new System.Collections.ObjectModel.Collection<FiltersResponse_countries>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmSearchResponse 
+    public partial class FilmSearchResponse
     {
         [Newtonsoft.Json.JsonProperty("keyword", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Keyword { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("pagesCount", Required = Newtonsoft.Json.Required.Always)]
         public int PagesCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("searchFilmsCountResult", Required = Newtonsoft.Json.Required.Always)]
         public int SearchFilmsCountResult { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("films", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmSearchResponse_films> Films { get; set; } = new System.Collections.ObjectModel.Collection<FilmSearchResponse_films>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmSearchByFiltersResponse 
+    public partial class FilmSearchByFiltersResponse
     {
         [Newtonsoft.Json.JsonProperty("pagesCount", Required = Newtonsoft.Json.Required.Always)]
         public int PagesCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("films", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmSearchResponse_films> Films { get; set; } = new System.Collections.ObjectModel.Collection<FilmSearchResponse_films>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmSequelsAndPrequelsResponse 
+    public partial class FilmSequelsAndPrequelsResponse
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.Always)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("nameOriginal", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string NameOriginal { get; set; }
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrlPreview { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("relationType", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public FilmSequelsAndPrequelsResponseRelationType RelationType { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class RelatedFilmResponse 
+    public partial class RelatedFilmResponse
     {
         [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.Always)]
         public int Total { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<RelatedFilmResponse_items> Items { get; set; } = new System.Collections.ObjectModel.Collection<RelatedFilmResponse_items>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmTopResponse 
+    public partial class FilmTopResponse
     {
         [Newtonsoft.Json.JsonProperty("pagesCount", Required = Newtonsoft.Json.Required.Always)]
         public int PagesCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("films", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmTopResponse_films> Films { get; set; } = new System.Collections.ObjectModel.Collection<FilmTopResponse_films>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ReviewsResponse 
+    public partial class ReviewsResponse
     {
         [Newtonsoft.Json.JsonProperty("page", Required = Newtonsoft.Json.Required.Always)]
         public int Page { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.Always)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewAllCount", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewAllCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewAllPositiveRatio", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReviewAllPositiveRatio { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewPositiveCount", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewPositiveCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewNegativeCount", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewNegativeCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewNeutralCount", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewNeutralCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("pagesCount", Required = Newtonsoft.Json.Required.Always)]
         public int PagesCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviews", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ReviewsResponse_reviews> Reviews { get; set; } = new System.Collections.ObjectModel.Collection<ReviewsResponse_reviews>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ReviewDetailsResponse 
+    public partial class ReviewDetailsResponse
     {
         [Newtonsoft.Json.JsonProperty("reviewId", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewType", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public ReviewDetailsResponseReviewType ReviewType { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewData", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReviewData { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("userPositiveRating", Required = Newtonsoft.Json.Required.Always)]
         public int UserPositiveRating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("userNegativeRating", Required = Newtonsoft.Json.Required.Always)]
         public int UserNegativeRating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewAutor", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReviewAutor { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewTitle", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReviewTitle { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewDescription", Required = Newtonsoft.Json.Required.Always)]
         public double ReviewDescription { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class StaffResponse 
+    public partial class StaffResponse
     {
         [Newtonsoft.Json.JsonProperty("staffId", Required = Newtonsoft.Json.Required.Always)]
         public int StaffId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("professionText", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ProfessionText { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("professionKey", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public StaffResponseProfessionKey ProfessionKey { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class PersonResponse 
+    public partial class PersonResponse
     {
         [Newtonsoft.Json.JsonProperty("personId", Required = Newtonsoft.Json.Required.Always)]
         public int PersonId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("webUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WebUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("sex", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public PersonResponseSex Sex { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("growth", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Growth { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("birthday", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Birthday { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("death", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Death { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("age", Required = Newtonsoft.Json.Required.Always)]
         public int Age { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("birthplace", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Birthplace { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("deathplace", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Deathplace { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("hasAwards", Required = Newtonsoft.Json.Required.Always)]
         public int HasAwards { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("profession", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Profession { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("facts", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<string> Facts { get; set; } = new System.Collections.ObjectModel.Collection<string>();
-    
+
         [Newtonsoft.Json.JsonProperty("spouses", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<PersonResponse_spouses> Spouses { get; set; } = new System.Collections.ObjectModel.Collection<PersonResponse_spouses>();
-    
+
         [Newtonsoft.Json.JsonProperty("films", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<PersonResponse_films> Films { get; set; } = new System.Collections.ObjectModel.Collection<PersonResponse_films>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmFrameResponse 
+    public partial class FilmFrameResponse
     {
         [Newtonsoft.Json.JsonProperty("frames", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmFrameResponse_frames> Frames { get; set; } = new System.Collections.ObjectModel.Collection<FilmFrameResponse_frames>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DigitalReleaseResponse 
+    public partial class DigitalReleaseResponse
     {
         [Newtonsoft.Json.JsonProperty("page", Required = Newtonsoft.Json.Required.Always)]
         public int Page { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.Always)]
         public int Total { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("releases", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<DigitalReleaseItem> Releases { get; set; } = new System.Collections.ObjectModel.Collection<DigitalReleaseItem>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DigitalReleaseItem 
+    public partial class DigitalReleaseItem
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.Always)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.Always)]
         public int Year { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrlPreview { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("countries", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Country> Countries { get; set; } = new System.Collections.ObjectModel.Collection<Country>();
-    
+
         [Newtonsoft.Json.JsonProperty("genres", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Genre> Genres { get; set; } = new System.Collections.ObjectModel.Collection<Genre>();
-    
+
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.Always)]
         public double Rating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int RatingVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("expectationsRating", Required = Newtonsoft.Json.Required.Always)]
         public double ExpectationsRating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("expectationsRatingVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int ExpectationsRatingVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Always)]
         public int Duration { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("releaseDate", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ReleaseDate { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class CommonFilmData 
+    public partial class CommonFilmData
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.Always)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("webUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string WebUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PosterUrlPreview { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Year { get; set; }
-    
+        public int Year { get; set; }
+
         [Newtonsoft.Json.JsonProperty("filmLength", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string FilmLength { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("slogan", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Slogan { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Description { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public CommonFilmDataType Type { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingMpaa", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string RatingMpaa { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingAgeLimits", Required = Newtonsoft.Json.Required.Always)]
         public int RatingAgeLimits { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereRu", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PremiereRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("distributors", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Distributors { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereWorld", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PremiereWorld { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereDigital", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PremiereDigital { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereWorldCountry", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PremiereWorldCountry { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereDvd", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PremiereDvd { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("premiereBluRay", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string PremiereBluRay { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("distributorRelease", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string DistributorRelease { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("countries", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Country> Countries { get; set; } = new System.Collections.ObjectModel.Collection<Country>();
-    
+
         [Newtonsoft.Json.JsonProperty("genres", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Genre> Genres { get; set; } = new System.Collections.ObjectModel.Collection<Genre>();
-    
+
         [Newtonsoft.Json.JsonProperty("facts", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<string> Facts { get; set; } = new System.Collections.ObjectModel.Collection<string>();
-    
+
         [Newtonsoft.Json.JsonProperty("seasons", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Season> Seasons { get; set; } = new System.Collections.ObjectModel.Collection<Season>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Rating 
+    public partial class Rating
     {
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.Always)]
         public double Rating1 { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int RatingVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingImdb", Required = Newtonsoft.Json.Required.Always)]
         public double RatingImdb { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingImdbVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int RatingImdbVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingFilmCritics", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string RatingFilmCritics { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingFilmCriticsVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int RatingFilmCriticsVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingAwait", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string RatingAwait { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingAwaitCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int RatingAwaitCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingRfCritics", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string RatingRfCritics { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingRfCriticsVoteCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int RatingRfCriticsVoteCount { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Budget 
+    public partial class Budget
     {
         [Newtonsoft.Json.JsonProperty("grossRu", Required = Newtonsoft.Json.Required.Always)]
         public int GrossRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("grossUsa", Required = Newtonsoft.Json.Required.Always)]
         public int GrossUsa { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("grossWorld", Required = Newtonsoft.Json.Required.Always)]
         public int GrossWorld { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("budget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Budget1 { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("marketing", Required = Newtonsoft.Json.Required.Always)]
         public int Marketing { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Review 
+    public partial class Review
     {
         [Newtonsoft.Json.JsonProperty("reviewsCount", Required = Newtonsoft.Json.Required.Always)]
         public int ReviewsCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingGoodReview", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string RatingGoodReview { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingGoodReviewVoteCount", Required = Newtonsoft.Json.Required.Always)]
         public int RatingGoodReviewVoteCount { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ExternalId 
+    public partial class ExternalId
     {
         [Newtonsoft.Json.JsonProperty("imdbId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ImdbId { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class VideoResponse 
+    public partial class VideoResponse
     {
-        [Newtonsoft.Json.JsonProperty("trailers", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.Always)]
+        public int Total { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<VideoResponse_trailers> Trailers { get; set; } = new System.Collections.ObjectModel.Collection<VideoResponse_trailers>();
-    
-        [Newtonsoft.Json.JsonProperty("teasers", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<VideoResponse_teasers> Teasers { get; set; } = new System.Collections.ObjectModel.Collection<VideoResponse_teasers>();
-    
+        public System.Collections.Generic.ICollection<VideoResponse_items> Items { get; set; } = new System.Collections.ObjectModel.Collection<VideoResponse_items>();
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmStudioResponse 
+    public partial class FilmStudioResponse
     {
         [Newtonsoft.Json.JsonProperty("production", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Production { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("filming", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Filming { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("imageFormat", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ImageFormat { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("camera", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Camera { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("copyFormat", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string CopyFormat { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("filmingFormat", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string FilmingFormat { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("image", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Image { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Language { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("productionStudios", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmStudioResponse_productionStudios> ProductionStudios { get; set; } = new System.Collections.ObjectModel.Collection<FilmStudioResponse_productionStudios>();
-    
+
         [Newtonsoft.Json.JsonProperty("specialEffectsStudios", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmStudioResponse_specialEffectsStudios> SpecialEffectsStudios { get; set; } = new System.Collections.ObjectModel.Collection<FilmStudioResponse_specialEffectsStudios>();
-    
+
         [Newtonsoft.Json.JsonProperty("dubbingStudios", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmStudioResponse_dubbingStudios> DubbingStudios { get; set; } = new System.Collections.ObjectModel.Collection<FilmStudioResponse_dubbingStudios>();
-    
+
         [Newtonsoft.Json.JsonProperty("rentStudios", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<FilmStudioResponse_rentStudios> RentStudios { get; set; } = new System.Collections.ObjectModel.Collection<FilmStudioResponse_rentStudios>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Images 
+    public partial class Images
     {
         [Newtonsoft.Json.JsonProperty("posters", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Images_posters> Posters { get; set; } = new System.Collections.ObjectModel.Collection<Images_posters>();
-    
+
         [Newtonsoft.Json.JsonProperty("backdrops", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<Images_posters> Backdrops { get; set; } = new System.Collections.ObjectModel.Collection<Images_posters>();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FiltersResponse_genres 
+    public partial class FiltersResponse_genres
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("genre", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Genre { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FiltersResponse_countries 
+    public partial class FiltersResponse_countries
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("country", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Country { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmSearchResponse_films 
+    public partial class FilmSearchResponse_films
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public FilmSearchResponse_filmsType Type { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Year { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("filmLength", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FilmLength { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("countries", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Country> Countries { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("genres", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Genre> Genres { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Rating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingVoteCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int RatingVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrlPreview { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class RelatedFilmResponse_items 
+    public partial class RelatedFilmResponse_items
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameEn { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("nameOriginal", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NameOriginal { get; set; }
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrlPreview { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("relationType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public RelatedFilmResponse_itemsRelationType RelationType { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmTopResponse_films 
+    public partial class FilmTopResponse_films
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Year { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("filmLength", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FilmLength { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("countries", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Country> Countries { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("genres", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Genre> Genres { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Rating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ratingVoteCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int RatingVoteCount { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrl", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("posterUrlPreview", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PosterUrlPreview { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ReviewsResponse_reviews 
+    public partial class ReviewsResponse_reviews
     {
         [Newtonsoft.Json.JsonProperty("reviewId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int ReviewId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public ReviewsResponse_reviewsReviewType ReviewType { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewData", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReviewData { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("userPositiveRating", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserPositiveRating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("userNegativeRating", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserNegativeRating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewAutor", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReviewAutor { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewTitle", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReviewTitle { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("reviewDescription", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double ReviewDescription { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class PersonResponse_spouses 
+    public partial class PersonResponse_spouses
     {
         [Newtonsoft.Json.JsonProperty("personId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int PersonId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("divorced", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool Divorced { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("divorcedReason", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string DivorcedReason { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("sex", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public PersonResponse_spousesSex Sex { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("children", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Children { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("webUrl", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string WebUrl { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("relation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Relation { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class PersonResponse_films 
+    public partial class PersonResponse_films
     {
         [Newtonsoft.Json.JsonProperty("filmId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int FilmId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameRu", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameRu { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("nameEn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NameEn { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("rating", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Rating { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("general", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool General { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("professionKey", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public PersonResponse_filmsProfessionKey ProfessionKey { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmFrameResponse_frames 
+    public partial class FilmFrameResponse_frames
     {
         [Newtonsoft.Json.JsonProperty("image", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Image { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("preview", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Preview { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class VideoResponse_trailers 
+    public partial class VideoResponse_items
     {
         [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Url { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("site", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Site { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("size", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Size { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Type { get; set; }
-    
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public VideoResponse_itemsSite Site { get; set; }
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class VideoResponse_teasers 
-    {
-        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Url { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("site", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Site { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("size", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Size { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Type { get; set; }
-    
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmStudioResponse_productionStudios 
+    public partial class FilmStudioResponse_productionStudios
     {
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("notes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Notes { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmStudioResponse_specialEffectsStudios 
+    public partial class FilmStudioResponse_specialEffectsStudios
     {
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("notes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Notes { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmStudioResponse_dubbingStudios 
+    public partial class FilmStudioResponse_dubbingStudios
     {
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("notes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Notes { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FilmStudioResponse_rentStudios 
+    public partial class FilmStudioResponse_rentStudios
     {
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("notes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Notes { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Images_posters 
+    public partial class Images_posters
     {
         [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Language { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Url { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Height { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("width", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Width { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Anonymous
     {
         [System.Runtime.Serialization.EnumMember(Value = @"BUDGET")]
         BUDGET = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"RATING")]
         RATING = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"REVIEW")]
         REVIEW = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"POSTERS")]
         POSTERS = 3,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Order
     {
         [System.Runtime.Serialization.EnumMember(Value = @"RATING")]
         RATING = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NUM_VOTE")]
         NUM_VOTE = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"YEAR")]
         YEAR = 2,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Type
     {
         [System.Runtime.Serialization.EnumMember(Value = @"FILM")]
         FILM = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TV_SHOW")]
         TV_SHOW = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"ALL")]
         ALL = 2,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Type2
     {
         [System.Runtime.Serialization.EnumMember(Value = @"TOP_250_BEST_FILMS")]
         TOP_250_BEST_FILMS = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TOP_100_POPULAR_FILMS")]
         TOP_100_POPULAR_FILMS = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TOP_AWAIT_FILMS")]
         TOP_AWAIT_FILMS = 2,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Month
     {
         [System.Runtime.Serialization.EnumMember(Value = @"JANUARY")]
         JANUARY = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"FEBRUARY")]
         FEBRUARY = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"MARCH")]
         MARCH = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"APRIL")]
         APRIL = 3,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"MAY")]
         MAY = 4,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"JUNE")]
         JUNE = 5,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"JULY")]
         JULY = 6,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"AUGUST")]
         AUGUST = 7,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"SEPTEMBER")]
         SEPTEMBER = 8,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"OCTOBER")]
         OCTOBER = 9,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NOVEMBER")]
         NOVEMBER = 10,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"DECEMBER")]
         DECEMBER = 11,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum FilmSequelsAndPrequelsResponseRelationType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"SEQUEL")]
         SEQUEL = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PREQUEL")]
         PREQUEL = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"REMAKE")]
         REMAKE = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 3,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum ReviewDetailsResponseReviewType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"POSITIVE")]
         POSITIVE = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NEGATIVE")]
         NEGATIVE = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NEUTRAL")]
         NEUTRAL = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 3,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum StaffResponseProfessionKey
     {
         [System.Runtime.Serialization.EnumMember(Value = @"WRITER")]
         WRITER = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"OPERATOR")]
         OPERATOR = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"EDITOR")]
         EDITOR = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"COMPOSER")]
         COMPOSER = 3,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PRODUCER_USSR")]
         PRODUCER_USSR = 4,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TRANSLATOR")]
         TRANSLATOR = 5,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"DIRECTOR")]
         DIRECTOR = 6,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"DESIGN")]
         DESIGN = 7,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PRODUCER")]
         PRODUCER = 8,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"ACTOR")]
         ACTOR = 9,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"VOICE_DIRECTOR")]
         VOICE_DIRECTOR = 10,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 11,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum PersonResponseSex
     {
         [System.Runtime.Serialization.EnumMember(Value = @"MALE")]
         MALE = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"FEMALE")]
         FEMALE = 1,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum CommonFilmDataType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"FILM")]
         FILM = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TV_SHOW")]
         TV_SHOW = 1,
-    
+
+        [System.Runtime.Serialization.EnumMember(Value = @"VIDEO")]
+        VIDEO = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MINI_SERIES")]
+        MINI_SERIES = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TV_SERIES")]
+        TV_SERIES = 4,
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
-        UNKNOWN = 2,
-    
+        UNKNOWN = 5,
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum FilmSearchResponse_filmsType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"FILM")]
         FILM = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TV_SHOW")]
         TV_SHOW = 1,
-    
+
+        [System.Runtime.Serialization.EnumMember(Value = @"VIDEO")]
+        VIDEO = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MINI_SERIES")]
+        MINI_SERIES = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TV_SERIES")]
+        TV_SERIES = 4,
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
-        UNKNOWN = 2,
-    
+        UNKNOWN = 5,
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum RelatedFilmResponse_itemsRelationType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"SIMILAR")]
         SIMILAR = 0,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum ReviewsResponse_reviewsReviewType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"POSITIVE")]
         POSITIVE = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NEGATIVE")]
         NEGATIVE = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"NEUTRAL")]
         NEUTRAL = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 3,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum PersonResponse_spousesSex
     {
         [System.Runtime.Serialization.EnumMember(Value = @"MALE")]
         MALE = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"FEMALE")]
         FEMALE = 1,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum PersonResponse_filmsProfessionKey
     {
         [System.Runtime.Serialization.EnumMember(Value = @"WRITER")]
         WRITER = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"OPERATOR")]
         OPERATOR = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"EDITOR")]
         EDITOR = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"COMPOSER")]
         COMPOSER = 3,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PRODUCER_USSR")]
         PRODUCER_USSR = 4,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"HIMSELF")]
         HIMSELF = 5,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"HERSELF")]
         HERSELF = 6,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"HRONO_TITR_MALE")]
         HRONO_TITR_MALE = 7,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"HRONO_TITR_FEMALE")]
         HRONO_TITR_FEMALE = 8,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"TRANSLATOR")]
         TRANSLATOR = 9,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"DIRECTOR")]
         DIRECTOR = 10,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"DESIGN")]
         DESIGN = 11,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PRODUCER")]
         PRODUCER = 12,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"ACTOR")]
         ACTOR = 13,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"VOICE_DIRECTOR")]
         VOICE_DIRECTOR = 14,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 15,
-    
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum VideoResponse_itemsSite
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"YOUTUBE")]
+        YOUTUBE = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"KINOPOISK_WIDGET")]
+        KINOPOISK_WIDGET = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
+        UNKNOWN = 2,
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v12.0.0.0))")]
