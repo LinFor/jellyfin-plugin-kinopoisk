@@ -75,13 +75,13 @@ namespace Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers
                     {
                         var film = await _kinopoiskApiClient.GetSingleFilm(candidate.FilmId, ct);
 
-                        if (imdbId == film?.ExternalId?.ImdbId)
+                        if (imdbId == film?.ImdbId)
                         {
-                            _logger.LogDebug($"Found match: {candidate.FilmId} '{film.GetLocalName()}', ImdbId '{film?.ExternalId?.ImdbId}', setting KinopoiskProviderId to {candidate.FilmId}");
+                            _logger.LogDebug($"Found match: {candidate.FilmId} '{film.GetLocalName()}', ImdbId '{film?.ImdbId}', setting KinopoiskProviderId to {candidate.FilmId}");
                             return (true, candidate.FilmId);
                         }
 
-                        _logger.LogDebug($"Film {candidate.FilmId} '{film.GetLocalName()}' has ImdbId '{film?.ExternalId?.ImdbId}', skipping, {candidates.Count - ++index} candidates left...");
+                        _logger.LogDebug($"Film {candidate.FilmId} '{film.GetLocalName()}' has ImdbId '{film?.ImdbId}', skipping, {candidates.Count - ++index} candidates left...");
                     } catch (Exception e)
                     {
                         _logger.LogError(e, $"Error while retrieving film {candidate.FilmId}");

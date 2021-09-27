@@ -15,17 +15,17 @@ namespace Jellyfin.Plugin.Kinopoisk
     {
         public static RemoteSearchResult ToRemoteSearchResult(this Film src)
         {
-            if (src?.Data is null)
+            if (src is null)
                 return null;
 
             var res = new RemoteSearchResult() {
                 Name = src.GetLocalName(),
-                ImageUrl = src.Data.PosterUrl,
-                PremiereDate = src.Data.GetPremiereDate(),
-                Overview = src.Data.Description,
+                ImageUrl = src.PosterUrl,
+                PremiereDate = src.GetPremiereDate(),
+                Overview = src.Description,
                 SearchProviderName = Constants.ProviderName
             };
-            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.Data.FilmId));
+            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.KinopoiskId));
 
             return res;
         }
@@ -57,7 +57,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static Series ToSeries(this Film src)
         {
-            if (src?.Data is null)
+            if (src is null)
                 return null;
 
             var res = new Series();
@@ -74,7 +74,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static Movie ToMovie(this Film src)
         {
-            if (src?.Data is null)
+            if (src is null)
                 return null;
 
             var res = new Movie();
@@ -86,53 +86,44 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         private static void FillCommonFilmInfo(Film src, BaseItem dst)
         {
-            dst.SetProviderId(Constants.ProviderId, Convert.ToString(src.Data.FilmId));
+            dst.SetProviderId(Constants.ProviderId, Convert.ToString(src.KinopoiskId));
             dst.Name = src.GetLocalName();
             dst.OriginalTitle = src.GetOriginalNameIfNotSame();
-            dst.PremiereDate = src.Data.GetPremiereDate();
-            if (!string.IsNullOrWhiteSpace(src.Data.Slogan))
-                dst.Tagline = src.Data.Slogan;
-            dst.Overview = src.Data.Description;
-            if (src.Data.Countries != null)
-                dst.ProductionLocations = src.Data.Countries.Select(c => c.Country1).ToArray();
-            if (src.Data.Genres != null)
-                foreach(var genre in src.Data.Genres.Select(c => c.Genre1))
+            dst.PremiereDate = src.GetPremiereDate();
+            if (!string.IsNullOrWhiteSpace(src.Slogan))
+                dst.Tagline = src.Slogan;
+            dst.Overview = src.Description;
+            if (src.Countries != null)
+                dst.ProductionLocations = src.Countries.Select(c => c.Country1).ToArray();
+            if (src.Genres != null)
+                foreach(var genre in src.Genres.Select(c => c.Genre1))
                     dst.AddGenre(genre);
-            if (src.Data.RatingAgeLimits > 0)
-                dst.OfficialRating = $"{src.Data.RatingAgeLimits}+";
+            if (!string.IsNullOrEmpty(src.RatingAgeLimits))
+                dst.OfficialRating = $"{src.RatingAgeLimits}+";
             else
-                dst.OfficialRating = src.Data.RatingMpaa;
+                dst.OfficialRating = src.RatingMpaa;
 
-            if (src.Rating != null)
-            {
-                var communityRating = src.Rating.Rating1 > 0
-                    ? src.Rating.Rating1
-                    : src.Rating.RatingImdb;
-                dst.CommunityRating = communityRating > 0 ? (float)communityRating : null;
-                dst.CriticRating = src.Rating.GetCriticRatingAsTenPointBased();
-            }
+            dst.CommunityRating = (float)src.RatingKinopoisk;
+            if (dst.CommunityRating < 0.1)
+                dst.CommunityRating = (float)src.RatingImdb;
+            if (dst.CommunityRating < 0.1)
+                dst.CommunityRating = null;
+            dst.CriticRating = src.GetCriticRatingAsTenPointBased();
 
-            if (src.ExternalId != null)
-            {
-                if (!string.IsNullOrWhiteSpace(src.ExternalId.ImdbId))
-                    dst.SetProviderId(MetadataProvider.Imdb, src.ExternalId.ImdbId);
-            }
+            if (!string.IsNullOrWhiteSpace(src.ImdbId))
+                dst.SetProviderId(MetadataProvider.Imdb, src.ImdbId);
         }
 
-        public static float? GetCriticRatingAsTenPointBased(this Rating src)
+        public static float? GetCriticRatingAsTenPointBased(this Film src)
         {
             if (src is null)
                 return null;
 
-            if (string.IsNullOrWhiteSpace(src.RatingFilmCritics))
-                return null;
+            if (src.RatingRfCritics > 0.0)
+                return (float)src.RatingRfCritics;
 
-            if (float.TryParse(src.RatingFilmCritics, out var res))
-                return res;
-
-            var ratingStr = src.RatingFilmCritics.Replace("%", string.Empty);
-            if (int.TryParse(ratingStr, out var res_pct))
-                return res_pct * 0.1f;
+            if (src.RatingFilmCritics > 0.0)
+                return (float)src.RatingFilmCritics;
 
             return null;
         }
@@ -143,48 +134,48 @@ namespace Jellyfin.Plugin.Kinopoisk
             if (src is null)
                 return res;
 
-            if (src?.Data?.PosterUrl != null)
+            if (src?.PosterUrl != null)
             {
                 var mainPoster = new RemoteImageInfo(){
                     Type = ImageType.Primary,
-                    Url = src.Data.PosterUrl,
+                    Url = src.PosterUrl,
                     Language = Constants.ProviderMetadataLanguage,
                     ProviderName = Constants.ProviderName
                 };
                 res = res.Concat(Enumerable.Repeat(mainPoster, 1));
             }
 
-            if (src.Images != null)
-            {
-                if (src.Images.Posters != null)
-                    res = res.Concat(src.Images.Posters.ToRemoteImageInfos(ImageType.Primary));
-                if  (src.Images.Backdrops != null)
-                    res = res.Concat(src.Images.Backdrops.ToRemoteImageInfos(ImageType.Backdrop));
-            }
+            // if (src.Images != null)
+            // {
+            //     if (src.Images.Posters != null)
+            //         res = res.Concat(src.Images.Posters.ToRemoteImageInfos(ImageType.Primary));
+            //     if  (src.Images.Backdrops != null)
+            //         res = res.Concat(src.Images.Backdrops.ToRemoteImageInfos(ImageType.Backdrop));
+            // }
 
             return res;
         }
 
-        public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this IEnumerable<Images_posters> src, ImageType imageType)
-        {
-            return src.Select(s => s.ToRemoteImageInfo(imageType))
-                .Where(s => s != null);
-        }
+        // public static IEnumerable<RemoteImageInfo> ToRemoteImageInfos(this IEnumerable<Images_posters> src, ImageType imageType)
+        // {
+        //     return src.Select(s => s.ToRemoteImageInfo(imageType))
+        //         .Where(s => s != null);
+        // }
 
-        public static RemoteImageInfo ToRemoteImageInfo(this Images_posters src, ImageType imageType)
-        {
-            if (src is null)
-                return null;
+        // public static RemoteImageInfo ToRemoteImageInfo(this Images_posters src, ImageType imageType)
+        // {
+        //     if (src is null)
+        //         return null;
 
-            return new RemoteImageInfo(){
-                Type = imageType,
-                Url = src.Url,
-                Language = src.Language,
-                Height = src.Height,
-                Width = src.Width,
-                ProviderName = Constants.ProviderName
-            };
-        }
+        //     return new RemoteImageInfo(){
+        //         Type = imageType,
+        //         Url = src.Url,
+        //         Language = src.Language,
+        //         Height = src.Height,
+        //         Width = src.Width,
+        //         ProviderName = Constants.ProviderName
+        //     };
+        // }
 
         public static IReadOnlyList<MediaUrl> ToMediaUrls(this VideoResponse src)
         {
@@ -286,24 +277,24 @@ namespace Jellyfin.Plugin.Kinopoisk
             return null;
         }
 
-        public static DateTime? GetPremiereDate(this CommonFilmData src)
+        public static DateTime? GetPremiereDate(this Film src)
         {
-            var res = src.IsRussianSpokenOriginated()
-                ? src.PremiereRu.ParseDate()
-                : src.PremiereWorld.ParseDate();
-            if (src.PremiereRu.ParseDate() < res)
-                res = src.PremiereRu.ParseDate();
-            if (src.PremiereWorld.ParseDate() < res)
-                res = src.PremiereWorld.ParseDate();
-            if (src.PremiereDigital.ParseDate() < res)
-                res = src.PremiereDigital.ParseDate();
-            if (src.PremiereDvd.ParseDate() < res)
-                res = src.PremiereDvd.ParseDate();
-            if (src.PremiereBluRay.ParseDate() < res)
-                res = src.PremiereBluRay.ParseDate();
+            // var res = src.IsRussianSpokenOriginated()
+            //     ? src.PremiereRu.ParseDate()
+            //     : src.PremiereWorld.ParseDate();
+            // if (src.PremiereRu.ParseDate() < res)
+            //     res = src.PremiereRu.ParseDate();
+            // if (src.PremiereWorld.ParseDate() < res)
+            //     res = src.PremiereWorld.ParseDate();
+            // if (src.PremiereDigital.ParseDate() < res)
+            //     res = src.PremiereDigital.ParseDate();
+            // if (src.PremiereDvd.ParseDate() < res)
+            //     res = src.PremiereDvd.ParseDate();
+            // if (src.PremiereBluRay.ParseDate() < res)
+            //     res = src.PremiereBluRay.ParseDate();
 
-            if (res.HasValue)
-                return res;
+            // if (res.HasValue)
+            //     return res;
 
             if (src.Year > 1900)
                 return new DateTime(src.Year, 1, 1);
@@ -322,9 +313,11 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static string GetLocalName(this Film src)
         {
-            var res = src?.Data?.NameRu;
+            var res = src?.NameRu;
             if (string.IsNullOrWhiteSpace(res))
-                res = src?.Data?.NameEn;
+                res = src?.NameOriginal;
+            if (string.IsNullOrWhiteSpace(res))
+                res = src?.NameEn;
             return res;
         }
 
@@ -337,9 +330,10 @@ namespace Jellyfin.Plugin.Kinopoisk
         }
 
         public static string GetOriginalName(this Film src)
-            => src.IsRussianSpokenOriginated()
-                ? src?.Data?.NameRu
-                : src?.Data?.NameEn;
+            => src?.NameOriginal ??
+                (src.IsRussianSpokenOriginated()
+                    ? src?.NameRu
+                    : src?.NameEn);
 
         public static string GetOriginalNameIfNotSame(this Film src)
         {
@@ -352,9 +346,6 @@ namespace Jellyfin.Plugin.Kinopoisk
         }
 
         public static bool IsRussianSpokenOriginated(this Film src)
-            => src?.Data?.IsRussianSpokenOriginated() ?? false;
-
-        public static bool IsRussianSpokenOriginated(this CommonFilmData src)
             => src?.Countries?.IsRussianSpokenOriginated() ?? false;
 
         public static bool IsRussianSpokenOriginated(this IEnumerable<Country> src)

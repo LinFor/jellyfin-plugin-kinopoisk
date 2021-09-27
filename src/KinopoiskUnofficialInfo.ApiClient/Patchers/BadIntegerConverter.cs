@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace KinopoiskUnofficialInfo.ApiClient
 {
-    public class IntegerOverflowConverter : JsonConverter
+    public class BadIntegerConverter : JsonConverter
     {
         public override bool CanRead => true;
         public override bool CanWrite => false;

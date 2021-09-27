@@ -1,7 +1,7 @@
 version: VCR.net 1.0.0
 httpInteractions:
 - request:
-    uri: https://kinopoiskapiunofficial.tech/api/v2.1/films/4416198?append_to_response=BUDGET&append_to_response=REVIEW&append_to_response=RATING&append_to_response=POSTERS
+    uri: https://kinopoiskapiunofficial.tech/api/v2.2/films/4416198
     method: GET
     headers:
       Accept:
@@ -17,7 +17,7 @@ httpInteractions:
       - nginx/1.18.0
       - (Ubuntu)
       Date:
-      - Tue, 10 Aug 2021 13:59:59 GMT
+      - Mon, 27 Sep 2021 10:34:31 GMT
       Transfer-Encoding:
       - chunked
       Connection:
@@ -43,5 +43,5 @@ httpInteractions:
     body:
       encoding: ''
       string: |-
-        {"data":{"filmId":4416198,"nameRu":"В активном поиске","nameEn":null,"webUrl":"https://www.kinopoisk.ru/series/4416198/","posterUrl":"https://kinopoiskapiunofficial.tech/images/posters/kp/4416198.jpg","posterUrlPreview":"https://kinopoiskapiunofficial.tech/images/posters/kp_small/4416198.jpg","year":2021,"filmLength":"00:15","slogan":null,"description":"В успешной жизни соучредителя крупного рекламного агентства Андрея есть всё: и квартира в центре города, и модные друзья, и большое будущее в рекламной сфере. Но однажды на пороге его дома появляется девятилетний ребенок, утверждающий, что он его сын. Теперь Андрею предстоит нелегкий путь: стать отцом, не отказываясь от карьеры, и, главное, найти мать ребенка из десятков своих бывших возлюбленных.","type":"TV_SERIES","ratingMpaa":null,"ratingAgeLimits":16,"premiereRu":null,"distributors":"","premiereWorld":null,"premiereDigital":null,"premiereWorldCountry":null,"premiereDvd":null,"premiereBluRay":null,"distributorRelease":"","countries":[{"country":"Россия"}],"genres":[{"genre":"комедия"}],"facts":[],"seasons":[{"number":1,"episodes":[{"seasonNumber":1,"episodeNumber":1,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":2,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":3,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":4,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":5,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":6,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":7,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":8,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":9,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null},{"seasonNumber":1,"episodeNumber":10,"nameRu":null,"nameEn":null,"synopsis":null,"releaseDate":null}]}]},"externalId":{"imdbId":"tt14445576"},"rating":{"rating":5.8,"ratingVoteCount":1496,"ratingImdb":0.0,"ratingImdbVoteCount":0,"ratingFilmCritics":"null","ratingFilmCriticsVoteCount":0,"ratingAwait":"null","ratingAwaitCount":8,"ratingRfCritics":"null","ratingRfCriticsVoteCount":0},"budget":{"grossRu":null,"grossUsa":null,"grossWorld":null,"budget":null,"marketing":null},"review":{"reviewsCount":3,"ratingGoodReview":"100.0","ratingGoodReviewVoteCount":3}}
+        {"kinopoiskId":4416198,"imdbId":"tt14445576","nameRu":"В активном поиске","nameEn":null,"nameOriginal":null,"posterUrl":"https://kinopoiskapiunofficial.tech/images/posters/kp/4416198.jpg","posterUrlPreview":"https://kinopoiskapiunofficial.tech/images/posters/kp_small/4416198.jpg","reviewsCount":3,"ratingGoodReview":100.0,"ratingGoodReviewVoteCount":3,"ratingKinopoisk":5.8,"ratingKinopoiskVoteCount":1570,"ratingImdb":null,"ratingImdbVoteCount":0,"ratingFilmCritics":null,"ratingFilmCriticsVoteCount":0,"ratingAwait":null,"ratingAwaitCount":8,"ratingRfCritics":null,"ratingRfCriticsVoteCount":0,"webUrl":"https://www.kinopoisk.ru/series/4416198/","year":2021,"filmLength":15,"slogan":null,"description":"В успешной жизни соучредителя крупного рекламного агентства Андрея есть всё: и квартира в центре города, и модные друзья, и большое будущее в рекламной сфере. Но однажды на пороге его дома появляется девятилетний ребенок, утверждающий, что он его сын. Теперь Андрею предстоит нелегкий путь: стать отцом, не отказываясь от карьеры, и, главное, найти мать ребенка из десятков своих бывших возлюбленных.","shortDescription":null,"editorAnnotation":null,"isTicketsAvailable":false,"productionStatus":null,"type":"TV_SERIES","ratingMpaa":null,"ratingAgeLimits":"age16","countries":[{"country":"Россия"}],"genres":[{"genre":"комедия"}],"startYear":2021,"endYear":2021,"serial":true,"shortFilm":false,"completed":false,"hasImax":false,"has3D":false,"lastSync":"2021-09-24T07:37:28.311332"}
     httpVersion: 1.1

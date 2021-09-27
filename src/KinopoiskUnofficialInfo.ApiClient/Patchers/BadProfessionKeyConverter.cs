@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace KinopoiskUnofficialInfo.ApiClient
 {
-    public class ProfessionKeyConverter : StringEnumConverter
+    public class BadProfessionKeyConverter : StringEnumConverter
     {
         public override bool CanConvert(System.Type objectType)
             => objectType == typeof(PersonResponse_filmsProfessionKey);

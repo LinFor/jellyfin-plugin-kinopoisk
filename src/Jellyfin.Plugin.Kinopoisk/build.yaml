@@ -2,7 +2,7 @@
 name: "КиноПоиск"
 guid: "0c136f8a-ff77-4f2b-ade5-13462cae6216"
 imageUrl: "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png"
-version: "10.7.5.2"
+version: "10.7.5.3"
 targetAbi: "10.7.0"
 framework: "net5.0"
 owner: "linfor"
@@ -16,6 +16,5 @@ category: "Metadata"
 artifacts:
 - "Jellyfin.Plugin.Kinopoisk.dll"
 - "KinopoiskUnofficialInfo.ApiClient.dll"
-- "Newtonsoft.Json.dll"
 changelog: >
-  Results parsing fixes due to upstream service changes
+  Results parsing fixes due to upstream service changes (api 2.2)

@@ -9,7 +9,7 @@
     ],
     "settings": {
         "dotnet-test-explorer.enableTelemetry": false,
-        "dotnet-test-explorer.testProjectPath": "${workspaceFolder:workspace}/src/**/*.Tests.csproj",
+        "dotnet-test-explorer.testProjectPath": "${workspaceFolder:workspace}/src/Jellyfin.Plugin.Kinopoisk.sln",
         "omnisharp.defaultLaunchSolution": "Jellyfin.Plugin.Kinopoisk.sln",
         "omnisharp.enableRoslynAnalyzers": true,
         "omnisharp.organizeImportsOnFormat": true,

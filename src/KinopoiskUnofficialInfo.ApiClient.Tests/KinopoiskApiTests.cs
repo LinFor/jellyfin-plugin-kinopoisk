@@ -39,7 +39,7 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
         [InlineData(1044982, "Шпион, который меня кинул", "The Spy Who Dumped Me")]
         [InlineData(1445243, "Будь моим Кириллом", null)]
         [InlineData(251733, "Аватар", "Avatar")]
-        public async Task GetSingleFilm_ShouldParseFilm(int filmId, string nameRu, string nameEn)
+        public async Task GetSingleFilm_ShouldParseFilm(int filmId, string nameRu, string nameOriginal)
         {
             using (_vcr.UseCassette($"{GetMethodName()}_{filmId}", RecordMode.NewEpisodes))
             {
@@ -48,16 +48,16 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
                 var res = await apiClient.GetSingleFilm(filmId);
 
                 Assert.NotNull(res);
-                Assert.Equal(CommonFilmDataType.FILM, res.Data.Type);
-                Assert.Equal(nameRu, res.Data.NameRu);
-                Assert.Equal(nameEn, res.Data.NameEn);
+                Assert.Equal(FilmType.FILM, res.Type);
+                Assert.Equal(nameRu, res.NameRu);
+                Assert.Equal(nameOriginal, res.NameOriginal);
             }
         }
 
         [Theory]
-        [InlineData(4416198, "В активном поиске", null, CommonFilmDataType.TV_SERIES)]
-        [InlineData(77298, "Вавилон 5", "Babylon 5", CommonFilmDataType.TV_SHOW)]
-        public async Task GetSingleFilm_ShouldParseTvShow(int filmId, string nameRu, string nameEn, CommonFilmDataType type)
+        [InlineData(4416198, "В активном поиске", null, FilmType.TV_SERIES)]
+        [InlineData(77298, "Вавилон 5", "Babylon 5", FilmType.TV_SERIES)]
+        public async Task GetSingleFilm_ShouldParseTvShow(int filmId, string nameRu, string nameOriginal, FilmType type)
         {
             using (_vcr.UseCassette($"{GetMethodName()}_{filmId}", RecordMode.NewEpisodes))
             {
@@ -66,9 +66,9 @@ namespace KinopoiskUnofficialInfo.ApiClient.Tests
                 var res = await apiClient.GetSingleFilm(filmId);
 
                 Assert.NotNull(res);
-                Assert.Equal(type, res.Data.Type);
-                Assert.Equal(nameRu, res.Data.NameRu);
-                Assert.Equal(nameEn, res.Data.NameEn);
+                Assert.Equal(type, res.Type);
+                Assert.Equal(nameRu, res.NameRu);
+                Assert.Equal(nameOriginal, res.NameOriginal);
             }
         }
 

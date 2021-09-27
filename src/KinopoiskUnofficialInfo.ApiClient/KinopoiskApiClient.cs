@@ -48,7 +48,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
         }
 
         public Task<Film> GetSingleFilm(int filmId, CancellationToken? cancellationToken = null)
-            => Invoke((ct) => _apiClient.FilmsAsync(filmId, new[] { Anonymous.BUDGET, Anonymous.REVIEW, Anonymous.RATING, Anonymous.POSTERS }, ct), cancellationToken);
+            => Invoke((ct) => _apiClient.FilmsAsync(filmId, ct), cancellationToken);
 
         public Task<ICollection<StaffResponse>> GetStaff(int filmId, CancellationToken? cancellationToken = null)
             => Invoke((ct) => _apiClient.StaffAllAsync(filmId, ct), cancellationToken);
