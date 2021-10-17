@@ -9,6 +9,14 @@
         "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
         "versions": [
             {
+                "version": "10.7.5.4",
+                "changelog": "Search fixed in case of null premiere date\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.4.zip",
+                "checksum": "2f48bd383e298da975e93a7f84fe3bc1",
+                "timestamp": "2021-10-17T15:57:00Z"
+            },
+            {
                 "version": "10.7.5.3",
                 "changelog": "Results parsing fixes due to upstream service changes (api 2.2)\n",
                 "targetAbi": "10.7.0",

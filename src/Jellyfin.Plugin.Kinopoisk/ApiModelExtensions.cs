@@ -8,6 +8,7 @@ using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
+using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
@@ -30,29 +31,37 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static IEnumerable<RemoteSearchResult> ToRemoteSearchResults(this FilmSearchResponse src)
+        public static IEnumerable<RemoteSearchResult> ToRemoteSearchResults(this FilmSearchResponse src, ILogger logger)
         {
             if (src?.Films is null)
                 return Enumerable.Empty<RemoteSearchResult>();
 
-            return src.Films.Select(s => s.ToRemoteSearchResult());
+            return src.Films
+                .Select(s => s.ToRemoteSearchResult(logger))
+                .Where(s => s != null);
         }
 
-        public static RemoteSearchResult ToRemoteSearchResult(this FilmSearchResponse_films src)
+        public static RemoteSearchResult ToRemoteSearchResult(this FilmSearchResponse_films src, ILogger logger)
         {
-            if (src is null)
+            try {
+                if (src is null)
+                    return null;
+
+                var res = new RemoteSearchResult() {
+                    Name = src.GetLocalName(),
+                    ImageUrl = src.PosterUrl,
+                    PremiereDate = src.GetPremiereDate(),
+                    Overview = src.Description,
+                    SearchProviderName = Constants.ProviderName
+                };
+                res.SetProviderId(Constants.ProviderId, Convert.ToString(src.FilmId));
+
+                return res;
+            }
+            catch (Exception e) {
+                logger.LogError(e, "Exception during parse");
                 return null;
-
-            var res = new RemoteSearchResult() {
-                Name = src.GetLocalName(),
-                ImageUrl = src.PosterUrl,
-                PremiereDate = src.GetPremiereDate(),
-                Overview = src.Description,
-                SearchProviderName = Constants.ProviderName
-            };
-            res.SetProviderId(Constants.ProviderId, Convert.ToString(src.FilmId));
-
-            return res;
+            }
         }
 
         public static Series ToSeries(this Film src)
@@ -365,7 +374,7 @@ namespace Jellyfin.Plugin.Kinopoisk
 
         public static int? GetFirstYear(string years)
         {
-            if (string.IsNullOrWhiteSpace(years))
+            if (string.IsNullOrWhiteSpace(years) || years.ToLower() == "null")
                 return null;
 
             years = years.Trim();

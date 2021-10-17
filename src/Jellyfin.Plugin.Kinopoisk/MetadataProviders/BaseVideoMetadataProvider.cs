@@ -79,7 +79,7 @@ namespace Jellyfin.Plugin.Kinopoisk.MetadataProviders
             }
             else
             {
-                return (await _apiClient.SearchByKeyword(searchInfo.Name, cancellationToken: cancellationToken)).ToRemoteSearchResults();
+                return (await _apiClient.SearchByKeyword(searchInfo.Name, cancellationToken: cancellationToken)).ToRemoteSearchResults(_logger);
             }
         }
 
