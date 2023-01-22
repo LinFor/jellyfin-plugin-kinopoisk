@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <DebugType>portable</DebugType>
   </PropertyGroup>
 
@@ -17,10 +17,10 @@
     <PackageReference Include="Jellyfin.Model" Version="10.*">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="5.*">
+    <PackageReference Include="System.Text.Json" Version="6.*">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
   </ItemGroup>
