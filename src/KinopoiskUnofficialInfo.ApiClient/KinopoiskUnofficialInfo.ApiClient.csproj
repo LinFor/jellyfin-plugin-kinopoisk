@@ -26,7 +26,7 @@
   </ItemGroup> -->
 
   <Target Name="GenerateApiClientSourceCode">
-    <Exec Command="$(NSwagExe_Net50) openapi2csclient /runtime:Net50 /input:https://kinopoiskapiunofficial.tech/documentation/api/openapi.json /namespace:KinopoiskUnofficialInfo.ApiClient /JsonSerializerSettingsTransformationMethod:KinopoiskUnofficialInfo.ApiClient.JsonTransformator.TransformSettings /output:GeneratedClient.generated.cs" />
+    <Exec Command="$(NSwagExe_Net60) openapi2csclient /runtime:Net60 /input:https://kinopoiskapiunofficial.tech/documentation/api/openapi.json /namespace:KinopoiskUnofficialInfo.ApiClient /JsonSerializerSettingsTransformationMethod:KinopoiskUnofficialInfo.ApiClient.JsonTransformator.TransformSettings /output:GeneratedClient.generated.cs" />
     <ItemGroup>
       <Compile Include="GeneratedClient.generated.cs" />
     </ItemGroup>
