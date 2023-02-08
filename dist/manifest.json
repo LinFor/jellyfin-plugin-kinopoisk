@@ -1,162 +1,160 @@
 [
-  {
-    "category": "Metadata",
-    "guid": "0c136f8a-ff77-4f2b-ade5-13462cae6216",
-    "name": "КиноПоиск",
-    "overview": "Информация о фильмах и сериалах с КиноПоиска",
-    "owner": "skrashevich",
-    "description": "Загружает рейтинг, описания, актёров, трейлеры и т.д. с сайта КиноПоиск. Может потребоваться зарегистрировать свой ApiToken, см. информацию в параметрах плагина. Для точного распознавания рекомендуется указывать id фильма с сайта КиноПоиск в имени файла в формате kp-12345 или kp12345. Подробнее см. https://github.com/LinFor/jellyfin-plugin-kinopoisk/blob/master/README.md\n",
-    "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
-    "versions": [
-      {
-        "version": "10.7.5.7",
-        "checksum": "5f0d119244974b2ffdf477762b61b883",
-        "changelog": "new release",
+    {
+        "category": "Metadata",
+        "guid": "0c136f8a-ff77-4f2b-ade5-13462cae6216",
         "name": "КиноПоиск",
-        "targetAbi": "10.8.8.0",
-        "sourceUrl": "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.7.zip",
-        "timestamp": "2023-02-08T13:10:19Z"
-      },
-      [
-        {
-          "version": "10.7.5.6",
-          "changelog": "Update to .NET 7\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.6.zip",
-          "checksum": "60310678f450ca7f0da3811642ae2bc4",
-          "timestamp": "2023-01-22T03:34:00Z"
-        },
-        {
-          "version": "10.7.5.4",
-          "changelog": "Search fixed in case of null premiere date\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.4.zip",
-          "checksum": "2f48bd383e298da975e93a7f84fe3bc1",
-          "timestamp": "2021-10-17T15:57:00Z"
-        },
-        {
-          "version": "10.7.5.3",
-          "changelog": "Results parsing fixes due to upstream service changes (api 2.2)\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.3.zip",
-          "checksum": "43930ff3db6b6938dcbc23297c53c746",
-          "timestamp": "2021-09-27T12:09:43Z"
-        },
-        {
-          "version": "10.7.5.2",
-          "changelog": "Results parsing fixes due to upstream service changes\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.2.zip",
-          "checksum": "e35c1942fb8ceda1d351d7307174fab2",
-          "timestamp": "2021-08-10T16:00:08Z"
-        },
-        {
-          "version": "10.7.5.1",
-          "changelog": "Results parsing fixes\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.1.zip",
-          "checksum": "c41d06954e6c00d8b51f11ac11180cb3",
-          "timestamp": "2021-06-22T09:27:10Z"
-        },
-        {
-          "version": "10.7.5.0",
-          "changelog": "Short: Huge improvement in auto-identifying of movies. Rus: Значительно улучшено авто-привязка фильмов при добавлении в медиатеку. Пытаюсь найти идентификатор кинопоиска по паттерну kp-12345 или kp12345 в имени файла/папки. Пытаюсь найти единственное совпадение на кинопоиске по имени + году. Пытаюсь перебрать все совпадения по имени + сравнение IMDB ID.\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.0.zip",
-          "checksum": "ea7eabac0fc4d1891529616a16a02897",
-          "timestamp": "2021-05-23T15:30:18Z"
-        },
-        {
-          "version": "10.7.0.5",
-          "changelog": "Added trailers filtering: jellyfin-web can only play youtube trailers, not kinopoisk-hosted\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.5.zip",
-          "checksum": "6bdb97ee1e862b0b5657f7b510040148",
-          "timestamp": "2021-05-22T23:01:09Z"
-        },
-        {
-          "version": "10.7.0.4",
-          "changelog": "Added person info, person image, trailers fetching\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.4.zip",
-          "checksum": "28d4972fe0f5e193a8b3051ce5240ffe",
-          "timestamp": "2021-05-22T22:24:49Z"
-        },
-        {
-          "version": "10.7.0.3",
-          "changelog": "Don't provide empty poster Added kinopoisk hyperlink in people info\n",
-          "targetAbi": "10.7.0",
-          "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.3.zip",
-          "checksum": "d58cdb87e4e93b7ab1b22c14248841e2",
-          "timestamp": "2021-05-21T16:00:03Z"
-        },
-        {
-          "checksum": "8d77d5f4de0bdf0abbce76cf8e5a251d",
-          "changelog": "Fixed rating parsing",
-          "name": "КиноПоиск",
-          "targetAbi": "10.7.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.2.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.7.0.2.zip",
-          "timestamp": "2021-04-06 18:12:00",
-          "version": "10.7.0.2"
-        },
-        {
-          "checksum": "9051c982f7846af34249ed9969012c17",
-          "changelog": "Fixed some actor professions parsing",
-          "name": "КиноПоиск",
-          "targetAbi": "10.7.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.1.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.7.0.1.zip",
-          "timestamp": "2021-03-18 13:31:00",
-          "version": "10.7.0.1"
-        },
-        {
-          "checksum": "ec7cfeff6a88f2427057d1bb6fb150b6",
-          "changelog": "Jellyfin v10.7 compat",
-          "name": "КиноПоиск",
-          "targetAbi": "10.7.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.0.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.7.0.0.zip",
-          "timestamp": "2021-03-16 11:35:00",
-          "version": "10.7.0.0"
-        },
-        {
-          "checksum": "50674e215597995b96da17b49ee7ad62",
-          "changelog": "fix NRE in person provider",
-          "name": "КиноПоиск",
-          "targetAbi": "10.6.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.2.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.6.0.2.zip",
-          "timestamp": "2020-07-09 13:00:00",
-          "version": "10.6.0.2"
-        },
-        {
-          "checksum": "a877cde0df7d70266fdb9362b72884c1",
-          "changelog": "new release",
-          "name": "КиноПоиск",
-          "targetAbi": "10.6.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.1.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.6.0.1.zip",
-          "timestamp": "2020-07-07 19:00:00",
-          "version": "10.6.0.1"
-        },
-        {
-          "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
-          "changelog": "new release",
-          "name": "КиноПоиск",
-          "targetAbi": "10.6.0",
-          "runtimes": "netframework,netcore",
-          "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
-          "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
-          "timestamp": "2020-07-07 10:00:00",
-          "version": "10.6.0.0"
-        }
-      ]
-    ]
-  }
+        "overview": "Информация о фильмах и сериалах с КиноПоиска",
+        "owner": "skrashevich",
+        "description": "Загружает рейтинг, описания, актёров, трейлеры и т.д. с сайта КиноПоиск. Может потребоваться зарегистрировать свой ApiToken, см. информацию в параметрах плагина. Для точного распознавания рекомендуется указывать id фильма с сайта КиноПоиск в имени файла в формате kp-12345 или kp12345. Подробнее см. https://github.com/LinFor/jellyfin-plugin-kinopoisk/blob/master/README.md\n",
+        "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
+        "versions": [
+            {
+                "version": "10.7.5.7",
+                "checksum": "df1c6ea557e12c3d7d29ff96c1257b66",
+                "changelog": "new release",
+                "name": "КиноПоиск",
+                "targetAbi": "10.8.8.0",
+                "sourceUrl": "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.7.zip",
+                "timestamp": "2023-02-08T13:12:54Z"
+            },
+            {
+                "version": "10.7.5.6",
+                "changelog": "Update to .NET 7\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.6.zip",
+                "checksum": "60310678f450ca7f0da3811642ae2bc4",
+                "timestamp": "2023-01-22T03:34:00Z"
+            },
+            {
+                "version": "10.7.5.4",
+                "changelog": "Search fixed in case of null premiere date\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.4.zip",
+                "checksum": "2f48bd383e298da975e93a7f84fe3bc1",
+                "timestamp": "2021-10-17T15:57:00Z"
+            },
+            {
+                "version": "10.7.5.3",
+                "changelog": "Results parsing fixes due to upstream service changes (api 2.2)\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.3.zip",
+                "checksum": "43930ff3db6b6938dcbc23297c53c746",
+                "timestamp": "2021-09-27T12:09:43Z"
+            },
+            {
+                "version": "10.7.5.2",
+                "changelog": "Results parsing fixes due to upstream service changes\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.2.zip",
+                "checksum": "e35c1942fb8ceda1d351d7307174fab2",
+                "timestamp": "2021-08-10T16:00:08Z"
+            },
+            {
+                "version": "10.7.5.1",
+                "changelog": "Results parsing fixes\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.1.zip",
+                "checksum": "c41d06954e6c00d8b51f11ac11180cb3",
+                "timestamp": "2021-06-22T09:27:10Z"
+            },
+            {
+                "version": "10.7.5.0",
+                "changelog": "Short: Huge improvement in auto-identifying of movies. Rus: Значительно улучшено авто-привязка фильмов при добавлении в медиатеку. Пытаюсь найти идентификатор кинопоиска по паттерну kp-12345 или kp12345 в имени файла/папки. Пытаюсь найти единственное совпадение на кинопоиске по имени + году. Пытаюсь перебрать все совпадения по имени + сравнение IMDB ID.\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.5.0.zip",
+                "checksum": "ea7eabac0fc4d1891529616a16a02897",
+                "timestamp": "2021-05-23T15:30:18Z"
+            },
+            {
+                "version": "10.7.0.5",
+                "changelog": "Added trailers filtering: jellyfin-web can only play youtube trailers, not kinopoisk-hosted\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.5.zip",
+                "checksum": "6bdb97ee1e862b0b5657f7b510040148",
+                "timestamp": "2021-05-22T23:01:09Z"
+            },
+            {
+                "version": "10.7.0.4",
+                "changelog": "Added person info, person image, trailers fetching\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.4.zip",
+                "checksum": "28d4972fe0f5e193a8b3051ce5240ffe",
+                "timestamp": "2021-05-22T22:24:49Z"
+            },
+            {
+                "version": "10.7.0.3",
+                "changelog": "Don't provide empty poster Added kinopoisk hyperlink in people info\n",
+                "targetAbi": "10.7.0",
+                "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.7.0.3.zip",
+                "checksum": "d58cdb87e4e93b7ab1b22c14248841e2",
+                "timestamp": "2021-05-21T16:00:03Z"
+            },
+            {
+                "checksum": "8d77d5f4de0bdf0abbce76cf8e5a251d",
+                "changelog": "Fixed rating parsing",
+                "name": "КиноПоиск",
+                "targetAbi": "10.7.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.2.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.7.0.2.zip",
+                "timestamp": "2021-04-06 18:12:00",
+                "version": "10.7.0.2"
+            },
+            {
+                "checksum": "9051c982f7846af34249ed9969012c17",
+                "changelog": "Fixed some actor professions parsing",
+                "name": "КиноПоиск",
+                "targetAbi": "10.7.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.1.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.7.0.1.zip",
+                "timestamp": "2021-03-18 13:31:00",
+                "version": "10.7.0.1"
+            },
+            {
+                "checksum": "ec7cfeff6a88f2427057d1bb6fb150b6",
+                "changelog": "Jellyfin v10.7 compat",
+                "name": "КиноПоиск",
+                "targetAbi": "10.7.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.7.0.0.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.7.0.0.zip",
+                "timestamp": "2021-03-16 11:35:00",
+                "version": "10.7.0.0"
+            },
+            {
+                "checksum": "50674e215597995b96da17b49ee7ad62",
+                "changelog": "fix NRE in person provider",
+                "name": "КиноПоиск",
+                "targetAbi": "10.6.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.2.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.2.zip",
+                "timestamp": "2020-07-09 13:00:00",
+                "version": "10.6.0.2"
+            },
+            {
+                "checksum": "a877cde0df7d70266fdb9362b72884c1",
+                "changelog": "new release",
+                "name": "КиноПоиск",
+                "targetAbi": "10.6.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.1.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.1.zip",
+                "timestamp": "2020-07-07 19:00:00",
+                "version": "10.6.0.1"
+            },
+            {
+                "checksum": "8f43d3943f5f60293c6fb0ccbe560096",
+                "changelog": "new release",
+                "name": "КиноПоиск",
+                "targetAbi": "10.6.0",
+                "runtimes": "netframework,netcore",
+                "sourceUrl": "https://github.com/LinFor/jellyfin-plugin-kinopoisk/raw/master/dist/kinopoisk/jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "filename": "jellyfin-plugin-kinopoisk_10.6.0.0.zip",
+                "timestamp": "2020-07-07 10:00:00",
+                "version": "10.6.0.0"
+            }
+        ]
+    }
 ]
