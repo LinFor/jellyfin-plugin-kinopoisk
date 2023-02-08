@@ -36,7 +36,7 @@ cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
     "version": "$VERSION"
 }
 EOF
-$( cd $RELEASEDIR; zip "../kinopoisk_$VERSION.zip" "*")
+echo $( cd $RELEASEDIR; zip -j "../kinopoisk_$VERSION.zip" *)
 rm -rf "$RELEASEDIR" 
 HASH=$(md5sum "$RELEASEDIR.zip" | cut -d' ' -f1)
 
@@ -48,8 +48,8 @@ jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/j
     mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
 
 #jprm repo add -u https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/ ./dist ./artifacts/*.zip
-rm ./artifacts/*
+rm -rf ./artifacts/*
 git add "$RELEASEDIR.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \
 git commit -m "version $VERSION" && \
-git tag "v$VERSION" && \
-git push && git push --tags
+git tag "v$VERSION" #&& \
+#git push && git push --tags
