@@ -1,6 +1,13 @@
 #!/bin/bash
 VERSION="10.8.9.0"
 CHANGELOG="Update version to correspnding JellyFin. Bump deps."
+
+
+gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/build.yaml
+BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
+echo -e "$BUILDYAML\n\t$CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
+
+
 docker run -it --rm -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
 
 docker run -it --rm -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
@@ -25,18 +32,19 @@ cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
 }
 EOF
 zip -r "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/kinopoisk/kinopoisk_$VERSION"
-
+rm -rf "dist/kinopoisk/kinopoisk_$VERSION" 
 HASH=$(md5sum "dist/kinopoisk/kinopoisk_$VERSION.zip" | cut -d' ' -f1)
 
-jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" --arg VERSION "$VERSION" '.[0].versions = [[{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.8.8.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}] + (.[0].versions[0:])]' "$(pwd)/dist/manifest.json" > "$(pwd)/dist/manifest.json.tmp" && mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
-
-gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/build.yaml
-BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
-echo -e "$BUILDYAML\n\t$CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
+jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" \
+    --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" \
+    --arg VERSION "$VERSION" \
+    '.[0].versions |= [{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.8.8.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}] + .' \
+    "$(pwd)/dist/manifest.json" > "$(pwd)/dist/manifest.json.tmp" && \
+    mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
 
 #jprm repo add -u https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/ ./dist ./artifacts/*.zip
 rm ./artifacts/*
-git add "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/manifest.json" "publish.sh" && \
+git add "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \
 git commit -m "version $VERSION" && \
 git tag "v$VERSION" && \
-git push --tags
+git push && git push --tags
