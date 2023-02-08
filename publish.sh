@@ -27,10 +27,10 @@ zip -r "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/kinopoisk/kinopoisk_$VERSIO
 
 export HASH=$(md5sum "dist/kinopoisk/kinopoisk_$VERSION.zip" | cut -d' ' -f1)
 
-jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" --arg VERSION "$VERSION" '.[0].versions = [{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.8.8.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}, (.[].versions[1:])]' --in-place "$(pwd)/dist/manifest.json" > "$(pwd)/dist/manifest.json.tmp" && mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
+jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" --arg VERSION "$VERSION" '.[0].versions = [{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.8.8.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}, (.[].versions[0:])]' "$(pwd)/dist/manifest.json" > "$(pwd)/dist/manifest.json.tmp" && mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
 #jprm repo add -u https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/ ./dist ./artifacts/*.zip
 rm ./artifacts/*
-git add "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/kinopoisk/meta.json"
-git commit -m "version $VERSION"
-git tag "v$VERSION"
-#git push --tags
+git add "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/manifest.json" && \
+git commit -m "version $VERSION" && \
+git tag "v$VERSION" && \
+git push --tags
