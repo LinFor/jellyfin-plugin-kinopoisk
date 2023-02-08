@@ -450,6 +450,5 @@ namespace Jellyfin.Plugin.Kinopoisk
                 res = src?.NameEn;
             return res;
         }
-
     }
 }
