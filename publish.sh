@@ -2,17 +2,22 @@
 VERSION="10.8.9.1"
 CHANGELOG="Fix bugs. Update version to correspnding JellyFin. Bump deps."
 
+brew link --overwrite dotnet@6  
+export PATH="/usr/local/opt/dotnet@6/bin:$PATH"
 
 gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/build.yaml
 BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
 echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
 
-docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
+#docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 
+dotnet restore ./src
 
-docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
+#docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 
+dotnet build --configuration Release ./src
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
+rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"
 mkdir -p "$RELEASEDIR"
 cp "$(pwd)/src/Jellyfin.Plugin.Kinopoisk/bin/Release/net6.0/Jellyfin.Plugin.Kinopoisk.dll" "$RELEASEDIR/"
 cp "$(pwd)/src/KinopoiskUnofficialInfo.ApiClient/bin/Release/net6.0/KinopoiskUnofficialInfo.ApiClient.dll" "$RELEASEDIR/"
@@ -31,9 +36,9 @@ cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
     "version": "$VERSION"
 }
 EOF
-zip -r "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/kinopoisk/kinopoisk_$VERSION"
-rm -rf "dist/kinopoisk/kinopoisk_$VERSION" 
-HASH=$(md5sum "dist/kinopoisk/kinopoisk_$VERSION.zip" | cut -d' ' -f1)
+$( cd $RELEASEDIR; zip "../kinopoisk_$VERSION.zip" "*")
+rm -rf "$RELEASEDIR" 
+HASH=$(md5sum "$RELEASEDIR.zip" | cut -d' ' -f1)
 
 jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" \
     --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" \
@@ -44,7 +49,7 @@ jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/j
 
 #jprm repo add -u https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/ ./dist ./artifacts/*.zip
 rm ./artifacts/*
-git add "dist/kinopoisk/kinopoisk_$VERSION.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \
+git add "$RELEASEDIR.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \
 git commit -m "version $VERSION" && \
 git tag "v$VERSION" && \
 git push && git push --tags
