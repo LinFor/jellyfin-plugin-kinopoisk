@@ -1,16 +1,16 @@
 #!/bin/bash
-VERSION="10.8.9.0"
-CHANGELOG="Update version to correspnding JellyFin. Bump deps."
+VERSION="10.8.9.1"
+CHANGELOG="Fix bugs. Update version to correspnding JellyFin. Bump deps."
 
 
 gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/build.yaml
 BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
-echo -e "$BUILDYAML\n\t$CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
+echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
 
-docker run -it --rm -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
+docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
 
-docker run -it --rm -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
+docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 mkdir -p "$RELEASEDIR"
