@@ -5,16 +5,15 @@ CHANGELOG="Fix bugs. Update version to correspnding JellyFin. Bump deps."
 brew link --overwrite dotnet@6  
 export PATH="/usr/local/opt/dotnet@6/bin:$PATH"
 
+find . -name project.assets.json -delete
+
 gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/build.yaml
 BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
 echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
+docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
 
-#docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 
-dotnet restore ./src
-
-#docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 
-dotnet build --configuration Release ./src
+docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"
@@ -31,7 +30,7 @@ cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
     "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
     "overview": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0444\u0438\u043b\u044c\u043c\u0430\u0445 \u0438 \u0441\u0435\u0440\u0438\u0430\u043b\u0430\u0445 \u0441 \u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a\u0430",
     "owner": "svk",
-    "targetAbi": "10.8.8.0",
+    "targetAbi": "10.8.0",
     "timestamp": "$(date -u "+%Y-%m-%dT%H:%M:%SZ")",
     "version": "$VERSION"
 }
@@ -51,5 +50,5 @@ jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/j
 rm -rf ./artifacts/*
 git add "$RELEASEDIR.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \
 git commit -m "version $VERSION" && \
-git tag "v$VERSION" #&& \
-#git push && git push --tags
+git tag -f "v$VERSION" #&& \
+git push --force && git push --tags --force
