@@ -17,7 +17,7 @@
     <PackageReference Include="Jellyfin.Model" Version="10.*">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Text.Json" Version="7.*">
