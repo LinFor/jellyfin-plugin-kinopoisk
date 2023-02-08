@@ -1,4 +1,4 @@
 src/*/bin/*
 src/*/obj/*
-dist/
+.devcontainer
 .DS_Store
