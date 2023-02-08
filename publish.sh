@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="10.8.9.1"
+VERSION="10.8.9.2"
 CHANGELOG="Fix bugs. Update version to correspnding JellyFin. Bump deps."
 
 brew link --overwrite dotnet@6  
@@ -11,9 +11,8 @@ gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/b
 BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
 echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
-docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src
-
-docker run -it --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src
+docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src/Jellyfin.Plugin.Kinopoisk/
+docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/ -r linux-x64 --no-self-contained
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"
