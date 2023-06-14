@@ -11,8 +11,8 @@ gsed -i'' "s/version: .*/version: \"$VERSION\"/" src/Jellyfin.Plugin.Kinopoisk/b
 BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.yaml | head -1 | cut -d: -f1) src/Jellyfin.Plugin.Kinopoisk/build.yaml`
 echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
-docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src/Jellyfin.Plugin.Kinopoisk/
-docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/
+dotnet restore ./src/Jellyfin.Plugin.Kinopoisk/
+dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"
