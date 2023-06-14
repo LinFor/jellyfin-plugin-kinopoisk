@@ -1,6 +1,6 @@
 #!/bin/bash
-VERSION="10.8.9.2"
-CHANGELOG="Fix bugs. Update version to correspnding JellyFin. Bump deps."
+VERSION="10.8.9.3"
+CHANGELOG="Fix bugs"
 
 brew link --overwrite dotnet@6  
 export PATH="/usr/local/opt/dotnet@6/bin:$PATH"
