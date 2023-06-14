@@ -12,7 +12,7 @@ BUILDYAML=`head -$(grep -n "changelog: >" src/Jellyfin.Plugin.Kinopoisk/build.ya
 echo -e "$BUILDYAML\n  $CHANGELOG" > src/Jellyfin.Plugin.Kinopoisk/build.yaml
 
 docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet restore ./src/Jellyfin.Plugin.Kinopoisk/
-docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/ -r linux-x64 --no-self-contained
+docker run --rm --network host -v $(pwd):/src -w /src bitnami/dotnet-sdk:6 dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/
 
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"

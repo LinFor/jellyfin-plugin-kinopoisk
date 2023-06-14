@@ -10,6 +10,15 @@
     "versions": [
       {
         "version": "10.8.9.2",
+        "checksum": "6077f09be86cf20f0788881100cdfa7c",
+        "changelog": "new release",
+        "name": "КиноПоиск",
+        "targetAbi": "10.8.8.0",
+        "sourceUrl": "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.8.9.2.zip",
+        "timestamp": "2023-06-14T21:30:19Z"
+      },
+      {
+        "version": "10.8.9.2",
         "checksum": "8cbefa9f1aa03dc054d0d8a83f49eb6b",
         "changelog": "new release",
         "name": "КиноПоиск",
