@@ -1,9 +1,20 @@
 #!/bin/bash
-VERSION="10.8.9.3"
+VERSION="10.9.0.0"
 CHANGELOG="Fix bugs"
 
-brew link --overwrite dotnet@6  
-export PATH="/usr/local/opt/dotnet@6/bin:$PATH"
+check_command() {
+    if ! command -v $1 &> /dev/null
+    then
+        echo "Error: $1 could not be found. Please install it."
+        exit 1
+    fi
+}
+
+# Check for required commands
+check_command gsed
+
+brew link --overwrite dotnet@8
+export PATH="/usr/local/opt/dotnet@8/bin:$PATH"
 
 find . -name project.assets.json -delete
 
@@ -17,8 +28,8 @@ dotnet build --configuration Release ./src/Jellyfin.Plugin.Kinopoisk/
 RELEASEDIR="$(pwd)/dist/kinopoisk/kinopoisk_$VERSION"
 rm -rf "$RELEASEDIR" "$RELEASEDIR.zip"
 mkdir -p "$RELEASEDIR"
-cp "$(pwd)/src/Jellyfin.Plugin.Kinopoisk/bin/Release/net6.0/Jellyfin.Plugin.Kinopoisk.dll" "$RELEASEDIR/"
-cp "$(pwd)/src/KinopoiskUnofficialInfo.ApiClient/bin/Release/net6.0/KinopoiskUnofficialInfo.ApiClient.dll" "$RELEASEDIR/"
+cp "$(pwd)/src/Jellyfin.Plugin.Kinopoisk/bin/Release/net8.0/Jellyfin.Plugin.Kinopoisk.dll" "$RELEASEDIR/"
+cp "$(pwd)/src/KinopoiskUnofficialInfo.ApiClient/bin/Release/net8.0/KinopoiskUnofficialInfo.ApiClient.dll" "$RELEASEDIR/"
 cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
 {
     "category": "Metadata",
@@ -29,7 +40,7 @@ cat << EOF > "dist/kinopoisk/kinopoisk_$VERSION/meta.json"
     "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a",
     "overview": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0444\u0438\u043b\u044c\u043c\u0430\u0445 \u0438 \u0441\u0435\u0440\u0438\u0430\u043b\u0430\u0445 \u0441 \u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a\u0430",
     "owner": "svk",
-    "targetAbi": "10.8.0",
+    "targetAbi": "10.9.0",
     "timestamp": "$(date -u "+%Y-%m-%dT%H:%M:%SZ")",
     "version": "$VERSION"
 }
@@ -41,10 +52,10 @@ HASH=$(md5sum "$RELEASEDIR.zip" | cut -d' ' -f1)
 jq --arg HASH "$HASH" --arg URL "https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_$VERSION.zip" \
     --arg TIMESTAMP "$(date -u "+%Y-%m-%dT%H:%M:%SZ")" \
     --arg VERSION "$VERSION" \
-    '.[0].versions |= [{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.8.8.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}] + .' \
+    '.[0].versions |= [{"version": $VERSION, "checksum": $HASH, "changelog": "new release", "name": "\u041a\u0438\u043d\u043e\u041f\u043e\u0438\u0441\u043a", "targetAbi": "10.9.0", "sourceUrl": $URL, "timestamp": $TIMESTAMP}] + .' \
     "$(pwd)/dist/manifest.json" > "$(pwd)/dist/manifest.json.tmp" && \
     mv "$(pwd)/dist/manifest.json.tmp" "$(pwd)/dist/manifest.json"
-
+exit
 #jprm repo add -u https://raw.githubusercontent.com/skrashevich/jellyfin-plugin-kinopoisk/master/dist/ ./dist ./artifacts/*.zip
 rm -rf ./artifacts/*
 git add "$RELEASEDIR.zip" "dist/manifest.json" "publish.sh" "src/Jellyfin.Plugin.Kinopoisk/build.yaml" && \

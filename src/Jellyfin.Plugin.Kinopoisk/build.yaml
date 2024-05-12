@@ -2,9 +2,9 @@
 name: "КиноПоиск"
 guid: "0c136f8a-ff77-4f2b-ade5-13462cae6216"
 imageUrl: "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png"
-version: "10.8.9.3"
-targetAbi: "10.8.8.0"
-framework: "net6.0"
+version: "10.9.0.0"
+targetAbi: "10.9.0"
+framework: "net8.0"
 owner: "svk"
 overview: "Информация о фильмах и сериалах с КиноПоиска"
 description: >

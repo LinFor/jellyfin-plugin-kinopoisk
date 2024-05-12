@@ -9,6 +9,8 @@ using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
 using Microsoft.Extensions.Logging;
+using Jellyfin.Data.Enums;
+using Jellyfin.Extensions;
 
 namespace Jellyfin.Plugin.Kinopoisk
 {
@@ -237,7 +239,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             {
                 Name = src.NameRu,
                 ImageUrl = src.PosterUrl,
-                Role = src.ProfessionText ?? string.Empty,
+                Role = src.ProfessionText ?? null,
                 Type = src.ProfessionKey.ToPersonType()
             };
             if (string.IsNullOrWhiteSpace(res.Name))
@@ -267,12 +269,12 @@ namespace Jellyfin.Plugin.Kinopoisk
         {
             return src switch
             {
-                StaffResponseProfessionKey.ACTOR => PersonType.Actor,
-                StaffResponseProfessionKey.DIRECTOR => PersonType.Director,
-                StaffResponseProfessionKey.WRITER => PersonType.Writer,
-                StaffResponseProfessionKey.COMPOSER => PersonType.Composer,
-                StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonType.Producer,
-                _ => string.Empty,
+                StaffResponseProfessionKey.ACTOR => PersonKind.Actor,
+                StaffResponseProfessionKey.DIRECTOR => PersonKind.Director,
+                StaffResponseProfessionKey.WRITER => PersonKind.Writer,
+                StaffResponseProfessionKey.COMPOSER => PersonKind.Composer,
+                StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonKind.Producer,
+                _ => null,
             };
         }
 

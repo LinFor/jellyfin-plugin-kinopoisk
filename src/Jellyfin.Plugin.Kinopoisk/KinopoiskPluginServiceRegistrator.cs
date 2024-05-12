@@ -1,7 +1,8 @@
 using System.Net.Http;
 using Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers;
 using KinopoiskUnofficialInfo.ApiClient;
-using MediaBrowser.Common.Plugins;
+using MediaBrowser.Controller;
+using MediaBrowser.Controller.Plugins;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Providers;
 using Microsoft.Extensions.Caching.Memory;
@@ -15,7 +16,7 @@ namespace Jellyfin.Plugin.Kinopoisk
     /// </summary>
     public class KinopoiskPluginServiceRegistrator : IPluginServiceRegistrator
     {
-        public void RegisterServices(IServiceCollection serviceCollection)
+        public void RegisterServices(IServiceCollection serviceCollection, IServerApplicationHost applicationHost)
         {
             serviceCollection.AddSingleton((sp) => new KinopoiskApiClient(
                 Plugin.Instance.Configuration.ApiToken,
