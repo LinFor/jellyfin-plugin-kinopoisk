@@ -265,7 +265,7 @@ namespace Jellyfin.Plugin.Kinopoisk
             return res;
         }
 
-        public static string ToPersonType(this StaffResponseProfessionKey src)
+        public static PersonKind ToPersonType(this StaffResponseProfessionKey src)
         {
             return src switch
             {
@@ -274,7 +274,7 @@ namespace Jellyfin.Plugin.Kinopoisk
                 StaffResponseProfessionKey.WRITER => PersonKind.Writer,
                 StaffResponseProfessionKey.COMPOSER => PersonKind.Composer,
                 StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonKind.Producer,
-                _ => null,
+               // _ => PersonKind,
             };
         }
 
