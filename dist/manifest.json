@@ -4,10 +4,19 @@
     "guid": "0c136f8a-ff77-4f2b-ade5-13462cae6216",
     "name": "КиноПоиск",
     "overview": "Информация о фильмах и сериалах с КиноПоиска",
-    "owner": "skrashevich",
+    "owner": "LinFor & skrashevich",
     "description": "Загружает рейтинг, описания, актёров, трейлеры и т.д. с сайта КиноПоиск. Может потребоваться зарегистрировать свой ApiToken, см. информацию в параметрах плагина. Для точного распознавания рекомендуется указывать id фильма с сайта КиноПоиск в имени файла в формате kp-12345 или kp12345. Подробнее см. https://github.com/LinFor/jellyfin-plugin-kinopoisk/blob/master/README.md\n",
     "imageUrl": "https://kinopoisk.userecho.com/s/attachments/28876/0/1/25f8c0315e6ccb2aa6c2642e48f2c9e9.png",
     "versions": [
+      {
+        "version": "10.9.0.0",
+        "checksum": "46f29865d6ddb8e66f577ffd93cb8a55",
+        "changelog": "new release",
+        "name": "КиноПоиск",
+        "targetAbi": "10.9.0",
+        "sourceUrl": "https://raw.githubusercontent.com/LinFor/jellyfin-plugin-kinopoisk/master/dist/kinopoisk/kinopoisk_10.9.0.0.zip",
+        "timestamp": "2024-05-15T15:11:12Z"
+      },
       {
         "version": "10.8.9.3",
         "checksum": "b884a366e1da7e826267e8f13a3c1a09",
