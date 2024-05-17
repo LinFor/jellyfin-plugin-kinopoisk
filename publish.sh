@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="10.9.0.0"
+VERSION="10.9.0.1"
 CHANGELOG="Fix bugs"
 
 check_command() {

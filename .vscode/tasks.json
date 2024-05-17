@@ -43,7 +43,7 @@
                 "--output",
                 "/jellyfin-data/plugins/kinopoisk",
                 "-property:GenerateFullPaths=true",
-                "-property:Version=10.9.0.0"
+                "-property:Version=10.9.0.1"
             ],
             "group": "build",
             "presentation": {
