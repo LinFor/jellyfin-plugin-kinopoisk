@@ -270,11 +270,13 @@ namespace Jellyfin.Plugin.Kinopoisk
             return src switch
             {
                 StaffResponseProfessionKey.ACTOR => PersonKind.Actor,
-                StaffResponseProfessionKey.DIRECTOR => PersonKind.Director,
+                StaffResponseProfessionKey.DIRECTOR or StaffResponseProfessionKey.VOICE_DIRECTOR or StaffResponseProfessionKey.OPERATOR => PersonKind.Director,
                 StaffResponseProfessionKey.WRITER => PersonKind.Writer,
                 StaffResponseProfessionKey.COMPOSER => PersonKind.Composer,
                 StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonKind.Producer,
-               // _ => PersonKind,
+                StaffResponseProfessionKey.TRANSLATOR => PersonKind.Translator,
+                StaffResponseProfessionKey.EDITOR => PersonKind.Editor,
+                _ => PersonKind.Unknown,
             };
         }
 
