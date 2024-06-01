@@ -8,6 +8,8 @@ Fetches metadata from https://www.kinopoisk.ru/. This site is popular in the Rus
 
 После этого на вкладке Каталог найти "КиноПоиск" (раздел Метаданные) и установить.
 
+Альтернатива для Emby - [luzmane/emby.kinopoisk.ru](https://github.com/luzmane/emby.kinopoisk.ru)
+
 ## Настройка
 
 Параметры плагина искать в: Администрирование - Панель - Расширенное - Плагины - вкладка "Мои плагины" - КиноПоиск - "три точки" - Параметры
