@@ -101,6 +101,8 @@ namespace Jellyfin.Plugin.Kinopoisk
             dst.Name = src.GetLocalName();
             dst.OriginalTitle = src.GetOriginalNameIfNotSame();
             dst.PremiereDate = src.GetPremiereDate();
+            if (1900 < src.Year)
+                dst.ProductionYear = src.Year;
             if (!string.IsNullOrWhiteSpace(src.Slogan))
                 dst.Tagline = src.Slogan;
             dst.Overview = src.Description;
@@ -270,10 +272,13 @@ namespace Jellyfin.Plugin.Kinopoisk
             return src switch
             {
                 StaffResponseProfessionKey.ACTOR => PersonKind.Actor,
-                StaffResponseProfessionKey.DIRECTOR => PersonKind.Director,
+                StaffResponseProfessionKey.DIRECTOR
+                    or StaffResponseProfessionKey.VOICE_DIRECTOR
+                    or StaffResponseProfessionKey.OPERATOR => PersonKind.Director,
                 StaffResponseProfessionKey.WRITER => PersonKind.Writer,
                 StaffResponseProfessionKey.COMPOSER => PersonKind.Composer,
-                StaffResponseProfessionKey.PRODUCER or StaffResponseProfessionKey.PRODUCER_USSR => PersonKind.Producer,
+                StaffResponseProfessionKey.PRODUCER
+                    or StaffResponseProfessionKey.PRODUCER_USSR => PersonKind.Producer,
                 StaffResponseProfessionKey.EDITOR => PersonKind.Editor,
                 StaffResponseProfessionKey.TRANSLATOR => PersonKind.Translator,
                 _ => PersonKind.Unknown,

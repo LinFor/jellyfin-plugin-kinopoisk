@@ -44,13 +44,15 @@ namespace Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers
             var candidates = searchResult.Films.ToArray();
             _logger.LogDebug($"Received {candidates.Length} results, trying to filter and match...");
 
+            var candidates_by_year = FilterByYear(info, candidates);
+
             // Check if there are single candidate filtered by year
-            possibleResult = await TryResolveBySingleCandidateLeft(info, FilterByYear(info, candidates), ct);
+            possibleResult = await TryResolveBySingleCandidateLeft(info, candidates_by_year, ct);
             if (possibleResult.IsSuccess)
                 return possibleResult;
 
             // Try to resolve by ImdbId match filtered by year
-            possibleResult = await TryResolveByImdbMatch(info, FilterByYear(info, candidates), ct);
+            possibleResult = await TryResolveByImdbMatch(info, candidates_by_year, ct);
             if (possibleResult.IsSuccess)
                 return possibleResult;
 
@@ -58,6 +60,22 @@ namespace Jellyfin.Plugin.Kinopoisk.ProviderIdResolvers
             possibleResult = await TryResolveByImdbMatch(info, candidates, ct);
             if (possibleResult.IsSuccess)
                 return possibleResult;
+
+            // TODO: Maybe check type?
+
+            if (0 < candidates_by_year.Count)
+            {
+                var kinopoiskId = candidates_by_year.First().FilmId;
+                _logger.LogDebug($"All other checks failed, use first result by year, setting KinopoiskProviderId to {kinopoiskId} ({info.Name})");
+                return (true, kinopoiskId);
+            }
+
+            if (0 < candidates.Length)
+            {
+                var kinopoiskId = candidates.First().FilmId;
+                _logger.LogDebug($"All other checks failed, use first result, setting KinopoiskProviderId to {kinopoiskId} ({info.Name})");
+                return (true, kinopoiskId);
+            }
 
             _logger.LogDebug($"Suitable result not found");
             return (false, 0);
