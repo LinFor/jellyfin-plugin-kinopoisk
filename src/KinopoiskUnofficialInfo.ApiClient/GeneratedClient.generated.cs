@@ -3948,6 +3948,8 @@ namespace KinopoiskUnofficialInfo.ApiClient
         [System.Runtime.Serialization.EnumMember(Value = @"UNKNOWN")]
         UNKNOWN = 2,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"YANDEX_DISK")]
+        YANDEX_DISK = 3,
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v12.0.0.0))")]
