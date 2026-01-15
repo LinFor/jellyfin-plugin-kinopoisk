@@ -1,0 +1,173 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+env:
+  DIST_ARCHIVES_PATH: dist/kinopoisk
+  MANIFEST_FILE: dist/manifest.json
+  TARGET_ABI: 10.9.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Determine version
+      id: version
+      run: |
+        VERSION=""
+        if [ -n "${{ github.event.inputs.version }}" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+          VERSION="${GITHUB_REF#refs/tags/v}"
+        else
+          # Пытаемся получить версию из CHANGELOG.md
+          if [ -f CHANGELOG.md ]; then
+            CHANGELOG_VERSION=$(grep -E '^## \[' CHANGELOG.md | grep -v '## \[Unreleased\]' | head -1 | sed -E 's/^## \[v?([^]]+)\].*/\1/')
+            if [ -n "$CHANGELOG_VERSION" ]; then
+              VERSION=$CHANGELOG_VERSION
+            fi
+          fi
+          # Если не нашли версию в CHANGELOG.md, пробуем git
+          if [ -z "$VERSION" ]; then
+            GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            if [ -n "$GIT_TAG" ]; then
+              VERSION="${GIT_TAG#v}"
+            fi
+          fi
+        fi
+
+        if [ -z "$VERSION" ]; then
+          echo "Не удалось определить версию. Укажите версию вручную или создайте тег."
+          exit 1
+        fi
+
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Extract changelog
+      id: changelog
+      run: |
+        if [ -f CHANGELOG.md ]; then
+          # Ищем номер строки с нашей версией
+          LINE_NUM=$(grep -n "## \\[${{ env.VERSION }}\\]" CHANGELOG.md | cut -d: -f1)
+          
+          if [ -n "$LINE_NUM" ]; then
+            # Извлекаем контент от следующей строки до следующего заголовка ## [
+            NEXT_HEADER_LINE=$(tail -n +$((LINE_NUM+1)) CHANGELOG.md | grep -n "## \\[" | head -1 | cut -d: -f1)
+            
+            if [ -n "$NEXT_HEADER_LINE" ]; then
+              # Есть следующий заголовок - извлекаем до него
+              CHANGELOG=$(tail -n +$((LINE_NUM+1)) CHANGELOG.md | head -n $((NEXT_HEADER_LINE-1)))
+            else
+              # Нет следующего заголовка - извлекаем до конца файла
+              CHANGELOG=$(tail -n +$((LINE_NUM+1)) CHANGELOG.md)
+            fi
+            
+            # Удаляем пустые строки в начале и конце
+            CHANGELOG=$(echo "$CHANGELOG" | sed -e '1s/^[[:space:]]*//' -e '/./,$!d' | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')
+            
+            # Если остались только пустые строки
+            if [ -z "$(echo "$CHANGELOG" | tr -d '[:space:]')" ]; then
+              CHANGELOG="New release"
+            fi
+          else
+            CHANGELOG="New release"
+          fi
+        else
+          CHANGELOG="New release"
+        fi
+        
+        echo "changelog<<EOF" >> $GITHUB_OUTPUT
+        echo "$CHANGELOG" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Build project
+      run: dotnet build --configuration Release --property:Version=${VERSION} ./src
+
+    - name: Package release archive
+      run: |
+        RELEASE_FILE=${DIST_ARCHIVES_PATH}/jellyfin-plugin-kinopoisk_${VERSION}.zip
+        zip --junk-paths $RELEASE_FILE \
+          ./src/Jellyfin.Plugin.Kinopoisk/bin/Release/net9.0/Jellyfin.Plugin.Kinopoisk.dll \
+          ./src/KinopoiskUnofficialInfo.ApiClient/bin/Release/net9.0/KinopoiskUnofficialInfo.ApiClient.dll
+        echo "RELEASE_FILE=$RELEASE_FILE" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ env.VERSION }}
+        body: ${{ steps.changelog.outputs.changelog }}
+        files: |
+          ${{ env.RELEASE_FILE }}
+
+    - name: Hashsum calculation
+      id: hashsum
+      run: |
+        HASH=$(md5sum "${DIST_ARCHIVES_PATH}/jellyfin-plugin-kinopoisk_${VERSION}.zip" | cut -d' ' -f1)
+        echo "HASH=$HASH" >> $GITHUB_ENV
+        echo "hash=$HASH" >> $GITHUB_OUTPUT
+
+    - name: Update manifest
+      id: update_manifest
+      run: |
+        CHANGELOG_JSON=$(echo -n "${{ steps.changelog.outputs.changelog }}" | jq -Rs .)
+        SOURCE_URL="${{ fromJSON(steps.create_release.outputs.assets)[0].browser_download_url }}"
+
+        jq --arg VERSION "${{ env.VERSION }}" \
+           --arg HASH "${{ env.HASH }}" \
+           --argjson CHANGELOG "$CHANGELOG_JSON" \
+           --arg TARGET_ABI "${{ env.TARGET_ABI }}" \
+           --arg TIMESTAMP "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+           --arg SOURCE_URL "$SOURCE_URL" \
+           '.[0].versions = [
+             {
+               "version": $VERSION,
+               "checksum": $HASH,
+               "changelog": $CHANGELOG,
+               "name": "КиноПоиск",
+               "targetAbi": $TARGET_ABI,
+               "sourceUrl": $SOURCE_URL,
+               "timestamp": $TIMESTAMP
+             }
+           ] + .[0].versions' \
+           "${MANIFEST_FILE}" > "${MANIFEST_FILE}.tmp"
+
+        mv "${MANIFEST_FILE}.tmp" "${MANIFEST_FILE}"
+
+
+    - name: Commit and push changes
+      run: |
+        # Настраиваем git
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "github-actions[bot]"
+        
+        # Получаем имя текущей ветки
+        CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
+        echo "Текущая ветка: $CURRENT_BRANCH"
+        
+        # Проверяем, есть ли изменения в манифесте или архиве
+        if git diff --quiet HEAD -- "${MANIFEST_FILE}"; then
+          echo "ℹ️ Нет изменений для коммита"
+        else
+          # Добавляем измененные файлы
+          git add "${MANIFEST_FILE}"
+          
+          # Создаем коммит с [skip ci], чтобы не запускать workflow снова
+          git commit -m "Added to manifest version ${{ env.VERSION }} [skip ci]"
+          echo "✅ Изменения закоммичены"
+          
+          # Пушим изменения в текущую ветку
+          git push origin HEAD:$CURRENT_BRANCH
+          echo "✅ Изменения запущены в ветку $CURRENT_BRANCH"
+        fi
