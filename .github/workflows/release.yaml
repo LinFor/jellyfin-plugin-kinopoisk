@@ -6,7 +6,7 @@ on:
 env:
   DIST_ARCHIVES_PATH: dist/kinopoisk
   MANIFEST_FILE: dist/manifest.json
-  TARGET_ABI: 10.9.0
+  TARGET_ABI: 10.10.0
 
 jobs:
   build:

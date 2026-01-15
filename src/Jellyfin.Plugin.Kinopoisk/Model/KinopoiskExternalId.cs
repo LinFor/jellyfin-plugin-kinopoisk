@@ -13,13 +13,13 @@ namespace Jellyfin.Plugin.Kinopoisk.Model
 
         public string Key => Constants.ProviderId;
 
-        public string UrlFormatString => "https://www.kinopoisk.ru/film/{0}";
+        public string UrlFormatString => null;
 
         public ExternalIdMediaType? Type => null;
 
         public bool Supports(IHasProviderIds item)
         {
-            return item is Movie || item is Series;
+            return item is Movie || item is Series || item is Person;
         }
     }
 }
