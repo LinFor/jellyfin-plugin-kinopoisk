@@ -19,7 +19,15 @@ jobs:
         dotnet-version: 9.0.x
 
     - name: Build project
-      run: dotnet build --configuration Release ./src
+      run: dotnet build --configuration Release --property:Version=1.0.0.0 ./src
 
     - name: Test project
       run: dotnet test --configuration Release ./src
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-artifact
+        path: |
+          ./src/Jellyfin.Plugin.Kinopoisk/bin/Release/net9.0/Jellyfin.Plugin.Kinopoisk.dll
+          ./src/KinopoiskUnofficialInfo.ApiClient/bin/Release/net9.0/KinopoiskUnofficialInfo.ApiClient.dll
