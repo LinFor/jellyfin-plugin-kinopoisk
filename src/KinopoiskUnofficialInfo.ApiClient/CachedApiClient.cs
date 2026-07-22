@@ -28,19 +28,19 @@ namespace KinopoiskUnofficialInfo.ApiClient
         }
 
         public Task<PersonResponse> GetPerson(int personId, CancellationToken? cancellationToken = null)
-            => TryGetValue(GenerateKey(nameof(GetPerson), personId), c => c.GetPerson(personId, cancellationToken));
+            => TryGetValue(GenerateKey(nameof(GetPerson), personId), c => c.GetPerson(personId, cancellationToken), () => null);
 
         public Task<Film> GetSingleFilm(int filmId, CancellationToken? cancellationToken = null)
-            => TryGetValue(GenerateKey(nameof(GetSingleFilm), filmId), c => c.GetSingleFilm(filmId, cancellationToken));
+            => TryGetValue(GenerateKey(nameof(GetSingleFilm), filmId), c => c.GetSingleFilm(filmId, cancellationToken), () => null);
 
         public Task<ICollection<StaffResponse>> GetStaff(int filmId, CancellationToken? cancellationToken = null)
-            => TryGetValue(GenerateKey(nameof(GetStaff), filmId), c => c.GetStaff(filmId, cancellationToken));
+            => TryGetValue(GenerateKey(nameof(GetStaff), filmId), c => c.GetStaff(filmId, cancellationToken), () => Array.Empty<StaffResponse>());
 
         public Task<VideoResponse> GetTrailers(int filmId, CancellationToken? cancellationToken = null)
-            => TryGetValue(GenerateKey(nameof(GetTrailers), filmId), c => c.GetTrailers(filmId, cancellationToken));
+            => TryGetValue(GenerateKey(nameof(GetTrailers), filmId), c => c.GetTrailers(filmId, cancellationToken), () => new VideoResponse());
 
         public Task<FilmSearchResponse> SearchByKeyword(string keyword, int page = 1, CancellationToken? cancellationToken = null)
-            => TryGetValue(GenerateKey(nameof(SearchByKeyword), keyword, page), c => c.SearchByKeyword(keyword, page, cancellationToken));
+            => TryGetValue(GenerateKey(nameof(SearchByKeyword), keyword, page), c => c.SearchByKeyword(keyword, page, cancellationToken), () => new FilmSearchResponse());
 
         private static string GenerateKey(params object[] objects)
         {
@@ -71,16 +71,25 @@ namespace KinopoiskUnofficialInfo.ApiClient
             return key;
         }
 
-        private Task<T> TryGetValue<T>(string key, Func<IKinopoiskApiClient, Task<T>> resultFactory)
+        private Task<T> TryGetValue<T>(
+            string key,
+            Func<IKinopoiskApiClient, Task<T>> resultFactory,
+            Func<T> quotaFallbackFactory)
         {
             return _cache.GetOrCreateAsync(key, async entry =>
             {
                 _logger.LogDebug($"Entry '{key}' not found in cache, requesting from server");
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
-                var result = await resultFactory.Invoke(_innerClient).ConfigureAwait(false);
-
-                return result;
+                try
+                {
+                    return await resultFactory.Invoke(_innerClient).ConfigureAwait(false);
+                }
+                catch (ApiException exception) when (exception.StatusCode == 402)
+                {
+                    _logger.LogDebug($"Kinopoisk API quota exceeded; caching empty result for '{key}'");
+                    return quotaFallbackFactory();
+                }
             });
         }
     }
