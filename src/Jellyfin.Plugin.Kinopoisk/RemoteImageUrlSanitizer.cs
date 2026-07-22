@@ -21,8 +21,10 @@ namespace Jellyfin.Plugin.Kinopoisk
             var currentUrl = url;
             while (!currentUrl.Contains("no-poster"))
             {
-                var response = await _httpClient.SendAsync(
-                    new HttpRequestMessage(HttpMethod.Get, currentUrl), HttpCompletionOption.ResponseHeadersRead);
+                using var request = new HttpRequestMessage(HttpMethod.Get, currentUrl);
+                using var response = await _httpClient.SendAsync(
+                    request,
+                    HttpCompletionOption.ResponseHeadersRead);
 
                 if ((int)response.StatusCode <= 299)
                     return currentUrl;
