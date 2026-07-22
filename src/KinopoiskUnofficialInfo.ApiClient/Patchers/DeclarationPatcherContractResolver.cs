@@ -12,6 +12,7 @@ namespace KinopoiskUnofficialInfo.ApiClient
             new BadIntegerConverter(),
             new BadDoubleConverter(),
             new BadProfessionKeyConverter(),
+            new BadSpouseSexConverter(),
             new BadProductionStatusConverter(),
             new BadFilmSearchResponse_filmsTypeConverter(),
         };
