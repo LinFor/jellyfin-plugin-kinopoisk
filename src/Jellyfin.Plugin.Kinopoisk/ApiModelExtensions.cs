@@ -257,7 +257,7 @@ namespace Jellyfin.Plugin.Kinopoisk
         public static IEnumerable<PersonInfo> ToPersonInfos(this ICollection<StaffResponse> src)
         {
             var res = src.Select(s => s.ToPersonInfo())
-                .Where(s => s != null)
+                .Where(s => s != null && !string.IsNullOrWhiteSpace(s.Name))
                 .ToArray();
 
             var i = 0;
